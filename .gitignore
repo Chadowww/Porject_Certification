@@ -1,4 +1,8 @@
+.idea
+.idea/Project_Certification.iml
+.idea/php.xml
 
+.DS_Store
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
@@ -19,4 +23,3 @@
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
 
-.idea
