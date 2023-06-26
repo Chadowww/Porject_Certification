@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\BookRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -28,6 +30,14 @@ class Book
 
     #[ORM\Column(nullable: true)]
     private ?int $qteCheckout = null;
+
+    #[ORM\ManyToMany(targetEntity: Author::class, inversedBy: 'books')]
+    private Collection $author;
+
+    public function __construct()
+    {
+        $this->author = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -90,6 +100,30 @@ class Book
     public function setQteCheckout(?int $qteCheckout): static
     {
         $this->qteCheckout = $qteCheckout;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Author>
+     */
+    public function getAuthor(): Collection
+    {
+        return $this->author;
+    }
+
+    public function addAuthor(Author $author): static
+    {
+        if (!$this->author->contains($author)) {
+            $this->author->add($author);
+        }
+
+        return $this;
+    }
+
+    public function removeAuthor(Author $author): static
+    {
+        $this->author->removeElement($author);
 
         return $this;
     }
