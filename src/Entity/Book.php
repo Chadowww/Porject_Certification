@@ -37,10 +37,14 @@ class Book
     #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'books')]
     private Collection $Category;
 
+    #[ORM\ManyToMany(targetEntity: Editor::class, inversedBy: 'books')]
+    private Collection $editor;
+
     public function __construct()
     {
         $this->author = new ArrayCollection();
         $this->Category = new ArrayCollection();
+        $this->editor = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -152,6 +156,30 @@ class Book
     public function removeCategory(Category $category): static
     {
         $this->Category->removeElement($category);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Editor>
+     */
+    public function getEditor(): Collection
+    {
+        return $this->editor;
+    }
+
+    public function addEditor(Editor $editor): static
+    {
+        if (!$this->editor->contains($editor)) {
+            $this->editor->add($editor);
+        }
+
+        return $this;
+    }
+
+    public function removeEditor(Editor $editor): static
+    {
+        $this->editor->removeElement($editor);
 
         return $this;
     }
