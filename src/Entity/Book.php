@@ -7,10 +7,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 #[ORM\Entity(repositoryClass: BookRepository::class)]
 class Book
 {
+    use TimestampableEntity;
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -40,11 +42,15 @@ class Book
     #[ORM\ManyToMany(targetEntity: Editor::class, inversedBy: 'books')]
     private Collection $editor;
 
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'favorite')]
+    private Collection $users;
+
     public function __construct()
     {
         $this->author = new ArrayCollection();
         $this->Category = new ArrayCollection();
         $this->editor = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -180,6 +186,33 @@ class Book
     public function removeEditor(Editor $editor): static
     {
         $this->editor->removeElement($editor);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): static
+    {
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
+            $user->addFavorite($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): static
+    {
+        if ($this->users->removeElement($user)) {
+            $user->removeFavorite($this);
+        }
 
         return $this;
     }
