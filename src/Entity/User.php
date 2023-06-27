@@ -54,11 +54,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Comment::class)]
     private Collection $comments;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Borrow::class)]
+    private Collection $borrows;
+
     public function __construct()
     {
         $this->favorite = new ArrayCollection();
         $this->reservations = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->borrows = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -257,6 +261,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($comment->getUser() === $this) {
                 $comment->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Borrow>
+     */
+    public function getBorrows(): Collection
+    {
+        return $this->borrows;
+    }
+
+    public function addBorrow(Borrow $borrow): static
+    {
+        if (!$this->borrows->contains($borrow)) {
+            $this->borrows->add($borrow);
+            $borrow->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBorrow(Borrow $borrow): static
+    {
+        if ($this->borrows->removeElement($borrow)) {
+            // set the owning side to null (unless already changed)
+            if ($borrow->getUser() === $this) {
+                $borrow->setUser(null);
             }
         }
 
