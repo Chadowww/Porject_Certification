@@ -45,12 +45,16 @@ class Book
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'favorite')]
     private Collection $users;
 
+    #[ORM\OneToMany(mappedBy: 'book', targetEntity: Reservation::class)]
+    private Collection $reservations;
+
     public function __construct()
     {
         $this->author = new ArrayCollection();
         $this->Category = new ArrayCollection();
         $this->editor = new ArrayCollection();
         $this->users = new ArrayCollection();
+        $this->reservations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -212,6 +216,36 @@ class Book
     {
         if ($this->users->removeElement($user)) {
             $user->removeFavorite($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Reservation>
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
+    public function addReservation(Reservation $reservation): static
+    {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations->add($reservation);
+            $reservation->setBook($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservation(Reservation $reservation): static
+    {
+        if ($this->reservations->removeElement($reservation)) {
+            // set the owning side to null (unless already changed)
+            if ($reservation->getBook() === $this) {
+                $reservation->setBook(null);
+            }
         }
 
         return $this;
