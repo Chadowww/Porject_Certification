@@ -22,4 +22,4 @@ Project_Certification.iml
 .phpunit.result.cache
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
-
+tests
