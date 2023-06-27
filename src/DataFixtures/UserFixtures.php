@@ -53,6 +53,7 @@ class UserFixtures extends Fixture
             $user->setRoles(['ROLE_USER']);
             $user->setPhone('0606060606');
             $user->setIsVerified(true);
+            $this->addReference('user_' . $i, $user);
             $manager->persist($user);
         }
         $manager->flush();
