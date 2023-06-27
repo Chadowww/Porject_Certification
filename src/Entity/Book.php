@@ -48,6 +48,9 @@ class Book
     #[ORM\OneToMany(mappedBy: 'book', targetEntity: Reservation::class)]
     private Collection $reservations;
 
+    #[ORM\OneToMany(mappedBy: 'book', targetEntity: Comment::class)]
+    private Collection $comments;
+
     public function __construct()
     {
         $this->author = new ArrayCollection();
@@ -55,6 +58,7 @@ class Book
         $this->editor = new ArrayCollection();
         $this->users = new ArrayCollection();
         $this->reservations = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -245,6 +249,36 @@ class Book
             // set the owning side to null (unless already changed)
             if ($reservation->getBook() === $this) {
                 $reservation->setBook(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Comment>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): static
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+            $comment->setBook($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): static
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getBook() === $this) {
+                $comment->setBook(null);
             }
         }
 
