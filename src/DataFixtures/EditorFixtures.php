@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Editor;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
 class EditorFixtures extends Fixture
@@ -15,6 +16,7 @@ class EditorFixtures extends Fixture
         for ($i = 0; $i < 50; $i++) {
             $editor = new Editor();
             $editor->setName($faker->company);
+            $this->addReference('editor_', $editor);
             $manager->persist($editor);
         }
         $manager->flush();
