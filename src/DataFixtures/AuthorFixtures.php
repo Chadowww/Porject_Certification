@@ -15,6 +15,7 @@ class AuthorFixtures extends Fixture
         for ($i = 0; $i < 50; $i++) {
             $author = new Author();
             $author->setName($faker->name);
+            $this->addReference('author_', $author);
             $manager->persist($author);
 
         }
