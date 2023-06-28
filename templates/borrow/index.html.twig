@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Borrow index{% endblock %}
+
+{% block body %}
+    <h1>Borrow index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Checkin</th>
+                <th>Checkout</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for borrow in borrows %}
+            <tr>
+                <td>{{ borrow.id }}</td>
+                <td>{{ borrow.checkin ? borrow.checkin|date('Y-m-d') : '' }}</td>
+                <td>{{ borrow.checkout ? borrow.checkout|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_borrow_show', {'id': borrow.id}) }}">show</a>
+                    <a href="{{ path('app_borrow_edit', {'id': borrow.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_borrow_new') }}">Create new</a>
+{% endblock %}
