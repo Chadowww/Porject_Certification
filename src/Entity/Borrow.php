@@ -15,9 +15,11 @@ class Borrow
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'borrows')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'borrows')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Book $book = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
