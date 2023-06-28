@@ -9,7 +9,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 
-class UserFixtures extends Fixture
+class UserFixtures extends Fixture implements DependentFixtureInterface
 {
     private UserPasswordHasherInterface $hasher;
 
@@ -54,8 +54,18 @@ class UserFixtures extends Fixture
             $user->setPhone('0606060606');
             $user->setIsVerified(true);
             $this->addReference('user_' . $i, $user);
+            for ($j = 0; $j < 5; $j++) {
+                $user->addFavorite($this->getReference('book_' . random_int(0, 49)));
+            }
             $manager->persist($user);
         }
         $manager->flush();
+    }
+
+    public function getDependencies()
+    {
+        return [
+            BookFixtures::class
+        ];
     }
 }
