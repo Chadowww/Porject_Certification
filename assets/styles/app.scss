@@ -15,3 +15,8 @@ body{
     font-weight: 600;
     font-size: 32px;
 }
+
+.pc-box-shadow{
+    -webkit-box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.4);
+    box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.4);
+}

@@ -16,10 +16,11 @@
         {% endblock %}
     </head>
     <body>
-        {% include '_includes/navbar.html.twig' %}
-    <main class="container mx-auto">
+    {{ component('navbarComponent') }}
+    <main class="container  mx-auto">
         {% block body %}{% endblock %}
     </main>
+
         <!-- Footer section with social media icons and newsletter sign-up -->
         <footer class="bg-neutral-900 text-center text-white">
             <div class="container mx-auto px-6 pt-6">
@@ -263,5 +264,6 @@
                 >
             </div>
         </footer>
+        <!-- End footer -->
     </body>
 </html>
