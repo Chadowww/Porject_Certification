@@ -10,14 +10,15 @@ import './styles/app.scss';
 import 'tw-elements'
 // Initialization for ES Users
 import {
+    Modal,
     Collapse,
     Dropdown,
     initTE,
     Ripple,
-    Input
+    Input,
 
 } from "tw-elements";
 
-initTE({ Collapse, Dropdown, Ripple, Input });
+initTE({ Collapse, Dropdown, Ripple, Input, Modal });
 
 
