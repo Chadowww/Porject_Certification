@@ -3,7 +3,7 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
-
+{#{{ dump() }}#}
     <!-- Container for demo purpose -->
     <div class="">
         <!-- Section: Design Block -->
@@ -16,14 +16,15 @@
                             <span class="text-success dark:text-success-400">nouvelle lecture?</span>
                         </h2>
                         <a class="mb-2 inline-block rounded bg-success px-12 pt-4 pb-3.5 text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] md:mr-2 md:mb-0"
-                           data-te-ripple-init data-te-ripple-color="light" href="#!" role="button">Get started</a>
+                           data-te-ripple-init data-te-ripple-color="light" href="#topBook" role="button">Get started</a>
                         <a class="inline-block rounded px-12 pt-4 pb-3.5 text-sm font-medium uppercase leading-normal text-success transition duration-150 ease-in-out hover:bg-neutral-500 hover:bg-opacity-10 hover:text-success-600 focus:text-success-600 focus:outline-none focus:ring-0 active:text-success-700 dark:hover:bg-neutral-700 dark:hover:bg-opacity-40"
                            data-te-ripple-init data-te-ripple-color="light" href="#!" role="button">Learn more</a>
                     </div>
 
-                    <div class="mb-12 lg:mb-0">
-                        <img src="https://mdbcdn.b-cdn.net/img/new/ecommerce/vertical/051.jpg"
-                             class="w-full rounded-lg shadow-lg dark:shadow-black/20" alt="" />
+                    <div class="mb-12 lg:mb-0 h-2/3">
+                        <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80"
+                             class="w-auto rounded-lg shadow-lg dark:shadow-black/20" alt="" style="height: 750px;
+                             width: auto"/>
                     </div>
                 </div>
             </div>
@@ -33,8 +34,9 @@
     <!--/ Container for demo purpose -->
 
     <!--Cards -->
-    <div class="flex overflow-scroll snap-x">
-        {% for  i in 1..5  %}
+    <h2 id="topBook" class="pc-title decoration-4">Nos coups de coeur</h2>
+    <div class="flex overflow-scroll snap-x my-28">
+        {% for  i in 1..10  %}
             <div class=" flex items-center justify-center mx-8 sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 flex-shrink-0">
 
                 <card class="rounded-lg">
@@ -66,29 +68,127 @@
     </div>
     <!--/Cards -->
 
-    <!-- Section: list autor -->
-    <h2 class="">Les categories</h2>
-    <div class="flex-1 px-2 sm:px-0">
-                <div class="mb-10 sm:mb-0 mt-10 grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                    {% for i in 1..8 %}
+    <!--Cards -->
+    <h2 class="pc-title decoration-4">Les actualités</h2>
+    <div class="flex overflow-scroll snap-x my-28">
+        {% for  i in 1..10  %}
+            <div class=" flex items-center justify-center mx-8 sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 flex-shrink-0">
 
-                        <a href="#" class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-                            <img class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none
+                <card class="rounded-lg">
+
+                    <a href="#">
+                        <img src="https://picsum.photos/400/400" class="rounded-t-lg" />
+                    </a>
+
+                    <div class="bg-indigo-900 text-center rounded-b-lg">
+
+                        <p class="text-white text-xl font-bold pt-6">
+                            Cameo Pass
+                        </p>
+
+                        <p class="text-white text-sm font-light pt-6">
+                            Art. Community. Events
+                        </p>
+
+                        <button class="border border-white rounded-lg px-3 text-white font-semibold mt-6 mb-6">
+                            Live
+                        </button>
+
+                    </div>
+
+                </card>
+
+            </div>
+        {% endfor %}
+    </div>
+    <!--/Cards -->
+
+    <!-- Section: list author -->
+    <h2 class=" pc-title decoration-4">Les auteurs du moment</h2>
+    <div class="flex-1 px-2 sm:px-0 my-28">
+        <h2 class="">Les categories</h2>
+
+        <div class="mb-10 sm:mb-0 mt-10 grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                    {% for i in 1..12 %}
+
+                        <a href="#" class=" h-24 flex flex-col items-center bg-white border border-gray-200 rounded-lg
+                        shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+                            <img class="object-cover w-full rounded-t-lg h-24  md:w-48 md:rounded-none
                             md:rounded-l-lg" src="https://placehold.co/50x80" alt="">
-                            <div class="flex flex-col justify-between p-4 leading-normal">
+                            <div class="flex flex-col justify-between p-4  leading-normal">
                                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900
-                                dark:text-white">Nom de la catégorie Nom de la catégorie </h5>
+                                dark:text-white">Nom de la catégorie </h5>
                             </div>
                         </a>
 
                     {% endfor %}
                 </div>
             </div>
-    <!--/ Section: list autor -->
+    <!--/ Section: list author -->
+
+    <!-- ====== Cards Section Start -->
+    <h2 class="pc-title decoration-4">Je ne sais pas ce que c'est</h2>
+    <section class="pt-20 lg:pt-[120px] pb-10 lg:pb-20 bg-[#F3F4F6]">
+        <div>
+            <div class="flex flex-wrap -mx-4">
+                {% for i in 1..6 %}
+                    <div class="w-full md:w-1/2 xl:w-1/3 px-4">
+                        <div class="bg-white rounded-lg overflow-hidden mb-10">
+                            <img
+                                    src="https://cdn.tailgrids.com/1.0/assets/images/cards/card-01/image-01.jpg"
+                                    alt="image"
+                                    class="w-full"
+                            />
+                            <div class="p-8 sm:p-9 md:p-7 xl:p-9 text-center">
+                                <h3>
+                                    <a
+                                            href="javascript:void(0)"
+                                            class="
+                        font-semibold
+                        text-dark text-xl
+                        sm:text-[22px]
+                        md:text-xl
+                        lg:text-[22px]
+                        xl:text-xl
+                        2xl:text-[22px]
+                        mb-4
+                        block
+                        hover:text-primary
+                        "
+                                    >
+                                        50+ Best creative website themes & templates
+                                    </a>
+                                </h3>
+                                <p class="text-base text-body-color leading-relaxed mb-7">
+                                    Lorem ipsum dolor sit amet pretium consectetur adipiscing
+                                    elit. Lorem consectetur adipiscing elit.
+                                </p>
+                                <a
+                                        href="javascript:void(0)"
+                                        class="
+                     inline-block
+                     py-2
+                     px-7
+                     border border-[#E5E7EB]
+                     rounded-full
+                     text-base text-body-color
+                     font-medium
+                     hover:border-primary hover:bg-primary hover:text-white
+                     transition
+                     "
+                                >
+                                    View Details
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <!-- ====== Cards Section End -->
 
 
 
-    <!-- section: list category -->
-
-    <!-- / section: list category -->
 {% endblock %}
