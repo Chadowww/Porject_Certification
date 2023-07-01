@@ -32,7 +32,7 @@ class BookFixtures extends Fixture implements DependentFixtureInterface
             $book->setQteCheckout($faker->numberBetween(1, 10));
             $book->addEditor($this->getReference('editor_' . $faker->numberBetween(0, 49)));
             $book->addAuthor($this->getReference('author_' . $faker->numberBetween(0, 49)));
-            $book->addCategory($this->getReference('category_' . $faker->numberBetween(0, 49)));
+            $book->addCategory($this->getReference('category_' . $faker->numberBetween(0, 23)));
             $this->addReference('book_' . $i, $book);
             $manager->persist($book);
         }
