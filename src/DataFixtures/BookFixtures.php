@@ -26,9 +26,9 @@ class BookFixtures extends Fixture implements DependentFixtureInterface
 
         for ($i = 0; $i < 50; $i++) {
             $book = new Book();
-            $book->setTitle($faker->words($nb = 3, $asText = true));
-            $book->setDescription($faker->text);
-            $book->setCover($faker->imageUrl(300, 300, 'technics'));
+            $book->setTitle($faker->realText($maxNbChars = 50, $indexSize = 2));
+            $book->setDescription($faker->realTextBetween($minNbChars = 500, $maxNbChars = 800, $indexSize = 2));
+            $book->setCover("https://catalogue.bnf.fr/couverture?&appName=NE&idArk=ark:/12148/cb450989938&couverture=1");
             $book->setPublish($faker->dateTimeBetween($startDate = '-30 years', $endDate = 'now', $timezone = null));
             $book->setQteStock($faker->numberBetween(1, 10));
             $book->setQteCheckout($faker->numberBetween(1, 10));
