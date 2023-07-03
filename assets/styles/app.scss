@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 @import "_includes/buttons.scss";
+@import "_includes/filterSideBar.scss";
+
 * {
     margin: 0;
     padding: 0;
@@ -19,6 +21,7 @@ body{
 .pc-box-shadow{
     -webkit-box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.4);
     box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.4);
+    border-radius: 10px;
 }
 
 .pc-truncate {

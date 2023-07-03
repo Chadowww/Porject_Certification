@@ -1,0 +1,10 @@
+.pc-list-checkbox{
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 10px;
+    overflow: scroll;
+    height: 200px;
+}
+.pc-list-checkbox > label{
+    width: 90%;
+}
