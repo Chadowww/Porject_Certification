@@ -10,6 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 #[ORM\Entity(repositoryClass: BookRepository::class)]
+#[ORM\Table(name: 'book')]
+#[ORM\Index(columns: ['title', 'description'], flags: ['fulltext'])]
 class Book
 {
     use TimestampableEntity;

@@ -38,6 +38,16 @@ class BookRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function search(array $credentials): array
+    {
+        $credential = implode(' ', $credentials);
+        $query = $this->createQueryBuilder('b');
+        if ($credentials != null) {
+            $query->where('MATCH_AGAINST(b.title, b.description) AGAINST(:words boolean) > 0')
+                ->setParameter('words', $credential);
+        }
+        return $query->getQuery()->getResult();
+    }
 
 //    /**
 //     * @return Book[] Returns an array of Book objects
