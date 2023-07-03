@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\AuthorRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 
@@ -22,6 +23,9 @@ class Author
 
     #[ORM\ManyToMany(targetEntity: Book::class, mappedBy: 'author')]
     private Collection $books;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $avatar = null;
 
     public function __construct()
     {
@@ -68,6 +72,18 @@ class Author
         if ($this->books->removeElement($book)) {
             $book->removeAuthor($this);
         }
+
+        return $this;
+    }
+
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?string $avatar): static
+    {
+        $this->avatar = $avatar;
 
         return $this;
     }

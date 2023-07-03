@@ -56,6 +56,9 @@ class Book
     #[ORM\OneToMany(mappedBy: 'book', targetEntity: Borrow::class)]
     private Collection $borrows;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $cover = null;
+
     public function __construct()
     {
         $this->author = new ArrayCollection();
@@ -317,6 +320,18 @@ class Book
                 $borrow->setBook(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCover(): ?string
+    {
+        return $this->cover;
+    }
+
+    public function setCover(?string $cover): static
+    {
+        $this->cover = $cover;
 
         return $this;
     }
