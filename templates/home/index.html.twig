@@ -53,17 +53,19 @@
                 <card class="pc-box-shadow  rounded-lg">
 
                     <a href="#">
-                        <img src="https://picsum.photos/400/400" class="rounded-t-lg"  alt=""/>
+                        <img src="https://placekitten.com/640/360" class="rounded-t-lg"  alt=""/>
                     </a>
 
                     <div class="bg-indigo-900 text-center rounded-b-lg">
 
                         <p class="text-white text-xl font-bold pt-6">
-                            Cameo Pass
+                            {{ book.title}}
                         </p>
 
                         <p class="text-white text-sm font-light pt-6">
-                            Art. Community. Events
+                            {% for auteur in book.author %}
+                               De  <a href="{{ path('app_author_show', {'id': auteur.id })}}">{{ auteur.name }}</a>
+                            {% endfor %}
                         </p>
 
                         <button class="border border-white rounded-lg px-3 text-white font-semibold mt-6 mb-6">
@@ -88,18 +90,19 @@
                 <card class="rounded-lg pc-box-shadow ">
 
                     <a href="#">
-                        <img src="https://picsum.photos/400/400" class="rounded-t-lg"  alt=""/>
+                        <img src="https://placekitten.com/640/360" class="rounded-t-lg"  alt=""/>
                     </a>
 
                     <div class="bg-indigo-900 text-center rounded-b-lg">
 
                         <p class="text-white text-xl font-bold pt-6">
-                            Cameo Pass
+                            {{ book.title }}
                         </p>
 
                         <p class="text-white text-sm font-light pt-6">
-                            Art. Community. Events
-                        </p>
+                            {% for auteur in book.author %}
+                                De <a href="{{ path('app_author_show', {'id': auteur.id })}}">{{ auteur.name }}</a>
+                            {% endfor %}                        </p>
 
                         <button class="border border-white rounded-lg px-3 text-white font-semibold mt-6 mb-6">
                             Live
