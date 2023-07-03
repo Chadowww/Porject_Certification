@@ -27,6 +27,7 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "bootstrap-icons": "^1.10.5",
         "tw-elements": "^1.0.0-beta2"
     }
 }

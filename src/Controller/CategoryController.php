@@ -44,10 +44,8 @@ class CategoryController extends AbstractController
     #[Route('/{id}', name: 'app_category_show', methods: ['GET'])]
     public function show(Category $category, BookRepository $bookRepository): Response
     {
-        $book = $bookRepository->findOneBy(['id', 53]);
         return $this->render('category/show.html.twig', [
             'category' => $category,
-            'booki' => $book
         ]);
     }
 
