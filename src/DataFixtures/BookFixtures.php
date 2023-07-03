@@ -22,11 +22,13 @@ class BookFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         $faker = \Faker\Factory::create('fr_FR');
+        \Bezhanov\Faker\ProviderCollectionHelper::addAllProvidersTo($faker);
 
         for ($i = 0; $i < 50; $i++) {
             $book = new Book();
             $book->setTitle($faker->words($nb = 3, $asText = true));
             $book->setDescription($faker->text);
+            $book->setCover($faker->imageUrl(300, 300, 'technics'));
             $book->setPublish($faker->dateTimeBetween($startDate = '-30 years', $endDate = 'now', $timezone = null));
             $book->setQteStock($faker->numberBetween(1, 10));
             $book->setQteCheckout($faker->numberBetween(1, 10));
