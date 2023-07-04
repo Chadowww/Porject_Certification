@@ -13,7 +13,7 @@ class EditorFixtures extends Fixture
     {
         $faker = \Faker\Factory::create('fr_FR');
 
-        for ($i = 0; $i < 50; $i++) {
+        for ($i = 0; $i < 20; $i++) {
             $editor = new Editor();
             $editor->setName($faker->company);
             $this->addReference('editor_' . $i, $editor);

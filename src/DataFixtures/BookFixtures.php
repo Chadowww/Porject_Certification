@@ -24,7 +24,7 @@ class BookFixtures extends Fixture implements DependentFixtureInterface
         $faker = \Faker\Factory::create('fr_FR');
         \Bezhanov\Faker\ProviderCollectionHelper::addAllProvidersTo($faker);
 
-        for ($i = 0; $i < 50; $i++) {
+        for ($i = 0; $i < 1000; $i++) {
             $book = new Book();
             $book->setTitle($faker->realText($maxNbChars = 50, $indexSize = 2));
             $book->setDescription($faker->realTextBetween($minNbChars = 500, $maxNbChars = 800, $indexSize = 2));
@@ -32,8 +32,8 @@ class BookFixtures extends Fixture implements DependentFixtureInterface
             $book->setPublish($faker->dateTimeBetween($startDate = '-30 years', $endDate = 'now', $timezone = null));
             $book->setQteStock($faker->numberBetween(1, 10));
             $book->setQteCheckout($faker->numberBetween(1, 10));
-            $book->addEditor($this->getReference('editor_' . $faker->numberBetween(0, 49)));
-            $book->addAuthor($this->getReference('author_' . $faker->numberBetween(0, 49)));
+            $book->addEditor($this->getReference('editor_' . $faker->numberBetween(0, 19)));
+            $book->addAuthor($this->getReference('author_' . $faker->numberBetween(0, 99)));
             for ($j = 0; $j < $faker->numberBetween(1, 3); $j++) {
                 $book->addCategory($this->getReference('category_' . $faker->numberBetween(0, 9)));
             }
