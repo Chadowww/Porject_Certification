@@ -3,6 +3,7 @@
 {% block title %}Author{% endblock %}
 
 {% block body %}
+    {{ dump() }}
     <div class="flex flex-wrap justify-around items-center">
         {% for book in author.books %}
             <div class="flex flex-wrap place-items-center my-12">

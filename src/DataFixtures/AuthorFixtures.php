@@ -17,6 +17,7 @@ class AuthorFixtures extends Fixture
             $author = new Author();
             $author->setName($faker->name);
             $author->setAvatar($faker->avatar);
+            $author->setBiography($faker->realText(200));
             $this->addReference('author_' . $i, $author);
             $manager->persist($author);
 
