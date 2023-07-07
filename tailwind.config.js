@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+const plugin = require('tailwindcss/plugin')
 module.exports = {
   content: [
     "./assets/**/*.js",
@@ -9,6 +10,15 @@ module.exports = {
     extend: {},
   },
   plugins: [
-    require('tw-elements/dist/plugin'),
+    plugin(function({ addVariant, addBase, theme  }) {
+      addVariant('optional', '&:optional')
+      addVariant('hocus', ['&:hover', '&:focus'])
+      addVariant('inverted-colors', '@media (inverted-colors: inverted)')
+      addBase({
+        'h1': { fontSize: theme('fontSize.2xl') },
+        'h2': { fontSize: theme('fontSize.xl') },
+        'h3': { fontSize: theme('fontSize.lg') },
+      })
+    })
   ],
 }
