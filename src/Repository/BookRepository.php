@@ -38,7 +38,7 @@ class BookRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-    public function search(array $credentials): array
+    public function searchBook(array $credentials): array
     {
         $credential = implode(' ', $credentials);
         $query = $this->createQueryBuilder('b');

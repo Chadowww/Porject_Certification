@@ -18,9 +18,11 @@ class SearchBookController extends AbstractController
     {
         // Récupère les données du formulaire depuis la requête
         $searchTerm [] = $request->query->get('search_book');
+//        $searchTerm [] = $request->query->get('category');
+//        $searchTerm []= $request->query->get('author');
 
         // Utilise les données pour effectuer ta recherche
-        $books = $bookRepository->search($searchTerm);
+        $books = $bookRepository->searchBook($searchTerm);
 
         // Effectue d'autres traitements ou renvoie une réponse appropriée
         return $this->render('search/search.html.twig', [

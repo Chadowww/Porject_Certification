@@ -13,10 +13,11 @@ class AuthorFixtures extends Fixture
         $faker = \Faker\Factory::create('fr_FR');
         \Bezhanov\Faker\ProviderCollectionHelper::addAllProvidersTo($faker);
 
-        for ($i = 0; $i < 50; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             $author = new Author();
             $author->setName($faker->name);
             $author->setAvatar($faker->avatar);
+            $author->setBiography($faker->realText(500));
             $this->addReference('author_' . $i, $author);
             $manager->persist($author);
 
