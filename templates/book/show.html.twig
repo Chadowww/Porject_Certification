@@ -12,11 +12,8 @@
 					{% for author in book.author %}
 						<div class="flex items-center">
 							<img class="rounded-full h-24 w-auto" src="{{ author.avatar }}" alt="">
-							<a href="{{ path('app_author_show', {'id': author.id}) }}"><h2 class="text-sm title-font
-							text-gray-500
-							tracking-widest">{{	author
-									.name
-									}}</h2></a>
+							<a href="{{ path('app_author_show', {'id': author.id}) }}">
+								<h2 class="text-sm title-font text-gray-500 tracking-widest">{{	author.name }}</h2></a>
 						</div>
 					{% endfor %}
 
@@ -58,7 +55,7 @@
 						<div class="">
 							<div class="relative">
 								<span class="mr-3">publier le :</span>
-								<span class="text-sm title-font text-gray-500 tracking-widest">{{ book.publish|date('d-m-Y') }}</span>
+								<span class="text-sm title-font text-gray-500 tracking-widest">{{ book.publish|ago}}</span>
 							</div>
 							<div class="relative">
 								<span class="mr-3">Éditer par:</span>
@@ -82,17 +79,19 @@
 		</div>
 	</section>
 
-	<h2>les livres du même auteur</h2>
-	<div class="flex flex-wrap justify-around items-center">
+	<!-- card book author start -->
+	<h2 class="pc-title mt-10 ">les livres du même auteur</h2>
+	<div class="flex overflow-scroll mb-32">
 		{% for book in book.author.0.books %}
-			<div class="flex flex-wrap place-items-center my-12">
+			<div class="flex flex-wrap place-items-center m-5">
 				<!-- card -->
-				<div class="overflow-hidden shadow-lg transition duration-500 ease-in-out transform hover:-translate-y-5
-			hover:shadow-2xl rounded-lg  w-60 md:w-80  m-auto">
+				<div class="overflow-hidden shadow-lg transition duration-500 ease-in-out transform
+				hover:-translate-y-5 hover:shadow-2xl rounded-lg  w-60 md:w-80  m-auto">
 					<a href="#" class="w-full block h-full">
 						<img alt="blog photo" src="{{ book.cover }}" class="max-h-40 w-full object-cover"/>
-						<div class="bg-white w-full p-4">
-							<div class="flex flex-wrap justify-between items-center">
+					</a>
+					<div class="bg-white w-full p-4">
+							<div class="flex flex-wrap justify-between items-center h-24">
 								<p class="text-indigo-500 text-2xl font-medium">
 									<a href="{{ path('app_book_show', {'id': book.id}) }}">{{ book.title }}</a>
 								</p>
@@ -129,24 +128,28 @@
 								</div>
 							</div>
 						</div>
-					</a>
 				</div>
 			</div>
 		{% endfor %}
 	</div>
-	<h2>les livres du même editeur</h2>
-	<div class="flex flex-wrap justify-around items-center">
+	<!-- card book author end -->
+
+	<!-- card book editor start -->
+	<h2 class="pc-title mt-10 ">les livres du même editeur</h2>
+	<div class="flex overflow-scroll mb-32">
 		{% for book in book.editor.0.books %}
-			<div class="flex flex-wrap place-items-center my-12">
+			<div class="flex flex-wrap place-items-center m-5">
 				<!-- card -->
 				<div class="overflow-hidden shadow-lg transition duration-500 ease-in-out transform hover:-translate-y-5
 			hover:shadow-2xl rounded-lg  w-60 md:w-80  m-auto">
 					<a href="#" class="w-full block h-full">
 						<img alt="blog photo" src="{{ book.cover }}" class="max-h-40 w-full object-cover"/>
-						<div class="bg-white w-full p-4">
-							<div class="flex flex-wrap justify-between items-center">
+					</a>
+					<div class="bg-white w-full p-2">
+							<div class="flex flex-wrap justify-between items-center h-24">
 								<p class="text-indigo-500 text-2xl font-medium">
-									<a href="{{ path('app_book_show', {'id': book.id}) }}">{{ book.title }}</a>
+									<a class="w-100" href="{{ path('app_book_show', {'id': book.id}) }}">{{ book.title
+										}}</a>
 								</p>
 								{% if app.user %}
 									<button type="submit"><i class="bi bi-bookmark-heart"></i></button>
@@ -181,22 +184,25 @@
 								</div>
 							</div>
 						</div>
-					</a>
 				</div>
 			</div>
 		{% endfor %}
 	</div>
-	<h2>les livres de la même category</h2>
-	<div class="flex  justify-around items-center">
-		{% for category in book.category | slice (0,3) %}
-			{% for book in category.books | slice (0,2)%}
-				<div class="flex flex-wrap place-items-center my-12">
+	<!-- card book editor end -->
+
+	<!-- card book category start -->
+	<h2 class="pc-title mt-10 ">les livres de la même category</h2>
+	<div class="flex overflow-scroll mb-32">
+		{% for category in book.category | slice (0,10) %}
+			{% for book in category.books | slice (0,10)%}
+				<div class="flex flex-wrap place-items-center m-5">
 					<!-- card -->
 					<div class="overflow-hidden shadow-lg transition duration-500 ease-in-out transform hover:-translate-y-5 hover:shadow-2xl rounded-lg w-60 md:w-80 m-auto">
 						<a href="#" class="w-full block h-full">
 							<img alt="blog photo" src="{{ book.cover }}" class="max-h-40 w-full object-cover"/>
-							<div class="bg-white w-full p-4">
-								<div class="flex flex-wrap justify-between items-center">
+						</a>
+						<div class="bg-white w-full p-4">
+								<div class="flex flex-wrap justify-between items-center h-24">
 									<p class="text-indigo-500 text-2xl font-medium">
 										<a href="{{ path('app_book_show', {'id': book.id}) }}">{{ book.title }}</a>
 									</p>
@@ -232,11 +238,12 @@
 									</div>
 								</div>
 							</div>
-						</a>
 					</div>
 				</div>
 			{% endfor %}
 		{% endfor %}
 
 	</div>
+	<!-- card book category end -->
+
 {% endblock %}

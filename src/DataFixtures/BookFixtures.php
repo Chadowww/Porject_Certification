@@ -28,7 +28,7 @@ class BookFixtures extends Fixture implements DependentFixtureInterface
             $book = new Book();
             $book->setTitle($faker->realText($maxNbChars = 50, $indexSize = 2));
             $book->setDescription($faker->realTextBetween($minNbChars = 500, $maxNbChars = 800, $indexSize = 2));
-            $book->setCover("https://catalogue.bnf.fr/couverture?&appName=NE&idArk=ark:/12148/cb450989938&couverture=1");
+            $book->setCover("https://www.thirdeditions.com/1738-large_default/decrypter-les-jeux-the-last-of-us-que-reste-t-il-de-lhumanite-first-print.jpg");
             $book->setPublish($faker->dateTimeBetween($startDate = '-30 years', $endDate = 'now', $timezone = null));
             $book->setQteStock($faker->numberBetween(1, 10));
             $book->setQteCheckout($faker->numberBetween(1, 10));

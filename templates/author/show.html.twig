@@ -1,19 +1,92 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Author{% endblock %}
+{% block title %}Book{% endblock %}
 
 {% block body %}
-    {{ dump() }}
-    <div class="flex flex-wrap justify-around items-center">
+    <section class="text-gray-600 body-font overflow-hidden">
+        <div class="container px-5 py-24 mx-auto">
+            <div class="lg:w-4/5 mx-auto flex flex-wrap">
+                <img alt="ecommerce" class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded"
+                     src="{{ author.avatar }}">
+                <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+                    <h1 class="text-gray-900 text-3xl title-font font-medium mb-1">{{ author.name }}</h1>
+                    <div class="flex flex-wrap">
+	                    {% for book in author.books %}
+		                    {% for category in book.category %}
+			                    <a class="my-1" href="{{ path('app_book_search', {'category': category.name, 'author':author .name}) }}">
+									<span class="m-1 px-2 py-1 rounded bg-indigo-500 ">
+										{{ category.name }}
+									</span>
+			                    </a>
+		                    {% endfor %}
+	                    {% endfor %}
+                    </div>
+                    <div class="flex mb-4">
+			          <span class="flex items-center">
+			            <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                             stroke-width="2" class="w-4 h-4 text-indigo-500" viewBox="0 0 24 24">
+			              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+			            </svg>
+			            <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                             stroke-width="2" class="w-4 h-4 text-indigo-500" viewBox="0 0 24 24">
+			              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+			            </svg>
+			            <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                             stroke-width="2" class="w-4 h-4 text-indigo-500" viewBox="0 0 24 24">
+			              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+			            </svg>
+			            <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                             stroke-width="2" class="w-4 h-4 text-indigo-500" viewBox="0 0 24 24">
+			              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+			            </svg>
+			            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                             class="w-4 h-4 text-indigo-500" viewBox="0 0 24 24">
+			              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+			            </svg>
+			            <span class="text-gray-600 ml-3">4 Reviews</span>
+			          </span>
+                    </div>
+                    <p class="leading-relaxed">{{ author.biography }}</p>
+{#                    <div class="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">#}
+{#                        <div class="">#}
+{#                            <div class="relative">#}
+{#                                <span class="mr-3">publier le :</span>#}
+{#                                <span class="text-sm title-font text-gray-500 tracking-widest">{{ book.publish|date('d-m-Y') }}</span>#}
+{#                            </div>#}
+{#                            <div class="relative">#}
+{#                                <span class="mr-3">Éditer par:</span>#}
+{#                                {% for auteur in book.author %}#}
+{#                                    <a class="text-sm title-font text-gray-500 tracking-widest" href="{{ path('app_author_show', {'id': auteur.id })}}">{{ auteur.name }}</a>#}
+{#                                {% endfor %}#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+                    {#                    <div class="flex"> #}
+                    {#                        <span class="title-font font-medium text-2xl text-gray-900">$58.00</span> #}
+                    {#                        <button class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Button</button> #}
+                    {#                        <button class="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4"> #}
+                    {#                            <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24"> #}
+                    {#                                <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path> #}
+                    {#                            </svg> #}
+                    {#                        </button> #}
+                    {#                    </div> #}
+                </div>
+            </div>
+        </div>
+    </section>
+	<!-- card book author start -->
+    <h2 class="pc-title">Ses livres</h2>
+    <div class="flex overflow-scroll items-center mb-32">
         {% for book in author.books %}
-            <div class="flex flex-wrap place-items-center my-12">
+            <div class="flex flex-wrap place-items-center m-5">
                 <!-- card -->
                 <div class="overflow-hidden shadow-lg transition duration-500 ease-in-out transform hover:-translate-y-5
 			hover:shadow-2xl rounded-lg  w-60 md:w-80  m-auto">
                     <a href="#" class="w-full block h-full">
-                        <img alt="blog photo" src="https://images.unsplash.com/photo-1542435503-956c469947f6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=967&q=80" class="max-h-40 w-full object-cover"/>
-                        <div class="bg-white w-full p-4">
-                            <div class="flex flex-wrap justify-between items-center">
+                        <img alt="blog photo" src="{{ book.cover }}" class="max-h-40 w-full object-cover"/>
+                    </a>
+	                <div class="bg-white w-full p-4">
+                            <div class="flex flex-wrap justify-between items-center h-24">
                                 <p class="text-indigo-500 text-2xl font-medium">
                                     <a href="{{ path('app_book_show', {'id': book.id}) }}">{{ book.title }}</a>
                                 </p>
@@ -50,9 +123,125 @@
                                 </div>
                             </div>
                         </div>
-                    </a>
                 </div>
             </div>
         {% endfor %}
     </div>
+	<!-- card book author end -->
+
+	<!-- card book editor start -->
+	<h2 class="pc-title">les livres du même editeur</h2>
+    <div class="flex overflow-scroll items-center mb-32">
+	    {% for book in author.books %}
+		    {% for editor in book.editor | slice (0, 5) %}
+			    <div class="flex flex-wrap place-items-center m-5">
+				    <!-- card -->
+				    <div class="overflow-hidden shadow-lg transition duration-500 ease-in-out transform
+				    hover:-translate-y-5 hover:shadow-2xl rounded-lg  w-60 md:w-80 ">
+					    <a href="#" class="w-full block h-full">
+						    <img alt="blog photo" src="{{ book.cover }}" class="max-h-40 w-full object-center"/>
+					    </a>
+					    <div class="bg-white w-full p-4">
+							    <div class="flex flex-wrap justify-between items-center h-24">
+								    <p class="text-indigo-500 text-2xl font-medium">
+									    <a href="{{ path('app_book_show', {'id': book.id}) }}">{{ book.title }}</a>
+								    </p>
+								    {% if app.user %}
+									    <button type="submit"><i class="bi bi-bookmark-heart"></i></button>
+								    {% endif %}
+							    </div>
+							    <p class="pc-truncate block text-gray-600 font-light text-md h-24">
+								    {{ book.description }}
+							    </p>
+							    <a class="inline-flex text-indigo-500" href="{{ path('app_book_show', {'id': book.id}) }}">Read More</a>
+							    <div class="flex flex-wrap justify-starts items-center py-3 border-b-2 text-xs text-white font-medium">
+								    {% for categorie in book.category %}
+									    <a href="{{ path('app_category_show', {'id': categorie.id}) }}">
+									<span class="m-1 px-2 py-1 rounded bg-indigo-500 ">
+										{{ categorie.name }}
+									</span>
+									    </a>
+								    {% endfor %}
+							    </div>
+							    <div class="flex items-center mt-2">
+								    <img class='w-10 h-10 object-cover rounded-full' alt='User avatar' src='
+							{% for author in book.author %}
+							{{ author.avatar }}
+							{% endfor %}
+							'>
+
+								    <div class="pl-3">
+									    <div class="font-medium">
+										    {% for auteur in book.author %}
+											    <a href="{{ path('app_author_show', {'id': auteur.id })}}">{{ auteur.name }}</a>
+										    {% endfor %}
+									    </div>
+								    </div>
+							    </div>
+						    </div>
+				    </div>
+			    </div>
+		    {% endfor %}
+	    {% endfor %}    </div>
+	<!-- card book editor end -->
+
+	<!-- card book category start -->
+	<h2 class="pc-title">les livres de la même category</h2>
+    <div class="flex overflow-scroll items-center mb-32">
+	    {% for book in author.books %}
+            {% for category in book.category%}
+	            {% for book in category.books | slice (0, 2) %}
+		            <div class="flex flex-wrap place-items-center m-5">
+			            <!-- card -->
+			            <div class="overflow-hidden shadow-lg transition duration-500 ease-in-out transform hover:-translate-y-5 hover:shadow-2xl rounded-lg w-60 md:w-80 m-auto">
+				            <a href="#" class="w-full block h-full">
+					            <img alt="blog photo" src="{{ book.cover }}" class="max-h-40 w-full object-cover"/>
+				            </a>
+				            <div class="bg-white w-full p-4">
+						            <div class="flex flex-wrap justify-between items-center h-24">
+							            <p class="text-indigo-500 text-2xl font-medium">
+								            <a href="{{ path('app_book_show', {'id': book.id}) }}">{{ book.title }}</a>
+							            </p>
+							            {% if app.user %}
+								            <button type="submit"><i class="bi bi-bookmark-heart"></i></button>
+							            {% endif %}
+						            </div>
+						            <p class="pc-truncate block text-gray-600 font-light text-md h-24">
+							            {{ book.description }}
+						            </p>
+						            <a class="inline-flex text-indigo-500" href="{{ path('app_book_show', {'id': book.id}) }}">Read More</a>
+						            <div class="flex flex-wrap justify-starts items-center py-3 border-b-2 text-xs text-white font-medium">
+							            {% for category in book.category %}
+								            <a href="{{ path('app_category_show', {'id': category.id}) }}">
+                  <span class="m-1 px-2 py-1 rounded bg-indigo-500 ">
+                    {{ category.name }}
+                  </span>
+								            </a>
+							            {% endfor %}
+						            </div>
+						            <div class="flex items-center mt-2">
+							            <img class='w-10 h-10 object-cover rounded-full' alt='User avatar' src='
+                {% for author in book.author %}
+                  {{ author.avatar }}
+                {% endfor %}
+              '>
+							            <div class="pl-3">
+								            <div class="font-medium">
+									            {% for author in book.author %}
+										            <a href="{{ path('app_author_show', {'id': author.id })}}">{{ author.name }}</a>
+									            {% endfor %}
+								            </div>
+							            </div>
+						            </div>
+					            </div>
+			            </div>
+		            </div>
+
+	            {% endfor %}
+            {% endfor %}
+        {% endfor %}
+
+    </div>
+	<!-- card book category end -->
+
 {% endblock %}
