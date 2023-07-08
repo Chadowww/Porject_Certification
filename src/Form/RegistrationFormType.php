@@ -17,33 +17,51 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('firstname')
-            ->add('lastname')
-            ->add('email')
+            ->add('firstname', null, [
+                'label' => 'Prénom',
+                'attr' => [
+                    'placeholder' => 'Votre prénom'
+                ]
+            ])
+            ->add('lastname', null, [
+                'label' => 'Nom',
+                'attr' => [
+                    'placeholder' => 'Votre nom'
+                ]
+            ])
+            ->add('email', null, [
+                'label' => 'Email',
+                'attr' => [
+                    'placeholder' => 'Votre email'
+                ]
+            ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
-                        'message' => 'You should agree to our terms.',
+                        'message' => 'Vous devez accepter les conditions générales d\'utilisation.',
                     ]),
                 ],
+                'label' => 'J\'accepte les conditions générales d\'utilisation',
             ])
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
-                'attr' => ['autocomplete' => 'new-password'],
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Please enter a password',
-                    ]),
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        // max length allowed by Symfony for security reasons
-                        'max' => 4096,
-                    ]),
-                ],
+                'attr' => ['autocomplete' => 'new-password', 'placeholder' => '* * * * * * * *'],
+                'label' => 'Mot de passe',
+
+//                'constraints' => [
+//                    new NotBlank([
+//                        'message' => 'Please enter a password',
+//                    ]),
+//                    new Length([
+//                        'min' => 6,
+//                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+//                        // max length allowed by Symfony for security reasons
+//                        'max' => 4096,
+//                    ]),
+//                ],
             ])
         ;
     }

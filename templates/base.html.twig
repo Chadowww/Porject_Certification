@@ -16,14 +16,14 @@
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
-    <body>
+    <body class="min-h-screen flex flex-col justify-between">
     {{ component('navbarComponent') }}
-    <main class="container  mx-auto my-28">
+    <main class="container  mx-auto my-28 ">
         {% block body %}{% endblock %}
     </main>
 
-        <!-- Footer section with social media icons and newsletter sign-up -->
-        <footer class="bg-neutral-900 text-center text-white">
+    <!-- Footer section with social media icons and newsletter sign-up -->
+    <footer class="  w-screen bg-neutral-900 text-center text-white mt-auto">
             <div class="container mx-auto px-6 pt-6">
                 <!-- Social media icons container -->
                 <div class="mb-6 flex justify-center">
@@ -265,6 +265,6 @@
                 >
             </div>
         </footer>
-        <!-- End footer -->
+    <!-- End footer -->
     </body>
 </html>

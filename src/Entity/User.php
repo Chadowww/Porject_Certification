@@ -10,6 +10,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
@@ -22,6 +23,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Assert\NotBlank]
+    #[Assert\Email(message: 'l\'email {{ value }} n\'est pas valide')]
+    #[Assert\Regex(
+        pattern: '/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/i',
+        message: 'On parle de vraie adresse mail ici !',
+        match: true)]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -31,15 +38,31 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
+    #[Assert\Regex(
+        pattern: '/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/',
+        message: 'Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un chiffre',
+        match: true)]
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        max: 255,
+        maxMessage: 'Le prénom ne peut pas dépasser {{ limit }} caractères')]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 255)]
+//    #[Assert\NotBlank]
+    #[Assert\Length(
+        max: 255,
+        maxMessage: 'Le nom ne peut pas dépasser {{ limit }} caractères')]
     private ?string $lastname = null;
 
     #[ORM\Column(length: 15, nullable: true)]
+    #[Assert\Regex(
+        pattern: '/^0[1-9]([-. ]?[0-9]{2}){4}$/',
+        message: 'Le numéro de téléphone doit être au format 01-23-45-67-89',
+        match: true)]
     private ?string $phone = null;
 
     #[ORM\Column(type: 'boolean')]
