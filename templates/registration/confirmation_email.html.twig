@@ -1,11 +1,52 @@
-<h1>Hi! Please confirm your email!</h1>
+{% autoescape 'html' %}
+    <!DOCTYPE html>
+    <html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>Confirmation d'inscription</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                line-height: 1.5;
+                color: #333;
+                background-color: #f4f4f4;
+                margin: 0;
+                padding: 20px;
+            }
 
-<p>
-    Please confirm your email address by clicking the following link: <br><br>
-    <a href="{{ signedUrl|raw }}">Confirm my Email</a>.
-    This link will expire in {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.
-</p>
+            h1 {
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
 
-<p>
-    Cheers!
-</p>
+            p {
+                margin-bottom: 10px;
+            }
+
+            a {
+                color: #007bff;
+                text-decoration: none;
+            }
+
+            .button {
+                display: inline-block;
+                background-color: #007bff;
+                color: #fff;
+                padding: 10px 20px;
+                border-radius: 4px;
+                text-decoration: none;
+            }
+
+        </style>
+    </head>
+    <body>
+    <h1>Bienvenue sur notre site !</h1>
+    <p>Merci de vous être inscrit. Veuillez cliquer sur le lien ci-dessous pour confirmer votre inscription :</p>
+    <p><a href="{{ signedUrl|raw }}">Confirmer mon inscription</a>.</p>
+    <p>Ce lien expirera dans {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.</p>
+    <p>Si le lien ne fonctionne pas, vous pouvez également copier et coller l'URL suivante dans votre navigateur :</p>
+    <p>{{ signedUrl|raw }}</p>
+    <p>Merci et à bientôt !</p>
+    </body>
+    </html>
+{% endautoescape %}

@@ -1,23 +1,97 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Log in!{% endblock %}
 
 {% block body %}
-    {% for flash_error in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-    {% endfor %}
+{#<div class="pc-form-registration-container">#}
+{% for flash_error in app.flashes('verify_email_error') %}
+		<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+	{% endfor %}
+	{{ form_errors(form) }}
+	<!--Modal header-->
+	<div class="flex flex-shrink-0 items-center justify-between rounded-t-md border-b-2 border-neutral-100
+				border-opacity-100 p-4 dark:border-opacity-50 dark:bg-gray-700 w-6/12 mx-auto"
+	>
+		<!--Modal title-->
+		<h5 class="text-xl font-medium leading-normal text-neutral-800 dark:text-neutral-200"
+		    id="exampleModalLabel">
+			Inscription
+		</h5>
+{#		<!--Close button-->#}
+{#		<button type="button"#}
+{#				class="box-content rounded-none border-none hover:no-underline hover:opacity-75#}
+{#					   focus:opacity-100 focus:shadow-none focus:outline-none"#}
+{#				data-te-modal-dismiss#}
+{#				aria-label="Close"#}
+{#		>#}
+{#			<svg xmlns="http://www.w3.org/2000/svg"#}
+{#			     fill="none"#}
+{#			     viewBox="0 0 24 24"#}
+{#			     stroke-width="1.5"#}
+{#			     stroke="currentColor"#}
+{#			     class="h-6 w-6"#}
+{#			>#}
+{#				<path stroke-linecap="round"#}
+{#				      stroke-linejoin="round"#}
+{#				      d="M6 18L18 6M6 6l12 12"#}
+{#				/>#}
+{#			</svg>#}
+{#		</button>#}
+	</div>
+	<!--Modal header-->
 
-    <h1>Register</h1>
-
-    {{ form_errors(registrationForm) }}
-
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
-
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+	<!--Modal body-->
+	<div class="relative bg-white rounded-lg shadow dark:bg-gray-700 w-6/12 mx-auto">
+		<div class="px-6 py-6 lg:px-8">
+			{{ form_start(form, {'attr': {'class': 'space-y-6','action':'/register'}}) }}
+				{{ form_row(form.firstname, {
+					'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'},
+					'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+									   focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600
+									   dark:border-gray-500 dark:placeholder-gray-400 dark:text-white'
+					}
+				}) }}
+				{{ form_row(form.lastname, {
+					'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'},
+					'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+									   focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600
+									   dark:border-gray-500 dark:placeholder-gray-400 dark:text-white'
+					}
+				}) }}
+				{{ form_row(form.email, {
+					'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'},
+					'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+									   focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600
+									   dark:border-gray-500 dark:placeholder-gray-400 dark:text-white'
+					}
+				}) }}
+				{{ form_row(form.plainPassword, {
+					'label_attr': {'class': 'block mb-2 mr-2 text-sm font-medium text-gray-900 dark:text-white'},
+					'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+									   focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600
+								   	   dark:border-gray-500 dark:placeholder-gray-400 dark:text-white'
+					}
+				}) }}
+				{{ form_row(form.agreeTerms,{
+					'label_attr': {'class': 'text-sm font-medium text-gray-500 dark:text-gray-300'},
+				}) }}
+				<button type="submit"
+				        class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none
+				               focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center
+				               dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+				>
+					S'inscrire
+				</button>
+				<div class="text-sm font-medium text-gray-500 dark:text-gray-300">
+					Déjà inscrit?
+					<a class="pc-button-clic cursor-pointer text-blue-700 hover:underline dark:text-blue-500">
+						Se connecter.
+					</a>
+				</div>
+			<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+			{{ form_end(form) }}
+		</div>
+	</div>
+	<!--/Modal body-->
+{#</div>#}
 {% endblock %}
