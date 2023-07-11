@@ -18,12 +18,19 @@
     </head>
     <body class="min-h-screen flex flex-col justify-between">
     {{ component('navbarComponent') }}
+    {% for category, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ category }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
     <main class="container  mx-auto my-28 ">
         {% block body %}{% endblock %}
     </main>
 
     <!-- Footer section with social media icons and newsletter sign-up -->
-    <footer class="  w-screen bg-neutral-900 text-center text-white mt-auto">
+    <footer class=" z-50 w-screen bg-neutral-900 text-center text-white mt-auto">
             <div class="container mx-auto px-6 pt-6">
                 <!-- Social media icons container -->
                 <div class="mb-6 flex justify-center">
