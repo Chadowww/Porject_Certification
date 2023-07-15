@@ -96,7 +96,14 @@
 									<a href="{{ path('app_book_show', {'id': book.id}) }}">{{ book.title }}</a>
 								</p>
 								{% if app.user %}
-									<button type="submit"><i class="bi bi-bookmark-heart"></i></button>
+									<div>
+										<a class="bt-fav"
+										   onclick="addToFavorite(event)"
+										   href="{{ path('app_book_add_to_fav', {id: book.id})}}">
+											<i class="bi {{ app.user.isFavorite(book) ? 'bi-heart-fill' :
+											'bi-heart'}}"></i>
+										</a>
+									</div>
 								{% endif %}
 							</div>
 							<p class="pc-truncate block text-gray-600 font-light text-md h-24">
@@ -152,7 +159,14 @@
 										}}</a>
 								</p>
 								{% if app.user %}
-									<button type="submit"><i class="bi bi-bookmark-heart"></i></button>
+									<div>
+										<a class="bt-fav"
+										   onclick="addToFavorite(event)"
+										   href="{{ path('app_book_add_to_fav', {id: book.id})}}">
+											<i class="bi {{ app.user.isFavorite(book) ? 'bi-heart-fill' :
+											'bi-heart'}}"></i>
+										</a>
+									</div>
 								{% endif %}
 							</div>
 							<p class="pc-truncate block text-gray-600 font-light text-md h-24">
@@ -207,7 +221,14 @@
 										<a href="{{ path('app_book_show', {'id': book.id}) }}">{{ book.title }}</a>
 									</p>
 									{% if app.user %}
-										<button type="submit"><i class="bi bi-bookmark-heart"></i></button>
+										<div>
+											<a class="bt-fav"
+											   onclick="addToFavorite(event)"
+											   href="{{ path('app_book_add_to_fav', {id: book.id})}}">
+												<i class="bi {{ app.user.isFavorite(book) ? 'bi-heart-fill' :
+												'bi-heart'}}"></i>
+											</a>
+										</div>
 									{% endif %}
 								</div>
 								<p class="pc-truncate block text-gray-600 font-light text-md h-24">

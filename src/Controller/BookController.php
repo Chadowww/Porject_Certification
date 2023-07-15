@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Book;
+use App\Entity\User;
 use App\Form\BookType;
 use App\Repository\BookRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -75,4 +78,21 @@ class BookController extends AbstractController
 
         return $this->redirectToRoute('app_book_index', [], Response::HTTP_SEE_OTHER);
     }
+	#[Route('/{id}/add-to-fav', name: 'app_book_add_to_fav', methods: ['GET'])]
+    public function addToFav(Book $book, EntityManagerInterface $entityManager): Response
+    {
+        $user = $this->getUser();
+		if($user->isFavorite($book)){
+			$user->removeFavorite($book);
+            $entityManager->flush();
+        }else{
+            $user->addFavorite($book);
+            $entityManager->flush();
+        }
+
+        return $this->json([
+            'isFavorite' => $user->isFavorite($book)
+        ]);
+    }
+
 }
