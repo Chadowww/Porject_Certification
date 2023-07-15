@@ -7,6 +7,7 @@
 
 // any CSS you import will output into a single css file (app.scss in this case)
 import './styles/app.scss';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'tw-elements'
 import './switch'
 // Initialization for ES Users
