@@ -69,6 +69,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $isVerified = false;
 
     #[ORM\ManyToMany(targetEntity: Book::class, inversedBy: 'users')]
+    #[ORM\JoinTable(name: 'favorite')]
     private Collection $favorite;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Reservation::class)]
@@ -240,6 +241,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->favorite->removeElement($favorite);
 
         return $this;
+    }
+    public function isFavorite(Book $book): bool
+    {
+        return $this->favorite->contains($book);
     }
 
     /**
