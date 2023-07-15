@@ -90,7 +90,9 @@ class BookController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_book_show', ['id' => $book->getId()], Response::HTTP_SEE_OTHER);
+        return $this->json([
+            'isFavorite' => $user->isFavorite($book)
+        ]);
     }
 
 }
