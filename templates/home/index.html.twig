@@ -63,8 +63,11 @@
                                     </p>
                                     {% if app.user %}
                                         <div>
-                                            <a href="{{ path('app_book_add_to_fav', {id: book.id})}}">
-                                                <i class="bi {{ app.user.isFavorite(book) ? 'bi-heart-fill' : 'bi-heart'}}"></i>
+                                            <a class="bt-fav"
+                                               onclick="addToFavorite(event)"
+                                               href="{{ path('app_book_add_to_fav', {id: book.id})}}">
+                                                <i class="bi {{ app.user.isFavorite(book) ? 'bi-heart-fill' :
+                                                'bi-heart'}}"></i>
                                             </a>
                                         </div>
                                     {% endif %}
@@ -116,53 +119,55 @@
                     <div class="flex flex-wrap place-items-center m-5 ">
                         <!-- card -->
                         <div class="overflow-hidden shadow-lg transition duration-500 ease-in-out transform
-                        hover:-translate-y-5
-			hover:shadow-2xl rounded-lg  w-60 md:w-80  ">
+                        hover:-translate-y-5 hover:shadow-2xl rounded-lg  w-60 md:w-80  ">
                             <a href="#" class="w-full block h-full">
                                 <img alt="blog photo" src="{{ book.cover }}" class="max-h-40 w-full object-center"/>
                             </a>
                             <div class="bg-white w-full  p-4">
-                                    <div class="flex flex-wrap justify-between items-center h-24">
-                                        <p class="text-indigo-500 text-2xl font-medium">
-                                            <a href="{{ path('app_book_show', {'id': book.id}) }}">{{ book.title }}</a>
-                                        </p>
-                                        {% if app.user %}
-                                            <div>
-                                                <a href="{{ path('app_book_add_to_fav', {id: book.id})}}">
-                                                    <i class="bi {{ app.user.isFavorite(book) ? 'bi-heart-fill' : 'bi-heart'}}"></i>
-                                                </a>
-                                            </div>
-                                        {% endif %}
-                                    </div>
-                                    <p class="pc-truncate block text-gray-600 font-light text-md h-24">
-                                        {{ book.description }}
+                                <div class="flex flex-wrap justify-between items-center h-24">
+                                    <p class="text-indigo-500 text-2xl font-medium">
+                                        <a href="{{ path('app_book_show', {'id': book.id}) }}">{{ book.title }}</a>
                                     </p>
-                                    <a class="inline-flex text-indigo-500" href="{{ path('app_book_show', {'id': book.id}) }}">Read More</a>
-                                    <div class="flex flex-wrap justify-starts items-center py-3 border-b-2 text-xs text-white font-medium">
-                                        {% for categorie in book.category %}
-                                            <a href="{{ path('app_category_show', {'id': categorie.id}) }}">
+                                    {% if app.user %}
+                                        <div>
+                                            <a class="bt-fav"
+                                               onclick="addToFavorite(event)"
+                                               href="{{ path('app_book_add_to_fav', {id: book.id})}}">
+                                                <i class="bi {{ app.user.isFavorite(book) ? 'bi-heart-fill' :
+                                                'bi-heart'}}"></i>
+                                            </a>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <p class="pc-truncate block text-gray-600 font-light text-md h-24">
+                                    {{ book.description }}
+                                </p>
+                                <a class="inline-flex text-indigo-500" href="{{ path('app_book_show', {'id': book.id}) }}">Read More</a>
+                                <div class="flex flex-wrap justify-starts items-center py-3 border-b-2 text-xs text-white font-medium">
+                                    {% for categorie in book.category %}
+                                        <a href="{{ path('app_category_show', {'id': categorie.id}) }}">
 									<span class="m-1 px-2 py-1 rounded bg-indigo-500 ">
 										{{ categorie.name }}
 									</span>
-                                            </a>
-                                        {% endfor %}
-                                    </div>
-                                    <div class="flex items-center mt-2">
-                                        <img class='w-10 h-10 object-cover rounded-full' alt='User avatar' src='
+                                        </a>
+                                    {% endfor %}
+                                </div>
+                                <div class="flex items-center mt-2">
+                                    <img class='w-10 h-10 object-cover rounded-full' alt='User avatar' src='
                                         {% for author in book.author %}
                                         {{ author.avatar }}
                                         {% endfor %}
 							            '>
 
-                                        <div class="pl-3">
-                                            <div class="font-medium">
-                                                {% for auteur in book.author %}
-                                                    <a href="{{ path('app_author_show', {'id': auteur.id })}}">{{ auteur.name }}</a>
-                                                {% endfor %}
-                                            </div>
+                                    <div class="pl-3">
+                                        <div class="font-medium">
+                                            {% for auteur in book.author %}
+                                                <a href="{{ path('app_author_show', {'id': auteur.id })}}">{{ auteur.name }}</a>
+                                            {% endfor %}
                                         </div>
                                     </div>
                                 </div>
+                            </div>
                         </div>
                     </div>
                 {% endfor %}
@@ -175,19 +180,19 @@
     <div class="flex-1 px-2 sm:px-0 my-10">
         <h2 class=" pc-title ">Les auteurs du moment</h2>
         <div class="mb-10 sm:mb-0 mt-10 grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                    {% for author in authors | slice (0,12)%}
-                        <a href="{{ path('app_author_show', {'id': author.id }) }}" class=" h-24 flex
+            {% for author in authors | slice (0,12)%}
+                <a href="{{ path('app_author_show', {'id': author.id }) }}" class=" h-24 flex
                         justify-center items-center bg-white border border-gray-200  rounded-lg
                         shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-                            <div class="flex justify-center p-4  leading-normal">
-                                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900
+                    <div class="flex justify-center p-4  leading-normal">
+                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900
                                 dark:text-white">{{ author.name }}</h5>
-                            </div>
-                        </a>
+                    </div>
+                </a>
 
-                    {% endfor %}
-                </div>
-            </div>
+            {% endfor %}
+        </div>
+    </div>
     <!--/ Section: list authors -->
 
     <!-- Section: list categories -->
