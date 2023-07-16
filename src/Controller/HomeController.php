@@ -18,10 +18,13 @@ class HomeController extends AbstractController
         BookRepository $bookRepository
     ): Response
     {
+        $mostFavoriteBooks = $bookRepository->mostFavoriteBooks();
+
         return $this->render('home/index.html.twig', [
             'categories' => $categoryRepository->findAll(),
             'authors' => $authorRepository->findAll(),
-            'books' => $bookRepository->findAll(),
+            'mostFavoriteBooks' => $mostFavoriteBooks,
+            'lastBooks' => $bookRepository->lastBooks(),
         ]);
     }
 }
