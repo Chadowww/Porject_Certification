@@ -45,6 +45,7 @@ class Book
     private Collection $editor;
 
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'favorite')]
+    #[ORM\JoinTable(name: 'favorite')]
     private Collection $users;
 
     #[ORM\OneToMany(mappedBy: 'book', targetEntity: Reservation::class)]

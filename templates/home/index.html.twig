@@ -48,7 +48,7 @@
     <section class="text-gray-600 body-font">
         <div class="container px-5 mb-24 mx-auto">
             <div class="flex overflow-scroll snap-x -m-4">
-                {% for book in books | slice (0,10) %}
+                {% for book in mostFavoriteBooks %}
                     <div class="flex flex-wrap place-items-center m-5 ">
                         <!-- card -->
                         <div class="overflow-hidden shadow-lg transition duration-500 ease-in-out transform
@@ -115,7 +115,7 @@
     <section class="text-gray-600 body-font">
         <div class="container px-5 mb-24 mx-auto">
             <div class="flex overflow-scroll snap-x -m-4">
-                {% for book in books | slice (0,10) %}
+                {% for book in lastBooks %}
                     <div class="flex flex-wrap place-items-center m-5 ">
                         <!-- card -->
                         <div class="overflow-hidden shadow-lg transition duration-500 ease-in-out transform

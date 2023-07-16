@@ -49,6 +49,27 @@ class BookRepository extends ServiceEntityRepository
         return $query->getQuery()->getResult();
     }
 
+    public function mostFavoriteBooks(): array
+    {
+        $query = $this->createQueryBuilder('b')
+			->select('b', 'COUNT(u.id) AS HIDDEN total')
+            ->innerJoin('b.users', 'u')
+            ->groupBy('b.id')
+            ->setMaxResults(10)
+            ->orderBy('total', 'DESC')
+            ->getQuery();
+        return $query->getResult();
+    }
+
+    public function lastBooks(): array
+    {
+        $query = $this->createQueryBuilder('b')
+            ->orderBy('b.id', 'DESC')
+            ->setMaxResults(10)
+            ->getQuery();
+        return $query->getResult();
+    }
+
 //    /**
 //     * @return Book[] Returns an array of Book objects
 //     */
