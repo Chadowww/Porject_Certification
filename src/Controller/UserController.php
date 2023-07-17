@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Repository\ReservationRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,10 +42,28 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
-    public function show(User $user): Response
+    public function show(User $user, ReservationRepository $reservationRepository): Response
     {
+        $events = $reservationRepository->findBy(['user' => $user]);
+
+        $rdv = [];
+		$data = [];
+        foreach ($events as $event) {
+            $rdv[] = [
+                'id' => $event->getId(),
+                'end' => $event->getDatecheckout()->format('Y-m-d H:i:s'),
+                'start' => $event->getDatecheckin()->format('Y-m-d H:i:s'),
+                'title' => $event->getBook()->getTitle(),
+                'backgroundColor' => $event->getBackgroundColor(),
+                'borderColor' => $event->getBorderColor(),
+                'textColor' => $event->getTextColor(),
+                'allDay' => $event->isAllDay()
+            ];
+            $data = json_encode($rdv);
+        }
         return $this->render('user/show.html.twig', [
             'user' => $user,
+            'data' => $data,
         ]);
     }
 
