@@ -10,6 +10,7 @@ import './styles/app.scss';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'tw-elements'
 import './switch'
+import './calendar'
 // Initialization for ES Users
 import {
     Modal,
@@ -50,4 +51,3 @@ function addToFavorite(event) {
 
 }
 window.addToFavorite = addToFavorite;
-// test.addEventListener('click',() => {console.log('connard')});
