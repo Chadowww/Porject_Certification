@@ -2,6 +2,7 @@
 const plugin = require('tailwindcss/plugin')
 module.exports = {
   content: [
+    "./assets/**/*.scss",
     "./assets/**/*.js",
     "./templates/**/*.html.twig",
       "./node_modules/tw-elements/dist/js/**/*.js"

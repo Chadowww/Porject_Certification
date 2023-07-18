@@ -22,7 +22,7 @@ import {
 
 } from "tw-elements";
 
-initTE({ Collapse, Dropdown, Ripple, Input, Modal });
+initTE({ Modal, Collapse, Dropdown ,initTE , Ripple, Input });
 
 const test = document.querySelectorAll('.bt-fav');
 
