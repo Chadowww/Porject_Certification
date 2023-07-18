@@ -6,6 +6,7 @@ use App\Entity\Reservation;
 use App\Form\ReservationType;
 use App\Repository\BookRepository;
 use App\Repository\ReservationRepository;
+use App\Services\InventoryManagementService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,7 +24,11 @@ class ReservationController extends AbstractController
     }
 
     #[Route('/new', name: 'app_reservation_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, ReservationRepository $reservationRepository, BookRepository $bookRepository): Response
+    public function new(
+        Request $request,
+        ReservationRepository $reservationRepository,
+        BookRepository $bookRepository,
+        InventoryManagementService $managementService): Response
     {
         $reservation = new Reservation();
         $form = $this->createForm(ReservationType::class, $reservation);
@@ -33,11 +38,17 @@ class ReservationController extends AbstractController
 
               $user = $this->getUser();
               $book = $bookRepository->find($request->request->get('book'));
+              if ($managementService->verifStock($book) ){
+                  $reservation->setUser($user);
+                  $reservation->setBook($book);
 
-              $reservation->setUser($user);
-              $reservation->setBook($book);
+                  $reservationRepository->save($reservation, true);
+              }else{
+                    $this->addFlash('error', 'Le livre n\'est pour le moment  indisponible');
+                    return $this->redirectToRoute('app_book_show', ['id' => $book->getId()],
+                        Response::HTTP_SEE_OTHER);
+              }
 
-            $reservationRepository->save($reservation, true);
 
             return $this->redirectToRoute('app_user_show', ['id' => $request->request->get('user')],
                 Response::HTTP_SEE_OTHER);
