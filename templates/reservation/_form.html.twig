@@ -75,7 +75,7 @@
 			'class': 'hidden',
 		}}) }}
 	<input type="hidden" name="book" value="{{ book.id }}">
-    <input type="hidden" name="user" value="{{ app.user.id }}">
+    <input type="hidden" name="user" value="{{ app.user.id | default ('')}}">
 
     <button type="submit"
             class="ml-1 inline-block rounded dark:bg-gray-700 bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase

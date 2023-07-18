@@ -3,7 +3,6 @@
 {% block title %}User{% endblock %}
 
 {% block body %}
-
     <button data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar" aria-controls="default-sidebar" type="button" class="inline-flex items-center p-2 mt-2 ml-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
         <span class="sr-only">Open sidebar</span>
         <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -146,6 +145,9 @@
             <div class="flex flex-column  justify-center mb-4 rounded bg-gray-50 dark:bg-gray-800">
                 <h2 class="text-2xl text-gray-400 dark:text-gray-500">Mes réservations</h2>
             </div>
+            {% if data is empty %}
+                <h2 class="text-center">Vous n'avez pas de réservation en cours</h2>
+            {% endif %}
             <!-- Calendrier -->
             <div id="calendar"></div>
             <!-- ./Calendrier -->
@@ -153,7 +155,9 @@
         </div>
     </div>
     <!-- ./Main profile -->
-    <script>
-        let myData = {{ data|raw }};
-    </script>
+    {% if data is not empty %}
+        <script>
+            let myData = {{ data|raw }};
+        </script>
+    {% endif %}
 {% endblock %}
