@@ -3,18 +3,27 @@
 namespace App\Services;
 
 use App\Entity\Book;
+use App\Entity\User;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 
 class InventoryManagementService
 {
-	public function verifStock(Book $book): bool
+    public function __construct(MailService $mailService)
+    {
+        $this->mailService = $mailService;
+    }
+
+    /**
+     * @throws TransportExceptionInterface
+     */
+    public function verifStock(Book $book, User $user): bool
     {
         if ($book->getQteStock() > 0) {
             $book->setQteStock($book->getQteStock() - 1);
-
-//            TODO: 'envoyer un mail à l\'admin pour lui dire de mettre le livre de coté';
+            $book->setQteCheckout($book->getQteCheckout() + 1);
 
             if ($book->getQteStock() == 0) {
-//                TODO: 'envoyer un mail à l\'admin pour lui dire qu\'il n\'y a plus de livre en stock';
+            	$this->mailService->mailAlerte($book);
             }
             return true;
         } else {
