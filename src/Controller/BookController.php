@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Book;
 use App\Entity\User;
 use App\Form\BookType;
+use App\Form\ReservationType;
 use App\Repository\BookRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\Entity;
@@ -44,10 +45,16 @@ class BookController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_book_show', methods: ['GET'])]
-    public function show(Book $book): Response
+    public function show(Book $book, ReservationType $reservationType): Response
     {
+        $form = $this->createForm(ReservationType::class, null, [
+            'action' => $this->generateUrl('app_reservation_new', ['book' => $book->getId()]),
+            'method' => 'POST',
+        ]);
+
         return $this->render('book/show.html.twig', [
             'book' => $book,
+            'form' => $form->createView(),
         ]);
     }
 
