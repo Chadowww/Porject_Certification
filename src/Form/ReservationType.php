@@ -16,42 +16,37 @@ use Symfony\Component\Validator\Constraints\DateTime;
 
 class ReservationType extends AbstractType implements FormTypeInterface
 {
-	private $security;
 
-    public function __construct(Security $security)
-    {
-        $this->security = $security;
-    }
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $user = $this->security->getUser();
         $builder
-            ->add('user', EntityType::class, [
-                'class' => 'App\Entity\User',
-                'choice_label' => 'id',
-                'data' => $user,
-            ])
-            ->add('status')
-            ->add('book', EntityType::class, [
-                'class' => Book::class,
-                'choice_label' => 'title',
-                'label' => 'Livre',
-                'placeholder' => 'Choisir un livre',
-                'required' => true,
-                'multiple' => false,
-                'expanded' => false,
-            ])
             ->add('datecheckin',DateTimeType::class,[
                 'date_widget' => 'single_text',
+                'label' => 'Date de début',
             ])
             ->add('datecheckout', DateTimeType::class,[
                 'date_widget' => 'single_text',
+                'label' => 'Date de fin',
             ])
-            ->add('description')
-            ->add('all_day')
-            ->add('background_color', ColorType::class)
-            ->add('border_color', ColorType::class)
-            ->add('text_color', ColorType::class)
+            ->add('description', null, [
+                'label' => 'Description',
+            ])
+            ->add('all_day', null, [
+                'label' => 'Journée entière ?',
+            ])
+            ->add('background_color', ColorType::class,[
+                'label' => 'Couleur de fond',
+            ])
+            ->add('border_color', ColorType::class, [
+                'label' => 'Couleur de bordure',
+            ])
+            ->add('text_color', ColorType::class, [
+                'label' => 'Couleur du texte',
+            ])
+            ->add('status', null, [
+                'label' => 'Statut',
+                'data' => true,
+            ])
 
         ;
     }
