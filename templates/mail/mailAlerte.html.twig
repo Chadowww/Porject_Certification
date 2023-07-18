@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Rupture de stock - Information</title>
+	<style>
+        /* Ajoute ici tes styles CSS pour centrer le contenu */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .book-details {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+	</style>
+</head>
+<body>
+<div class="container">
+	<h1>Rupture de stock - Information</h1>
+	<p>Bonjour,</p>
+	<p>Nous vous informons qu'un livre est en rupture de stock :</p>
+	<div class="book-details">
+		<p><strong>Titre du livre :</strong> {{ book.title }}</p>
+		{% for author in book.author %}
+			<p><strong>Auteur :</strong> {{ author.name }}</p>
+		{% endfor %}
+		<p><strong>Quantité en stock :</strong> {{ book.qteStock }}</p>
+		<p><strong>Quantité en réservation ou en attente de retour :</strong>{{ book.qteCheckout }}</p>
+	</div>
+	<p>Veuillez prendre les mesures nécessaires pour réapprovisionner le stock.</p>
+	<p>Cordialement,</p>
+	<p>L'équipe de votre site</p>
+</div>
+</body>
+</html>

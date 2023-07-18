@@ -7,9 +7,11 @@ use App\Form\ReservationType;
 use App\Repository\BookRepository;
 use App\Repository\ReservationRepository;
 use App\Services\InventoryManagementService;
+use App\Services\MailService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/reservation')]
@@ -28,7 +30,8 @@ class ReservationController extends AbstractController
         Request $request,
         ReservationRepository $reservationRepository,
         BookRepository $bookRepository,
-        InventoryManagementService $managementService): Response
+        InventoryManagementService $managementService,
+    	MailService $mailService): Response
     {
         $reservation = new Reservation();
         $form = $this->createForm(ReservationType::class, $reservation);
@@ -38,11 +41,15 @@ class ReservationController extends AbstractController
 
               $user = $this->getUser();
               $book = $bookRepository->find($request->request->get('book'));
-              if ($managementService->verifStock($book) ){
+              if ($managementService->verifStock($book, $user) ){
                   $reservation->setUser($user);
                   $reservation->setBook($book);
 
-                  $reservationRepository->save($reservation, true);
+                  if ($reservationRepository->save($reservation, true)){
+                      $this->addFlash('success', 'La réservation a bien été enregistrée');
+                      $mailService->mailReservation($book, $user, $reservation);
+                  }
+
               }else{
                     $this->addFlash('error', 'Le livre n\'est pour le moment  indisponible');
                     return $this->redirectToRoute('app_book_show', ['id' => $book->getId()],
