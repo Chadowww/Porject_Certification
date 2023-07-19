@@ -60,5 +60,10 @@
 			</div>
 		</div>
 	{% endfor %}
+	<div class="flex justify-center w-10/12 my-12">
+		{{ knp_pagination_render(books) }}
+{#		{{ app.request.getQueryString() }}#}
+	</div>
+
 </div>
 {% endblock %}
