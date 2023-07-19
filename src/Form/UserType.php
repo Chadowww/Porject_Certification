@@ -31,7 +31,7 @@ class UserType extends AbstractType
 //            ->add('roles')
 //            ->add('password')
             ->add('firstname', TextType::class, [
-                'required' => false,
+                'required' => true,
                 'constraints' => [
                     new Assert\NotBlank([
                         'message' => 'Veillez entrer un prénom',
@@ -39,7 +39,7 @@ class UserType extends AbstractType
                 ],
             ])
             ->add('lastname', TextType::class, [
-                'required' => false,
+                'required' => true,
                 'constraints' => [
                     new Assert\NotBlank([
                         'message' => 'Veillez entrer un nom',
@@ -71,11 +71,6 @@ class UserType extends AbstractType
             ])
             ->add('country', TextType::class, [
                 'required' => false,
-                'constraints' => [
-                    new Assert\Country([
-                        'message' => 'Le pays n\'est pas valide',
-                    ]),
-                ],
             ])
 //            ->add('isVerified')
 //            ->add('createdAt')
