@@ -11,6 +11,8 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'tw-elements'
 import './switch'
 import './calendar'
+import './js-form-validator'
+import './validator'
 // Initialization for ES Users
 import {
     Modal,
