@@ -20,19 +20,22 @@ class RegistrationFormType extends AbstractType
             ->add('firstname', null, [
                 'label' => 'Prénom',
                 'attr' => [
-                    'placeholder' => 'Votre prénom'
+                    'placeholder' => 'Votre prénom',
+                    'required' => 'true'
                 ]
             ])
             ->add('lastname', null, [
                 'label' => 'Nom',
                 'attr' => [
-                    'placeholder' => 'Votre nom'
+                    'placeholder' => 'Votre nom',
+                    'required' => 'true'
                 ]
             ])
             ->add('email', null, [
                 'label' => 'Email',
                 'attr' => [
-                    'placeholder' => 'Votre email'
+                    'placeholder' => 'Votre email',
+                    'required' => 'true'
                 ]
             ])
             ->add('agreeTerms', CheckboxType::class, [
