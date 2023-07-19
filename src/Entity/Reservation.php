@@ -15,7 +15,7 @@ class Reservation
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'reservations')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'reservations')]
@@ -34,16 +34,16 @@ class Reservation
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?bool $all_day = null;
 
-    #[ORM\Column(length: 7)]
+    #[ORM\Column(length: 7, nullable: true)]
     private ?string $background_color = null;
 
-    #[ORM\Column(length: 7)]
+    #[ORM\Column(length: 7, nullable: true)]
     private ?string $border_color = null;
 
-    #[ORM\Column(length: 7)]
+    #[ORM\Column(length: 7, nullable: true)]
     private ?string $text_color = null;
 
     public function getId(): ?int
