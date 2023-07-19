@@ -73,6 +73,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $favorite;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Reservation::class)]
+    #[ORM\JoinColumn(onDelete: 'cascade') ]
     private Collection $reservations;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Comment::class)]
