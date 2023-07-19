@@ -1,0 +1,51 @@
+
+		{{ dump() }}
+	<nav aria-label="Page navigation example">
+  <ul class="list-style-none flex">
+    <li>
+      <a
+        class="pointer-events-none relative block rounded-full bg-transparent px-3 py-1.5 text-sm text-neutral-500 transition-all duration-300 dark:text-neutral-400"
+        >Previous</a
+      >
+    </li>
+    <li>
+      <a
+        class="relative block rounded-full bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100  dark:text-white dark:hover:bg-neutral-700 dark:hover:text-white"
+        href="#!"
+        >{{ pagesInRange[1] }}</a
+      >
+    </li>
+    <li aria-current="page">
+      <a
+        class="relative block rounded-full bg-primary-100 px-3 py-1.5 text-sm font-medium text-primary-700 transition-all duration-300"
+        href="#!"
+        >{{ pagesInRange[2] }}
+        <span
+          class="absolute -m-px h-px w-px overflow-hidden whitespace-nowrap border-0 p-0 [clip:rect(0,0,0,0)]"
+          >(current)</span
+        >
+      </a>
+    </li>
+    <li>
+      <a
+        class="relative block rounded-full bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100 dark:text-white dark:hover:bg-neutral-700 dark:hover:text-white"
+        href="#!"
+        >{{ pagesInRange[3] }}</a
+      >
+    </li>
+    <li>
+      <a
+        class="relative block rounded-full bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100 dark:text-white dark:hover:bg-neutral-700 dark:hover:text-white"
+        href="#!"
+        >Next</a
+      >
+    </li>
+  </ul>
+</nav>
+{#        <a class="..." href="{{ path('ta_route') ~ '?' ~ app.request.getQueryString() }}">{{ pagesInRange[3] }}</a>#}
+{#        #}{# Récupère les paramètres de la requête actuelle à l'exception du paramètre "page" #}
+{#{% set queryParameters = app.request.query.all|merge({ 'page': null }) %}#}
+
+{# Génère le lien de pagination avec le numéro de page approprié #}
+{#{% set pageParameter = { 'page': page.pageNumber } %}#}
+{#{% set paginationUrl = path('ta_route', queryParameters|merge(pageParameter)) %}#}
