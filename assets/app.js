@@ -9,10 +9,11 @@
 import './styles/app.scss';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'tw-elements'
-import './switch'
-import './calendar'
-import './js-form-validator'
-import './validator'
+import './Scripts/switch'
+import './Scripts/calendar'
+import './Scripts/js-form-validator'
+import './Scripts/js-form-validator.min.js'
+import './Scripts/validator'
 // Initialization for ES Users
 import {
     Modal,
