@@ -161,8 +161,9 @@
 					    
 			// English
 		    en: {
+				password:{empty: 'S\'il vous plaît, entrez votre mot de passe',incorrect: 'Le mot de passe doit contenir au moins 8 caractères dont au moins une lettre majuscule, une lettre minuscule et un chiffre'},
 		        required: {
-		            empty: 'le champ est obligatoire',
+		            empty: 'Le champ est obligatoire',
 		            incorrect: 'Valeur incorrecte'
 		        },
 		        notzero: {
@@ -191,15 +192,15 @@
 		        },
 		        name: {
 		            empty: 'S\'il vous plaît, entrez votre nom',
-		            incorrect: 'Nom incorrect'
+		            incorrect: 'Nom incorrect, 2 caractères minimum'
 		        },
 		        lastname: {
 		            empty: 'S\'il vous plaît, entrez votre prénom',
-		            incorrect: 'Prénom incorrect'
+		            incorrect: 'Prénom incorrect, 2 caractères minimum'
 		        },
 		        phone: {
 		            empty: 'S\'il vous plaît, entrez votre numéro de téléphone',
-		            incorrect: 'Numéro de téléphone incorrect'
+		            incorrect: 'Format de téléphone incorrect'
 		        },
 		        email: {
 		            empty: 'S\'il vous plaît, entrez votre adresse e-mail',
@@ -219,7 +220,7 @@
 		        },
 		        maxfilesize: {
 		            empty: 'Sélectionnez un fichier',
-		            incorrect: 'Taille du fichier trop grande'
+		            incorrect: 'Taille du fichier trop grande (min {0} Mb, max {1} Mb)'
 		        },
 		        fileextension: {
 		            empty: 'Sélectionnez un fichier',
@@ -230,6 +231,7 @@
 
 		// rules
 		rules: {
+			password: function (value) {return new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/gi).test(value);},
 		    required: function (value) {
 		        return '' !== value;
 		    },

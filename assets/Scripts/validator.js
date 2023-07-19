@@ -9,6 +9,8 @@ const passwordConfirm = document.querySelector('#confirm-password');
 // Get form handle
  let formHandle = document.querySelector('.form-user-edit');
 
-new Validator(document.querySelector('.form-user-edit'), function (err, res) {
-    return res;
-});
+if(document.querySelector('.form-user-edit')){
+ new Validator(document.querySelector('.form-user-edit'), function (err, res) {
+  return res;
+ });
+}
