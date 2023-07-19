@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\SearchBookType;
 use App\Repository\BookRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,17 +15,19 @@ class SearchBookController extends AbstractController
 {
 
     #[Route('/search', name: 'app_book_search', methods: ['GET'])]
-    public function search(Request $request, BookRepository $bookRepository): Response
+    public function search(Request $request, BookRepository $bookRepository, PaginatorInterface $paginator): Response
     {
-        // Récupère les données du formulaire depuis la requête
         $searchTerm [] = $request->query->get('search_book');
-//        $searchTerm [] = $request->query->get('category');
-//        $searchTerm []= $request->query->get('author');
 
-        // Utilise les données pour effectuer ta recherche
         $books = $bookRepository->searchBook($searchTerm);
+		$books = $paginator->paginate(
+            $books,
+            $request->query->getInt('page', 1),
+            12
+        );
+//        $books->setTemplate('bundles/knp_pagination/sliding.html.twig');
+//        $books->setSortableTemplate('bundles/knp_pagination/sliding_sortable_link.html.twig');
 
-        // Effectue d'autres traitements ou renvoie une réponse appropriée
         return $this->render('search/search.html.twig', [
             'books' => $books,
         ]);
