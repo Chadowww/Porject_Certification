@@ -94,4 +94,27 @@ class UserController extends AbstractController
 
         return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
     }
+
+    #[Route('/{id}/update/password', name: 'app_user_update_password', methods: ['POST'])]
+    public function updatePassword(User $user, UserRepository $userRepository, Request $request)
+    {
+
+        if ($request->isMethod('POST')) {
+            $password = $request->request->get('password');
+            $confirmPassword = $request->request->get('confirm-password');
+            if ($password != $confirmPassword) {
+                $this->addFlash('error', 'Les mots de passe ne sont pas identiques');
+                return $this->redirectToRoute('app_user_edit', ['id' => $user->getId()], Response::HTTP_SEE_OTHER);
+            } else {
+                try {
+                    $user->setPassword($request->request->get('password'));
+                    $userRepository->save($user, true);
+                    $this->addFlash('success', 'Votre mot de passe a bien été modifié');
+                    return $this->redirectToRoute('app_user_edit', ['id' => $user->getId()], Response::HTTP_SEE_OTHER);
+                } catch (\Exception $e) {
+                    $this->addFlash('error', 'Une erreur est survenue lors de la modification de votre mot de passe');
+                }
+            }
+        }
+    }
 }
