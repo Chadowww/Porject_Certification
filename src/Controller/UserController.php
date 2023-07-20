@@ -123,4 +123,11 @@ class UserController extends AbstractController
             }
         }
     }
+    #[Route('/{id}/favorites', name: 'app_user_show_favorites', methods: ['GET'])]
+    public function showFavorites(User $user, UserRepository $userRepository): Response
+    {
+        return $this->render('user/show_favorites.html.twig', [
+            'user' => $user,
+        ]);
+    }
 }
