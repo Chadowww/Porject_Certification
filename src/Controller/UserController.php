@@ -9,6 +9,7 @@ use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/user')]
@@ -96,7 +97,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id}/update/password', name: 'app_user_update_password', methods: ['POST'])]
-    public function updatePassword(User $user, UserRepository $userRepository, Request $request)
+    public function updatePassword(User $user, UserRepository $userRepository, Request $request, UserPasswordHasherInterface $userPasswordHasher): Response
     {
 
         if ($request->isMethod('POST')) {
@@ -107,7 +108,12 @@ class UserController extends AbstractController
                 return $this->redirectToRoute('app_user_edit', ['id' => $user->getId()], Response::HTTP_SEE_OTHER);
             } else {
                 try {
-                    $user->setPassword($request->request->get('password'));
+                    $user->setPassword(
+                        $userPasswordHasher->hashPassword(
+                            $user,
+                            $request->request->get('password')
+                        )
+                    );
                     $userRepository->save($user, true);
                     $this->addFlash('success', 'Votre mot de passe a bien été modifié');
                     return $this->redirectToRoute('app_user_edit', ['id' => $user->getId()], Response::HTTP_SEE_OTHER);

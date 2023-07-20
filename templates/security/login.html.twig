@@ -43,18 +43,20 @@
         <!--Modal body-->
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <div class="px-6 py-6 lg:px-8">
-                <form class="space-y-6" method="POST" action="{{ path('app_login') }}">
+                <form class="form-user-login space-y-6 " method="POST" action="{{ path('app_login') }}">
                     <div>
-                        <label for="email"
+                        <label for="user_email"
                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                             Votre adresse email
                         </label>
-                        <input type="email" name="email" id="email"
+                        <input type="email" name="email" id="user_email"
                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm
 									  rounded-lg focus:ring-blue-500 focus:border-blue-500
 									  block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500
 									  dark:placeholder-gray-400 dark:text-white"
-                               placeholder="name@company.com" required
+                               placeholder="name@company.com"
+                               data-rule="required|email"
+
                         >
                     </div>
                     <div>
@@ -68,7 +70,8 @@
 								      rounded-lg focus:ring-blue-500 focus:border-blue-500 block
 								      w-full p-2.5 dark:bg-gray-600 dark:border-gray-500
 								      dark:placeholder-gray-400 dark:text-white"
-                               required
+                               data-rule="required|password"
+
                         >
                     </div>
                     <div class="flex justify-between">

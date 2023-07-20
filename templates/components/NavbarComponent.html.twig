@@ -367,7 +367,7 @@
 								          text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline
 								          disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400
 								          dark:text-neutral-200 dark:hover:bg-white/30"
-									href="#"
+									href="{{ path('app_user_edit', {'id': app.user.id}) }}"
 									data-te-dropdown-item-ref
 								>
 									Mes paramètres
@@ -473,7 +473,7 @@
 								<!--Modal body-->
 								<div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
 									<div class="px-6 py-6 lg:px-8">
-										<form class="space-y-6" method="POST" action="{{ path('app_login') }}">
+										<form class="form-user-login space-y-6" method="POST" action="{{ path('app_login') }}">
 											<div>
 												<label for="email"
 												       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
@@ -484,7 +484,9 @@
 												              rounded-lg focus:ring-blue-500 focus:border-blue-500
 												              block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500
 												              dark:placeholder-gray-400 dark:text-white"
-												       placeholder="name@company.com" required
+												       placeholder="name@company.com"
+												       data-rule ="required|email"
+
 												>
 											</div>
 											<div>
@@ -498,7 +500,8 @@
 												              rounded-lg focus:ring-blue-500 focus:border-blue-500 block
 												               w-full p-2.5 dark:bg-gray-600 dark:border-gray-500
 												               dark:placeholder-gray-400 dark:text-white"
-												       required
+												       data-rule ="required|password"
+
 												>
 											</div>
 											<div class="flex justify-between">
@@ -586,33 +589,49 @@
 								<!--Modal body-->
 								<div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
 									<div class="px-6 py-6 lg:px-8">
-										{{ form_start(form, {'attr': {'class': 'space-y-6','action':'/register'}}) }}
+										{{ form_start(form, {
+											'attr': {
+												'class': 'form-user-register space-y-6 ',
+												'action':'/register'
+											}}) }}
 										{{ form_row(form.firstname, {
 											'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'},
-											'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
-															   focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600
-															   dark:border-gray-500 dark:placeholder-gray-400 dark:text-white'
+											'attr': {
+												'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+														  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5
+														  dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400
+														  dark:text-white',
+												'data-rule': 'required|name'
 											}
 										}) }}
 										{{ form_row(form.lastname, {
 											'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'},
-											'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+											'attr': {
+												'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
 															   focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600
-															   dark:border-gray-500 dark:placeholder-gray-400 dark:text-white'
+															   dark:border-gray-500 dark:placeholder-gray-400
+															   dark:text-white',
+												'data-rule': 'required|lastname'
 											}
 										}) }}
 										{{ form_row(form.email, {
 											'label_attr': {'class': 'block mb-2 text-sm font-medium text-gray-900 dark:text-white'},
-											'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+											'attr': {
+												'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
 															   focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600
-															   dark:border-gray-500 dark:placeholder-gray-400 dark:text-white'
+															   dark:border-gray-500 dark:placeholder-gray-400
+															   dark:text-white',
+												'data-rule': 'required|email'
 											}
 										}) }}
 										{{ form_row(form.plainPassword, {
 											'label_attr': {'class': 'block mb-2 mr-2 text-sm font-medium text-gray-900 dark:text-white'},
-											'attr': {'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
-															   focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600
-														   	   dark:border-gray-500 dark:placeholder-gray-400 dark:text-white'
+											'attr': {
+												'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+														  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5
+														  dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400
+														  dark:text-white',
+												'data-rule': 'required|password'
 											}
 										}) }}
 										{{ form_row(form.agreeTerms,{
