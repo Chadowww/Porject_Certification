@@ -76,9 +76,12 @@
                                 {{ form_row(form.adress,{'label': 'Adresse',
                                     'label_attr': {
                                         'class': 'lock uppercase text-gray-50 text-xs font-bold mb-2"
-                                        htmlfor="grid-password'},
-                                    'attr':
-                                    {'class': 'border-0 px-3 py-3 placeholder-blueGray-300 text-Gray-50 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150'}}) }}
+                                        		  htmlfor="grid-password'},
+                                    'attr':{
+                                        'class': 'border-0 px-3 py-3 placeholder-blueGray-300 text-Gray-50 bg-white
+                                        		  rounded text-sm shadow focus:outline-none focus:ring w-full
+                                        		  ease-linear transition-all duration-150',
+                                    }}) }}
                             </div>
                         </div>
                         <div class="w-full lg:w-4/12 px-4">
@@ -87,8 +90,12 @@
                                     'label_attr': {
                                         'class': 'lock uppercase text-gray-50 text-xs font-bold mb-2"
                                         htmlfor="grid-password'},
-                                    'attr':
-                                    {'class': 'border-0 px-3 py-3 placeholder-blueGray-300 text-Gray-50 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150'}}) }}
+                                    'attr':{
+                                        'class': 'border-0 px-3 py-3 placeholder-blueGray-300 text-Gray-50 bg-white
+                                        		  rounded text-sm shadow focus:outline-none focus:ring w-full
+                                        		 ease-linear transition-all duration-150',
+                                        'data-rule': 'phone',
+                                    }}) }}
                             </div>
                         </div>
                         <div class="w-full lg:w-4/12 px-4">
@@ -107,8 +114,11 @@
                                     'label_attr': {
                                         'class': 'lock uppercase text-gray-50 text-xs font-bold mb-2"
                                         htmlfor="grid-password'},
-                                    'attr':
-                                    {'class': 'border-0 px-3 py-3 placeholder-blueGray-300 text-Gray-50 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150'}}) }}
+                                    'attr':{
+                                        'class': 'border-0 px-3 py-3 placeholder-blueGray-300 text-Gray-50 bg-white
+                                        		  rounded text-sm shadow focus:outline-none focus:ring w-full
+                                        		  ease-linear transition-all duration-150'
+                                    }}) }}
                             </div>
                         </div>
                         <div class="w-full lg:w-4/12 px-4">
@@ -117,8 +127,12 @@
                                     'label_attr': {
                                         'class': 'lock uppercase text-gray-50 text-xs font-bold mb-2"
                                         htmlfor="grid-password'},
-                                    'attr':
-                                    {'class': 'border-0 px-3 py-3 placeholder-blueGray-300 text-Gray-50 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150'}}) }}
+                                    'attr':{
+                                        'class': 'border-0 px-3 py-3 placeholder-blueGray-300 text-Gray-50 bg-white
+                                    			  rounded text-sm shadow focus:outline-none focus:ring w-full
+                                    			  ease-linear transition-all duration-150',
+                                        'data-rule': 'length-5-5|integer',
+                                    }}) }}
 
                             </div>
                         </div>
@@ -207,6 +221,7 @@
                                                             w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
                                                             dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
                                                             dark:focus:border-blue-500"
+                                                           data-rule="required|password"
                                                     >
                                                 </div>
                                                 <div>
@@ -224,6 +239,7 @@
                                                                   block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
                                                                   dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
                                                                   dark:focus:border-blue-500"
+                                                           data-rule="required|password"
                                                     >
                                                 </div>
                                                 <div class="flex items-start">
