@@ -231,7 +231,9 @@
 
 		// rules
 		rules: {
-			password: function (value) {return new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/gi).test(value);},
+			password: function (value) {
+				return new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/gi).test(value);
+				},
 		    required: function (value) {
 		        return '' !== value;
 		    },
