@@ -46,15 +46,19 @@ class AdminController extends AbstractController
     {
         $authors = $authorRepository->findAll();
 
-		$forms = [];
-		foreach ($authors as $author) {
-            $form = $this->createForm(AuthorType::class,$author,[
+        $forms = [];
+        foreach ($authors as $author) {
+            $form = $this->createForm(AuthorType::class, $author, [
                 'action' => $this->generateUrl('app_admin_author'),
                 'method' => 'POST',
             ])
                 ->add('id', IntegerType::class, [
                     'label' => 'ID',
                     'data' => $author->getId(),
+                    'attr' => [
+                        'readonly' => true,
+                        // Utilisez l'attribut "disabled" pour rendre le champ non modifiable visuellement
+                    ],
                     'mapped' => false, // Important : désactiver le mappage pour éviter l'erreur
                 ]);
 
@@ -74,9 +78,15 @@ class AdminController extends AbstractController
             $author->setName($request->request->all()['author']['name']);
             $author->setBiography($request->request->all()['author']['biography']);
             $author->setAvatar($request->request->all()['author']['avatar']);
+
             $manager->persist($author);
-            $manager->flush();
-			return $this->redirectToRoute('app_admin_author');
+            try {
+                $manager->flush();
+                $this->addFlash('success', 'L\'auteur a bien été modifié');
+            } catch (\Exception $e) {
+                $this->addFlash('error', 'Une erreur est survenue lors de la modification de l\'auteur');
+            }
+            return $this->redirectToRoute('app_admin_author');
         }
 
 
@@ -95,16 +105,20 @@ class AdminController extends AbstractController
     Response
     {
         $books = $bookRepository->findAll();
-		$forms = [];
+        $forms = [];
 
         foreach ($books as $book) {
-            $form = $this->createForm(BookType::class,$book,[
+            $form = $this->createForm(BookType::class, $book, [
                 'action' => $this->generateUrl('app_admin_book'),
                 'method' => 'POST',
             ])
                 ->add('id', IntegerType::class, [
                     'label' => 'ID',
                     'data' => $book->getId(),
+                    'attr' => [
+                        'readonly' => true,
+                        // Utilisez l'attribut "disabled" pour rendre le champ non modifiable visuellement
+                    ],
                     'mapped' => false, // Important : désactiver le mappage pour éviter l'erreur
                 ]);
             $forms[] = $form->createView();
@@ -117,7 +131,7 @@ class AdminController extends AbstractController
         );
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             $book = $bookRepository->findOneBy(['id' => $request->request->all()['book']['id']]);
             $book->setTitle($request->request->all()['book']['title']);
             $book->setDescription($request->request->all()['book']['description']);
@@ -127,11 +141,12 @@ class AdminController extends AbstractController
             $manager->persist($book);
             try {
                 $manager->flush();
-	                $this->addFlash('success', 'Le livre a bien été modifié');
-            }catch (\Exception $e) {
+//                $bookRepository->save($book, true);
+                $this->addFlash('success', 'Le livre a bien été modifié');
+            } catch (\Exception $e) {
                 $this->addFlash('error', 'Une erreur est survenue lors de la modification du livre');
             }
-			return $this->redirectToRoute('app_admin_book');
+            return $this->redirectToRoute('app_admin_book');
         }
 
         return $this->render('admin/view/book.html.twig', [
@@ -140,22 +155,29 @@ class AdminController extends AbstractController
         ]);
     }
 
+    /**
+     * @throws \Exception
+     */
     #[Route('/borrow', name: 'app_admin_borrow')]
     #[IsGranted('ROLE_ADMIN')]
     public function borrow(BorrowRepository $borrowRepository, Request $request, EntityManagerInterface $manager, PaginatorInterface $paginator):
     Response
     {
         $borrows = $borrowRepository->findAll();
-		$forms = [];
+        $forms = [];
 
         foreach ($borrows as $borrow) {
-            $form = $this->createForm(BorrowType::class,$borrow,[
+            $form = $this->createForm(BorrowType::class, $borrow, [
                 'action' => $this->generateUrl('app_admin_borrow'),
                 'method' => 'POST',
             ])
                 ->add('id', IntegerType::class, [
                     'label' => 'ID',
                     'data' => $borrow->getId(),
+                    'attr' => [
+                        'readonly' => true,
+                        // Utilisez l'attribut "disabled" pour rendre le champ non modifiable visuellement
+                    ],
                     'mapped' => false, // Important : désactiver le mappage pour éviter l'erreur
                 ]);
             $forms[] = $form->createView();
@@ -169,11 +191,18 @@ class AdminController extends AbstractController
 
         $form->handleRequest($request);
 
-		if ($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             $borrow = $borrowRepository->findOneBy(['id' => $request->request->all()['borrow']['id']]);
-            $borrow->setIsReturned($request->request->all()['borrow']['isReturned']);
+            $borrow->setCheckout(new \DateTime($request->request->all()['borrow']['checkout']));
+            $borrow->setCheckin(new \DateTime($request->request->all()['borrow']['checkin']));
             $manager->persist($borrow);
-            $manager->flush();
+            try {
+                $manager->flush();
+                $this->addFlash('success', 'L\'emprunt a bien été modifié');
+            } catch (\Exception $e) {
+                $this->addFlash('error', 'Une erreur est survenue lors de la modification de l\'emprunt');
+            }
+            return $this->redirectToRoute('app_admin_borrow');
         }
         return $this->render('admin/view/borrow.html.twig', [
             'borrows' => $borrows,
@@ -183,21 +212,24 @@ class AdminController extends AbstractController
 
     #[Route('/category', name: 'app_admin_category')]
     #[IsGranted('ROLE_ADMIN')]
-    public function category(CategoryRepository $categoryRepository, Request $request, EntityManagerInterface
-    $manager, PaginatorInterface $paginator):
+    public function category(CategoryRepository $categoryRepository, Request $request, EntityManagerInterface $manager, PaginatorInterface $paginator):
     Response
     {
         $categories = $categoryRepository->findAll();
-		$forms = [];
+        $forms = [];
 
         foreach ($categories as $category) {
-            $form = $this->createForm(CategoryType::class,$category,[
+            $form = $this->createForm(CategoryType::class, $category, [
                 'action' => $this->generateUrl('app_admin_category'),
                 'method' => 'POST',
             ])
                 ->add('id', IntegerType::class, [
                     'label' => 'ID',
                     'data' => $category->getId(),
+                    'attr' => [
+                        'readonly' => true,
+                        // Utilisez l'attribut "disabled" pour rendre le champ non modifiable visuellement
+                    ],
                     'mapped' => false, // Important : désactiver le mappage pour éviter l'erreur
                 ]);
             $forms[] = $form->createView();
@@ -211,11 +243,17 @@ class AdminController extends AbstractController
             20
         );
 
-        if ($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             $category = $categoryRepository->findOneBy(['id' => $request->request->all()['category']['id']]);
             $category->setName($request->request->all()['category']['name']);
             $manager->persist($category);
-            $manager->flush();
+            try {
+                $manager->flush();
+                $this->addFlash('success', 'La catégorie a bien été modifiée');
+            } catch (\Exception $e) {
+                $this->addFlash('error', 'Une erreur est survenue lors de la modification de la catégorie');
+            }
+            return $this->redirectToRoute('app_admin_category');
         }
 
         return $this->render('admin/view/category.html.twig', [
@@ -226,20 +264,23 @@ class AdminController extends AbstractController
 
     #[Route('/comment', name: 'app_admin_comment')]
     #[IsGranted('ROLE_ADMIN')]
-    public function comment(CommentRepository $commentRepository, Request $request, EntityManagerInterface $manager, PaginatorInterface $paginator)
-    : Response
+    public function comment(CommentRepository $commentRepository, Request $request, EntityManagerInterface $manager, PaginatorInterface $paginator): Response
     {
         $comments = $commentRepository->findAll();
-		$forms = [];
+        $forms = [];
 
         foreach ($comments as $comment) {
-            $form = $this->createForm(CommentType::class,$comment,[
+            $form = $this->createForm(CommentType::class, $comment, [
                 'action' => $this->generateUrl('app_admin_comment'),
                 'method' => 'POST',
             ])
                 ->add('id', IntegerType::class, [
                     'label' => 'ID',
                     'data' => $comment->getId(),
+                    'attr' => [
+                        'readonly' => true,
+                        // Utilisez l'attribut "disabled" pour rendre le champ non modifiable visuellement
+                    ],
                     'mapped' => false, // Important : désactiver le mappage pour éviter l'erreur
                 ]);
             $forms[] = $form->createView();
@@ -253,11 +294,18 @@ class AdminController extends AbstractController
             $request->query->getInt('page', 1),
             20
         );
-        if ($form->isSubmitted() && $form->isValid()){
-			$comment = $commentRepository->findOneBy(['id' => $request->request->all()['comment']['id']]);
-            $comment->setContent($request->request->all()['comment']['content']);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment = $commentRepository->findOneBy(['id' => $request->request->all()['comment']['id']]);
+            $comment->setComment($request->request->all()['comment']['comment']);
+            $comment->setNote($request->request->all()['comment']['note']);
             $manager->persist($comment);
-            $manager->flush();
+            try {
+                $manager->flush();
+                $this->addFlash('success', 'Le commentaire a bien été modifié');
+            } catch (\Exception $e) {
+                $this->addFlash('error', 'Une erreur est survenue lors de la modification du commentaire');
+            }
+            return $this->redirectToRoute('app_admin_comment');
         }
 
         return $this->render('admin/view/comment.html.twig', [
@@ -272,16 +320,20 @@ class AdminController extends AbstractController
     Response
     {
         $editors = $editorRepository->findAll();
-		$forms = [];
+        $forms = [];
 
         foreach ($editors as $editor) {
-            $form = $this->createForm(EditorType::class,$editor,[
+            $form = $this->createForm(EditorType::class, $editor, [
                 'action' => $this->generateUrl('app_admin_editor'),
                 'method' => 'POST',
             ])
                 ->add('id', IntegerType::class, [
                     'label' => 'ID',
                     'data' => $editor->getId(),
+                    'attr' => [
+                        'readonly' => true,
+                        // Utilisez l'attribut "disabled" pour rendre le champ non modifiable visuellement
+                    ],
                     'mapped' => false, // Important : désactiver le mappage pour éviter l'erreur
                 ]);
             $forms[] = $form->createView();
@@ -296,13 +348,17 @@ class AdminController extends AbstractController
             20
         );
 
-		if ($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             $editor = $editorRepository->findOneBy(['id' => $request->request->all()['editor']['id']]);
             $editor->setName($request->request->all()['editor']['name']);
             $manager->persist($editor);
-            $manager->flush();
-            $this->addFlash('success', 'L\'éditeur a bien été modifié');
-            $this->redirectToRoute('app_admin_editor');
+            try {
+                $manager->flush();
+                $this->addFlash('success', 'L\'éditeur a bien été modifié');
+            } catch (\Exception $e) {
+                $this->addFlash('error', 'Une erreur est survenue lors de la modification de l\'éditeur');
+            }
+            return $this->redirectToRoute('app_admin_editor');
         }
         return $this->render('admin/view/editor.html.twig', [
             'editors' => $editors,
@@ -313,23 +369,27 @@ class AdminController extends AbstractController
     #[Route('/reservation', name: 'app_admin_reservation')]
     #[IsGranted('ROLE_ADMIN')]
     public function reservation(
-        ReservationRepository $reservationRepository,
-        Request $request,
+        ReservationRepository  $reservationRepository,
+        Request                $request,
         EntityManagerInterface $manager,
-        PaginatorInterface $paginator
+        PaginatorInterface     $paginator
     ): Response
     {
         $reservations = $reservationRepository->findAll();
-		$forms = [];
+        $forms = [];
 
         foreach ($reservations as $reservation) {
-            $form = $this->createForm(ReservationType::class,$reservation,[
+            $form = $this->createForm(ReservationType::class, $reservation, [
                 'action' => $this->generateUrl('app_admin_reservation'),
                 'method' => 'POST',
             ])
                 ->add('id', IntegerType::class, [
                     'label' => 'ID',
                     'data' => $reservation->getId(),
+                    'attr' => [
+                        'readonly' => true,
+                        // Utilisez l'attribut "disabled" pour rendre le champ non modifiable visuellement
+                    ],
                     'mapped' => false, // Important : désactiver le mappage pour éviter l'erreur
                 ]);
             $forms[] = $form->createView();
@@ -344,18 +404,25 @@ class AdminController extends AbstractController
             20
         );
 
-        if ($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
+//            dd($request->request->all());
             $reservation = $reservationRepository->findOneBy(['id' => $request->request->all()['reservation']['id']]);
-            $reservation->setDatecheckin($request->request->all()['reservation']['datecheckin']);
-            $reservation->setDatecheckout($request->request->all()['reservation']['datecheckout']);
+            $reservation->setDatecheckin(new \DateTime($request->request->all()['reservation']['datecheckin']['date']));
+            $reservation->setDatecheckout(new \DateTime($request->request->all()['reservation']['datecheckout']['date']));
             $reservation->setDescription($request->request->all()['reservation']['description']);
-            $reservation->setAllDay($request->request->all()['reservation']['all_day']);
             $reservation->setBackgroundColor($request->request->all()['reservation']['background_color']);
             $reservation->setBorderColor($request->request->all()['reservation']['border_color']);
             $reservation->setTextColor($request->request->all()['reservation']['text_color']);
             $reservation->setStatus($request->request->all()['reservation']['status']);
             $manager->persist($reservation);
-            $manager->flush();
+
+            try {
+                $manager->flush();
+                $this->addFlash('success', 'La réservation a bien été modifiée');
+            } catch (\Exception $e) {
+                $this->addFlash('error', 'Une erreur est survenue lors de la modification de la réservation');
+            }
+            return $this->redirectToRoute('app_admin_reservation');
         }
 
         return $this->render('admin/view/reservation.html.twig', [
@@ -369,22 +436,26 @@ class AdminController extends AbstractController
     public function user(UserRepository $userRepository, Request $request, EntityManagerInterface $manager, PaginatorInterface $paginator): Response
     {
         $users = $userRepository->findAll();
-		$forms = [];
+        $forms = [];
         foreach ($users as $user) {
-            $form = $this->createForm(UserType::class,$user,[
+            $form = $this->createForm(UserType::class, $user, [
                 'action' => $this->generateUrl('app_admin_user'),
                 'method' => 'POST',
             ])
                 ->add('id', IntegerType::class, [
                     'label' => 'ID',
                     'data' => $user->getId(),
+                    'attr' => [
+                        'readonly' => true,
+                        // Utilisez l'attribut "disabled" pour rendre le champ non modifiable visuellement
+                    ],
                     'mapped' => false, // Important : désactiver le mappage pour éviter l'erreur
                 ])
-            ->add('isVerified', CheckboxType::class, [
-                'label' => 'isVerified',
-                'data' => $user->isVerified(),
-                'mapped' => false, // Important : désactiver le mappage pour éviter l'erreur
-            ]);
+                ->add('isVerified', CheckboxType::class, [
+                    'label' => 'isVerified',
+                    'data' => $user->isVerified(),
+                    'mapped' => false, // Important : désactiver le mappage pour éviter l'erreur
+                ]);
 
             $forms[] = $form->createView();
         }
@@ -396,25 +467,32 @@ class AdminController extends AbstractController
         );
 
         $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             $user = $userRepository->findOneBy(['id' => $request->request->all()['user']['id']]);
             $user->setEmail($request->request->all()['user']['email']);
-            $user->setRoles($request->request->all()['user']['roles']);
             $user->setPassword($request->request->all()['user']['password']);
             $user->setFirstname($request->request->all()['user']['firstname']);
             $user->setLastname($request->request->all()['user']['lastname']);
-            $user->setAddress($request->request->all()['user']['address']);
+            $user->setAdress($request->request->all()['user']['adress']);
             $user->setCity($request->request->all()['user']['city']);
-            $user->setZcode($request->request->all()['user']['zipcode']);
+            $user->setcode($request->request->all()['user']['code']);
             $user->setPhone($request->request->all()['user']['phone']);
             $user->setIsVerified($request->request->all()['user']['isVerified']);
-        }
 
+            $manager->persist($user);
+
+            try {
+                $manager->flush();
+                $this->addFlash('success', 'L\'utilisateur a bien été modifié');
+            } catch (\Exception $e) {
+                $this->addFlash('error', 'Une erreur est survenue lors de la modification de l\'utilisateur');
+            }
+
+            return $this->redirectToRoute('app_admin_user');
+        }
         return $this->render('admin/view/user.html.twig', [
             'users' => $users,
             'forms' => $forms,
         ]);
     }
-
 }
