@@ -14,8 +14,8 @@ class BorrowType extends AbstractType
         $builder
             ->add('checkin')
             ->add('checkout')
-            ->add('user')
-            ->add('book')
+//            ->add('user', UserType::class)
+//            ->add('book', BookType::class)
         ;
     }
 

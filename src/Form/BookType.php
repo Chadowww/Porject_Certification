@@ -4,6 +4,8 @@ namespace App\Form;
 
 use App\Entity\Book;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,7 +16,10 @@ class BookType extends AbstractType
         $builder
             ->add('title')
             ->add('description')
-            ->add('publish')
+            ->add('publish', DateType::class, [
+                'widget' => 'single_text',
+                'format' => 'yyyy-MM-dd',
+            ])
             ->add('qteStock')
             ->add('qteCheckout')
         ;
