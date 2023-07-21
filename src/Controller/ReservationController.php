@@ -99,7 +99,7 @@ class ReservationController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$reservation->getId(), $request->request->get('_token'))) {
             $reservationRepository->remove($reservation, true);
         }
-
-        return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
+		$this->addFlash('success', 'La réservation a bien été supprimée');
+        return $this->redirectToRoute('app_admin_reservation', [], Response::HTTP_SEE_OTHER);
     }
 }

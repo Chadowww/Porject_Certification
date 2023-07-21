@@ -6,6 +6,8 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\ReservationRepository;
 use App\Repository\UserRepository;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -86,6 +88,10 @@ class UserController extends AbstractController
         ]);
     }
 
+    /**
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
     #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
     public function delete(Request $request, User $user, UserRepository $userRepository): Response
     {
@@ -93,13 +99,16 @@ class UserController extends AbstractController
             $userRepository->remove($user, true);
         }
 
-        return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+        $request->getSession()->invalidate();
+        $this->container->get('security.token_storage')->setToken(null);
+
+		$this->addFlash('success', 'Votre compte a bien été supprimé');
+        return $this->redirectToRoute('app_admin_user', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{id}/update/password', name: 'app_user_update_password', methods: ['POST'])]
     public function updatePassword(User $user, UserRepository $userRepository, Request $request, UserPasswordHasherInterface $userPasswordHasher): Response
     {
-
         if ($request->isMethod('POST')) {
             $password = $request->request->get('password');
             $confirmPassword = $request->request->get('confirm-password');

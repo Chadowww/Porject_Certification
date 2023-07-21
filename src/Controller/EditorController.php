@@ -72,7 +72,7 @@ class EditorController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$editor->getId(), $request->request->get('_token'))) {
             $editorRepository->remove($editor, true);
         }
-
-        return $this->redirectToRoute('app_editor_index', [], Response::HTTP_SEE_OTHER);
+		$this->addFlash('success', 'Editeur supprimé avec succès');
+        return $this->redirectToRoute('app_admin_editor', [], Response::HTTP_SEE_OTHER);
     }
 }
