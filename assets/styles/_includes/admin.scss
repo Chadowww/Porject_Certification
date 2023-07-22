@@ -1,0 +1,26 @@
+.admin-row-form > * {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	padding: 15px;
+}
+//.admin-row-form:first-child > div{
+//  display: none;
+//}
+//.admin-row-form > div > label:first-child
+//{
+//  display: none;
+//}
+
+.admin-row-form > div{
+	display: flex;
+  	flex-direction: column;
+	align-items: center;
+	justify-content: start;
+	width: max-content;
+}
+
+.admin-row-form > div > label{
+	margin-bottom: 5px;
+	text-align: center;
+}

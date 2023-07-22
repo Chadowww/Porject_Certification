@@ -33,6 +33,7 @@ class ReservationType extends AbstractType implements FormTypeInterface
             ])
             ->add('all_day', null, [
                 'label' => 'Journée entière ?',
+                'data' => false,
             ])
             ->add('background_color', ColorType::class,[
                 'label' => 'Couleur de fond',

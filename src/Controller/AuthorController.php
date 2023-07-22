@@ -72,7 +72,7 @@ class AuthorController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$author->getId(), $request->request->get('_token'))) {
             $authorRepository->remove($author, true);
         }
-
-        return $this->redirectToRoute('app_author_index', [], Response::HTTP_SEE_OTHER);
+		$this->addFlash('success', 'L\'auteur a bien été supprimé');
+        return $this->redirectToRoute('app_admin_author', [], Response::HTTP_SEE_OTHER);
     }
 }

@@ -1,35 +1,37 @@
 
 
 document.addEventListener('DOMContentLoaded', function() {
-    let calendarEl = document.getElementById('calendar');
-    let calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth',
-        locale: 'fr',
-        timeZone: 'Europe/Paris',
-        headerToolbar: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'dayGridMonth,timeGridWeek,timeGridDay',
-        },
-        views: {
-            timeGridWeek: {
-                type: 'timeGrid',
-                duration: { days: 7 },
-                buttonText: 'Semaine',
+    if (document.getElementById('calendar')) {
+        let calendarEl = document.getElementById('calendar');
+        let calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            locale: 'fr',
+            timeZone: 'Europe/Paris',
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay',
             },
-            timeGridDay: {
-                type: 'timeGrid',
-                duration: { days: 1 },
-                buttonText: 'Jour',
+            views: {
+                timeGridWeek: {
+                    type: 'timeGrid',
+                    duration: {days: 7},
+                    buttonText: 'Semaine',
+                },
+                timeGridDay: {
+                    type: 'timeGrid',
+                    duration: {days: 1},
+                    buttonText: 'Jour',
+                },
+                dayGridMonth: {
+                    buttonText: 'Mois',
+                },
             },
-            dayGridMonth: {
-                buttonText: 'Mois',
-            },
-        },
-        events:  myData,
-    editable: true,
-        eventResizableFromStart: true,
-});
+            events: myData,
+            editable: true,
+            eventResizableFromStart: true,
+        });
+    }
 
     calendar.on('eventChange', (e) =>{
         let url = `/api/${e.event.id}/edit`

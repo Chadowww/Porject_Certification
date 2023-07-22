@@ -72,7 +72,7 @@ class BorrowController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$borrow->getId(), $request->request->get('_token'))) {
             $borrowRepository->remove($borrow, true);
         }
-
-        return $this->redirectToRoute('app_borrow_index', [], Response::HTTP_SEE_OTHER);
+		$this->addFlash('success', 'Emprunt supprimé avec succès');
+        return $this->redirectToRoute('app_admin_borrow', [], Response::HTTP_SEE_OTHER);
     }
 }

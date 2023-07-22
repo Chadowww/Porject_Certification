@@ -82,8 +82,8 @@ class BookController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$book->getId(), $request->request->get('_token'))) {
             $bookRepository->remove($book, true);
         }
-
-        return $this->redirectToRoute('app_book_index', [], Response::HTTP_SEE_OTHER);
+		$this->addFlash('success', 'Le livre a bien été supprimé');
+        return $this->redirectToRoute('app_admin_book', [], Response::HTTP_SEE_OTHER);
     }
 	#[Route('/{id}/add-to-fav', name: 'app_book_add_to_fav', methods: ['GET'])]
     public function addToFav(Book $book, EntityManagerInterface $entityManager): Response

@@ -52,12 +52,14 @@ class Book
     private Collection $users;
 
     #[ORM\OneToMany(mappedBy: 'book', targetEntity: Reservation::class)]
+    #[ORM\JoinColumn(onDelete: 'CASCADE')]
     private Collection $reservations;
 
     #[ORM\OneToMany(mappedBy: 'book', targetEntity: Comment::class)]
     private Collection $comments;
 
     #[ORM\OneToMany(mappedBy: 'book', targetEntity: Borrow::class)]
+    #[ORM\JoinColumn(onDelete: 'CASCADE')]
     private Collection $borrows;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
