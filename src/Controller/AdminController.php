@@ -102,7 +102,24 @@ class AdminController extends AbstractController
             $request->query->getInt('page', 1),
             20
         );
-        if ($request->isMethod('POST')){
+
+        $form = $this->createForm(BookType::class);
+//        dd($request->request->all());
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $book = $form->getData();
+            $manager->persist($book);
+            try {
+                $manager->flush();
+                $this->addFlash('success', 'Le livre a bien été ajouté');
+            } catch (\Exception $e) {
+                $this->addFlash('error', 'Une erreur est survenue lors de l\'ajout du livre');
+            }
+            return $this->redirectToRoute('app_admin_book');
+        }
+
+        if ($request->isMethod('POST') && $request->request->all()['id'] !== null){
 			$book = $bookRepository->findOneBy(['id' => $request->request->all()['id']]);
             $book->setTitle($request->request->all()['title']);
             $book->setDescription($request->request->all()['description']);
@@ -121,6 +138,7 @@ class AdminController extends AbstractController
 
         return $this->render('admin/view/book.html.twig', [
             'books' => $books,
+            'form' => $form->createView(),
         ]);
     }
 
