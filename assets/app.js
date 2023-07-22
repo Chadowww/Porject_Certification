@@ -22,10 +22,12 @@ import {
     initTE,
     Ripple,
     Input,
+    Sidenav,
+    Alert,
 
 } from "tw-elements";
 
-initTE({ Modal, Collapse, Dropdown ,initTE , Ripple, Input });
+initTE({ Modal, Collapse, Dropdown ,initTE , Ripple, Input, Sidenav, Alert });
 
 const test = document.querySelectorAll('.bt-fav');
 
