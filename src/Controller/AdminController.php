@@ -51,7 +51,21 @@ class AdminController extends AbstractController
             20
         );
 
-        if ($request->isMethod('POST')){
+        $form = $this->createForm(AuthorType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $author = $form->getData();
+            $manager->persist($author);
+            try {
+                $manager->flush();
+                $this->addFlash('success', 'L\'auteur a bien été ajouté');
+            } catch (\Exception $e) {
+                $this->addFlash('error', 'Une erreur est survenue lors de l\'ajout de l\'auteur');
+            }
+            return $this->redirectToRoute('app_admin_author');
+        }
+
+        if ($request->isMethod('POST') && $request->request->all()['id'] !== null){
             $author = $authorRepository->findOneBy(['id' => $request->request->all()['id']]);
             $author->setName($request->request->all()['name']);
             $author->setBiography($request->request->all()['biography']);
@@ -69,6 +83,7 @@ class AdminController extends AbstractController
 
         return $this->render('admin/view/author.html.twig', [
             'authors' => $authors,
+            'form' => $form->createView(),
         ]);
     }
 
