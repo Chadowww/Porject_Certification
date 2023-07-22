@@ -104,7 +104,6 @@ class AdminController extends AbstractController
         );
 
         $form = $this->createForm(BookType::class);
-//        dd($request->request->all());
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -158,7 +157,22 @@ class AdminController extends AbstractController
             20
         );
 
-        if ($request->isMethod('POST')){
+        $form = $this->createForm(BorrowType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $borrow = $form->getData();
+            $manager->persist($borrow);
+            try {
+                $manager->flush();
+                $this->addFlash('success', 'L\'emprunt a bien été créé');
+            } catch (\Exception $e) {
+                $this->addFlash('error', 'Une erreur est survenue lors de l\'ajout de l\'emprunt');
+            }
+            return $this->redirectToRoute('app_admin_borrow');
+        }
+
+        if ($request->isMethod('POST') && $request->request->all()['id'] !== null){
             $borrow = $borrowRepository->findOneBy(['id' => $request->request->all()['id']]);
             $borrow->setCheckin(new \DateTime($request->request->all()['checkin']));
             $borrow->setCheckout(new \DateTime($request->request->all()['checkout']));
@@ -175,6 +189,7 @@ class AdminController extends AbstractController
 
         return $this->render('admin/view/borrow.html.twig', [
             'borrows' => $borrows,
+            'form' => $form->createView(),
         ]);
     }
 
