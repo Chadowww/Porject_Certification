@@ -1,4 +1,138 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+    {{ form_label(form.title, 'Titre du livre', {
+        'label_attr': {
+            'class': 'hidden block mb-2 text-sm font-medium text-gray-900 dark:text-white',
+        }
+    }) }}
+    {{ form_widget(form.title, {
+        'attr': {
+            'class': 'bg-gray-50 my-5 border border-gray-300 text-gray-900 text-sm
+					  rounded-lg focus:ring-blue-500 focus:border-blue-500 block
+					  w-full p-2.5 dark:bg-gray-600 dark:border-gray-500
+					  dark:placeholder-gray-400 dark:text-white',
+            'placeholder': 'Titre du livre'
+        },
+    }) }}
+{{ form_label(form.description, 'Résumé du livre', {
+    'label_attr': {
+        'class': 'hidden block mb-2 text-sm font-medium text-gray-900 dark:text-white',
+    }
+}) }}
+    {{ form_widget(form.description, {
+        'attr': {
+            'class': 'bg-gray-50 my-5 border border-gray-300 text-gray-900 text-sm
+					  rounded-lg focus:ring-blue-500 focus:border-blue-500 block
+					  w-full p-2.5 dark:bg-gray-600 dark:border-gray-500
+					  dark:placeholder-gray-400 dark:text-white',
+            'placeholder': 'Résumé du livre'
+        },
+    }) }}
+{{ form_label(form.publish, 'Date de publication', {
+    'label_attr': {
+        'class': ' block mb-2 text-sm font-medium text-gray-900 dark:text-white',
+    }
+}) }}
+    {{ form_widget(form.publish, {
+        'attr': {
+            'class': 'bg-gray-50 my-5 border border-gray-300 text-gray-900 text-sm
+					  rounded-lg focus:ring-blue-500 focus:border-blue-500 block
+					  w-full p-2.5 dark:bg-gray-600 dark:border-gray-500
+					  dark:placeholder-gray-400 dark:text-white',
+            'placeholder': 'Date de publication'
+        },
+    }) }}
+{{ form_label(form.cover, 'Couverture du livre', {
+    'label_attr': {
+        'class': 'hidden block mb-2 text-sm font-medium text-gray-900 dark:text-white',
+    }
+}) }}
+    {{ form_widget(form.cover, {
+        'attr': {
+            'class': 'bg-gray-50 my-5 border border-gray-300 text-gray-900 text-sm
+					  rounded-lg focus:ring-blue-500 focus:border-blue-500 block
+					  w-full p-2.5 dark:bg-gray-600 dark:border-gray-500
+					  dark:placeholder-gray-400 dark:text-white',
+            'placeholder': 'Couverture du livre'
+        },
+    }) }}
+{{ form_label(form.author, 'Nom de l\'auteur', {
+    'label_attr': {
+        'class': ' block mb-2 text-sm font-medium text-gray-900 dark:text-white',
+    }
+}) }}
+    {{ form_widget(form.author, {
+        'attr': {
+            'class': 'bg-gray-50 my-5 border border-gray-300 text-gray-900 text-sm
+					  rounded-lg focus:ring-blue-500 focus:border-blue-500 block
+					  w-full p-2.5 dark:bg-gray-600 dark:border-gray-500
+					  dark:placeholder-gray-400 dark:text-white',
+            'placeholder': 'Nom de l\'auteur'
+        },
+    }) }}
+{{ form_label(form.category, 'Quelles Categories', {
+    'label_attr': {
+        'class': ' block mb-2 text-sm font-medium text-gray-900 dark:text-white',
+    }
+}) }}
+    {{ form_widget(form.category, {
+        'attr': {
+            'class': 'bg-gray-50 my-5 border border-gray-300 text-gray-900 text-sm
+					  rounded-lg focus:ring-blue-500 focus:border-blue-500 block
+					  w-full p-2.5 dark:bg-gray-600 dark:border-gray-500
+					  dark:placeholder-gray-400 dark:text-white',
+            'placeholder': 'Nom de la catégorie'
+        },
+    }) }}
+{{ form_label(form.editor, 'Nom de l\'éditeur', {
+    'label_attr': {
+        'class': ' block mb-2 text-sm font-medium text-gray-900 dark:text-white',
+    }
+}) }}
+    {{ form_widget(form.editor, {
+        'attr': {
+            'class': 'bg-gray-50 my-5 border border-gray-300 text-gray-900 text-sm
+					  rounded-lg focus:ring-blue-500 focus:border-blue-500 block
+					  w-full p-2.5 dark:bg-gray-600 dark:border-gray-500
+					  dark:placeholder-gray-400 dark:text-white',
+            'placeholder': 'Nom de l\'auteur'
+        },
+    }) }}
+<div class="flex">
+    {{ form_label(form.qteStock, 'Quantité en stock', {
+        'label_attr': {
+            'class': 'hidden block mb-2 text-sm font-medium text-gray-900 dark:text-white',
+        }
+    }) }}
+    {{ form_widget(form.qteStock, {
+        'attr': {
+            'class': 'bg-gray-50 my-5  mr-4 border border-gray-300 text-gray-900 text-sm
+					  rounded-lg focus:ring-blue-500 focus:border-blue-500 block
+					  w-full p-2.5 dark:bg-gray-600 dark:border-gray-500
+					  dark:placeholder-gray-400 dark:text-white',
+            'placeholder': 'Quantité en stock'
+        },
+    }) }}
+    {{ form_label(form.qteCheckout, 'Quantité hors stock', {
+        'label_attr': {
+            'class': 'hidden block mb-2 text-sm font-medium text-gray-900 dark:text-white',
+        }
+    }) }}
+    {{ form_widget(form.qteCheckout, {
+        'attr': {
+            'class': 'bg-gray-50 my-5 ml-4  border border-gray-300 text-gray-900 text-sm
+					  rounded-lg focus:ring-blue-500 focus:border-blue-500 block
+					  w-full p-2.5 dark:bg-gray-600 dark:border-gray-500
+					  dark:placeholder-gray-400 dark:text-white',
+            'placeholder': 'Quantité hors stock'
+        },
+    }) }}
+</div>
+<div class="w-full flex justify-center">
+    <button
+            type="submit"
+            class=" right-0.5 inline-block rounded border-2 border-success px-6 pb-[6px] pt-2 text-xs font-medium
+        uppercase leading-normal text-success transition duration-150 ease-in-out hover:border-success-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-success-600 focus:border-success-600 focus:text-success-600 focus:outline-none focus:ring-0 active:border-success-700 active:text-success-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
+            data-te-ripple-init>
+        Ajouter l'auteur
+    </button>
+</div>{{ form_end(form) }}
