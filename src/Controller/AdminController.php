@@ -199,13 +199,28 @@ class AdminController extends AbstractController
     {
         $categories = $categoryRepository->findAll();
 
-//        $categories = $paginator->paginate(
-//            $categories,
-//            $request->query->getInt('page', 1),
-//            20
-//        );
+        $categories = $paginator->paginate(
+            $categories,
+            $request->query->getInt('page', 1),
+            20
+        );
 
-		if ($request->isMethod('POST')){
+        $form = $this->createForm(CategoryType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $category = $form->getData();
+            $manager->persist($category);
+            try {
+                $manager->flush();
+                $this->addFlash('success', 'La catégorie a bien été ajoutée');
+            } catch (\Exception $e) {
+                $this->addFlash('error', 'Une erreur est survenue lors de l\'ajout de la catégorie');
+            }
+            return $this->redirectToRoute('app_admin_category');
+        }
+
+		if ($request->isMethod('POST') && $request->request->all()['id'] !== null){
             $category = $categoryRepository->findOneBy(['id' => $request->request->all()['id']]);
             $category->setName($request->request->all()['name']);
             $manager->persist($category);
@@ -220,6 +235,7 @@ class AdminController extends AbstractController
 
         return $this->render('admin/view/category.html.twig', [
             'categories' => $categories,
+            'form' => $form->createView(),
         ]);
     }
 
