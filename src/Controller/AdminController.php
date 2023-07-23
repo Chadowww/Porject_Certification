@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\AdminReservationType;
 use App\Form\AuthorType;
 use App\Form\BookType;
 use App\Form\BorrowType;
@@ -199,11 +200,11 @@ class AdminController extends AbstractController
     {
         $categories = $categoryRepository->findAll();
 
-//        $categories = $paginator->paginate(
-//            $categories,
-//            $request->query->getInt('page', 1),
-//            20
-//        );
+        $categories = $paginator->paginate(
+            $categories,
+            $request->query->getInt('page', 1),
+            20
+        );
 
 		if ($request->isMethod('POST')){
             $category = $categoryRepository->findOneBy(['id' => $request->request->all()['id']]);
@@ -298,10 +299,24 @@ class AdminController extends AbstractController
             $request->query->getInt('page', 1),
             20
         );
+        $form = $this->createForm(AdminReservationType::class);
+        $form->handleRequest($request);
 
-        if ($request->isMethod('POST')){
+        if ($form->isSubmitted() && $form->isValid()) {
+            $reservation = $form->getData();
+            $manager->persist($reservation);
+            try {
+                $manager->flush();
+                $this->addFlash('success', 'La réservation a bien été ajoutée');
+            } catch (\Exception $e) {
+                $this->addFlash('error', 'Une erreur est survenue lors de l\'ajout de la réservation');
+            }
+            return $this->redirectToRoute('app_admin_reservation');
+        }
+
+        if ($request->isMethod('POST') && $request->request->all()['id'] !== null){
             $reservation = $reservationRepository->findOneBy(['id' => $request->request->all()['id']]);
-            if ($request->request->all()['status'] !== null){
+            if (isset($request->request->all()['status']) == 'on'){
             $reservation->setStatus('1');
             }else{
                 $reservation->setStatus('0');
@@ -309,7 +324,7 @@ class AdminController extends AbstractController
             $reservation->setDatecheckin(new \DateTime($request->request->all()['checkin']));
             $reservation->setDatecheckout(new \DateTime($request->request->all()['checkout']));
             $reservation->setDescription($request->request->all()['description']);
-            if ($request->request->all()['allday'] !== null) {
+            if (isset($request->request->all()['allday']) == 'on') {
                 $reservation->setAllDay('1');
             }else{
                 $reservation->setAllDay('0');
@@ -329,6 +344,7 @@ class AdminController extends AbstractController
 
         return $this->render('admin/view/reservation.html.twig', [
             'reservations' => $reservations,
+            'form' => $form->createView(),
         ]);
     }
 
