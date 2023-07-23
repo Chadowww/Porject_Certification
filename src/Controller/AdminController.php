@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\AdminReservationType;
+use App\Form\AdminUserType;
 use App\Form\AuthorType;
 use App\Form\BookType;
 use App\Form\BorrowType;
@@ -28,6 +29,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
+use function Sodium\add;
 
 #[Route('/admin')]
 #[IsGranted('ROLE_ADMIN')]
@@ -374,8 +376,26 @@ class AdminController extends AbstractController
             $request->query->getInt('page', 1),
             20
         );
+        $form = $this->createForm(AdminUserType::class);
+        $form->handleRequest($request);
 
-     	if ($request->isMethod('POST')){
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user = $form->getData();
+            $manager->persist($user);
+            try {
+                $manager->flush();
+                $this->addFlash('success', 'L\'utilisateur a bien été ajouté');
+            } catch (\Exception $e) {
+                $this->addFlash('error', 'Une erreur est survenue lors de l\'ajout de l\'utilisateur');
+            }
+            return $this->redirectToRoute('app_admin_user');
+        }else{
+            $error = $form->getErrors();
+            $this->addFlash('error', 'Une erreur est survenue lors de l\'ajout de l\'utilisateur' . $error);
+        }
+
+     	if ($request->isMethod('POST') && isset($request->request->all()['id'])){
 //             dd($request->request->all());
             $user = $userRepository->findOneBy(['id' => $request->request->all()['id']]);
             $user->setEmail($request->request->all()['email']);
@@ -404,8 +424,11 @@ class AdminController extends AbstractController
             }
             return $this->redirectToRoute('app_admin_user');
         }
+
         return $this->render('admin/view/user.html.twig', [
             'users' => $users,
+            'form' => $form->createView(),
+            'errors' => $error ?? '',
         ]);
     }
 }

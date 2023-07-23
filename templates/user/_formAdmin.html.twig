@@ -1,0 +1,182 @@
+{{ form_start(form) }}
+    {{ form_label(form.email, 'Email', {
+	    'label_attr': {
+		    'class': 'hidden block mb-2 text-sm font-medium text-gray-900 dark:text-white',
+	    }
+    }) }}
+    {{ form_widget(form.email, {
+	    'attr': {
+		    'class': 'bg-gray-50 my-5 border border-gray-300 text-gray-900 text-sm
+					  rounded-lg focus:ring-blue-500 focus:border-blue-500 block
+					  w-full p-2.5 dark:bg-gray-600 dark:border-gray-500
+					  dark:placeholder-gray-400 dark:text-white',
+		    'placeholder': 'Email'
+	    },
+    }) }}
+<div class="error">
+	{{ form_errors(form.email,{
+		'attr': {
+			'class': 'error'
+		}
+	}) }}
+</div>
+{{ form_label(form.password, 'Mot de passe', {
+	'label_attr': {
+		'class': 'hidden block mb-2 text-sm font-medium text-gray-900 dark:text-white',
+	}
+}) }}
+    {{ form_widget(form.password, {
+	    'attr': {
+		    'class': 'bg-gray-50 my-5 border border-gray-300 text-gray-900 text-sm
+					  rounded-lg focus:ring-blue-500 focus:border-blue-500 block
+					  w-full p-2.5 dark:bg-gray-600 dark:border-gray-500
+					  dark:placeholder-gray-400 dark:text-white',
+		    'placeholder': 'Mot de passe'
+	    },
+    }) }}
+<div class="error">
+	{{ form_errors(form.password, {
+		'attr': {
+			'class': 'error'
+		}
+	}) }}
+</div>
+{{ form_label(form.roles, 'Admin?', {
+	'label_attr': {
+		'class': ' block mb-2 text-sm font-medium text-gray-900 dark:text-white',
+	}
+}) }}
+    {{ form_widget(form.roles, {
+	    'attr': {
+		    'class': 'bg-gray-50 my-5 border border-gray-300 text-gray-900 text-sm
+					  rounded-lg focus:ring-blue-500 focus:border-blue-500 block
+					  w-full p-2.5 dark:bg-gray-600 dark:border-gray-500
+					  dark:placeholder-gray-400 dark:text-white',
+		    'placeholder': 'Admin?'
+	    },
+    }) }}
+{{ form_errors(form.roles) }}
+{{ form_label(form.firstname, 'Prénom', {
+	'label_attr': {
+		'class': ' hidden block mb-2 text-sm font-medium text-gray-900 dark:text-white',
+	}
+}) }}
+    {{ form_widget(form.firstname, {
+	    'attr': {
+		    'class': 'bg-gray-50 my-5 border border-gray-300 text-gray-900 text-sm
+					  rounded-lg focus:ring-blue-500 focus:border-blue-500 block
+					  w-full p-2.5 dark:bg-gray-600 dark:border-gray-500
+					  dark:placeholder-gray-400 dark:text-white',
+		    'placeholder': 'Prénom'
+	    },
+    }) }}
+{{ form_label(form.lastname, 'Nom', {
+	'label_attr': {
+		'class': 'hidden block mb-2 text-sm font-medium text-gray-900 dark:text-white',
+	}
+}) }}
+    {{ form_widget(form.lastname, {
+	    'attr': {
+		    'class': 'bg-gray-50 my-5 border border-gray-300 text-gray-900 text-sm
+					  rounded-lg focus:ring-blue-500 focus:border-blue-500 block
+					  w-full p-2.5 dark:bg-gray-600 dark:border-gray-500
+					  dark:placeholder-gray-400 dark:text-white',
+		    'placeholder': 'Nom'
+	    },
+    }) }}
+{{ form_label(form.phone, 'Téléphone', {
+	'label_attr': {
+		'class': 'hidden block mb-2 text-sm font-medium text-gray-900 dark:text-white',
+	}
+}) }}
+    {{ form_widget(form.phone, {
+	    'attr': {
+		    'class': 'bg-gray-50 my-5 border border-gray-300 text-gray-900 text-sm
+					  rounded-lg focus:ring-blue-500 focus:border-blue-500 block
+					  w-full p-2.5 dark:bg-gray-600 dark:border-gray-500
+					  dark:placeholder-gray-400 dark:text-white',
+		    'placeholder': 'Téléphone'
+	    },
+    }) }}
+{{ form_label(form.isVerified, 'Lecteur vérifié ?', {
+	'label_attr': {
+		'class': ' block mb-2 text-sm font-medium text-gray-900 dark:text-white',
+	}
+}) }}
+    {{ form_widget(form.isVerified, {
+	    'attr': {
+		    'class': 'bg-gray-50 my-5 border border-gray-300 text-gray-900 text-sm
+					  rounded-lg focus:ring-blue-500 focus:border-blue-500 block
+					  w-full p-2.5 dark:bg-gray-600 dark:border-gray-500
+					  dark:placeholder-gray-400 dark:text-white',
+		    'placeholder': 'Lecteur vérifié?'
+	    },
+    }) }}
+{{ form_label(form.adress, 'Adresse', {
+	'label_attr': {
+		'class': ' hidden block mb-2 text-sm font-medium text-gray-900 dark:text-white',
+	}
+}) }}
+    {{ form_widget(form.adress, {
+	    'attr': {
+		    'class': 'bg-gray-50 my-5 border border-gray-300 text-gray-900 text-sm
+					  rounded-lg focus:ring-blue-500 focus:border-blue-500 block
+					  w-full p-2.5 dark:bg-gray-600 dark:border-gray-500
+					  dark:placeholder-gray-400 dark:text-white',
+		    'placeholder': 'Adresse'
+	    },
+    }) }}
+{{ form_label(form.code, 'Code postal', {
+	'label_attr': {
+		'class': 'hidden block mb-2 text-sm font-medium text-gray-900 dark:text-white',
+	}
+}) }}
+    {{ form_widget(form.code, {
+	    'attr': {
+		    'class': 'bg-gray-50 my-5 border border-gray-300 text-gray-900 text-sm
+					  rounded-lg focus:ring-blue-500 focus:border-blue-500 block
+					  w-full p-2.5 dark:bg-gray-600 dark:border-gray-500
+					  dark:placeholder-gray-400 dark:text-white',
+		    'placeholder': 'Code postal'
+	    },
+    }) }}
+<div class="flex">
+	{{ form_label(form.city, 'Ville', {
+		'label_attr': {
+			'class': 'hidden block mb-2 text-sm font-medium text-gray-900 dark:text-white',
+		}
+	}) }}
+	{{ form_widget(form.city, {
+		'attr': {
+			'class': 'bg-gray-50 my-5  mr-4 border border-gray-300 text-gray-900 text-sm
+					  rounded-lg focus:ring-blue-500 focus:border-blue-500 block
+					  w-full p-2.5 dark:bg-gray-600 dark:border-gray-500
+					  dark:placeholder-gray-400 dark:text-white',
+			'placeholder': 'Ville'
+		},
+	}) }}
+	{{ form_label(form.country, 'Pays', {
+		'label_attr': {
+			'class': 'hidden block mb-2 text-sm font-medium text-gray-900 dark:text-white',
+		}
+	}) }}
+	{{ form_widget(form.country, {
+		'attr': {
+			'class': 'bg-gray-50 my-5 ml-4  border border-gray-300 text-gray-900 text-sm
+					  rounded-lg focus:ring-blue-500 focus:border-blue-500 block
+					  w-full p-2.5 dark:bg-gray-600 dark:border-gray-500
+					  dark:placeholder-gray-400 dark:text-white',
+			'placeholder': 'Pays'
+		},
+	}) }}
+</div>
+<div class="w-full flex justify-center">
+	<button
+			type="submit"
+			class=" right-0.5 inline-block rounded border-2 border-success px-6 pb-[6px] pt-2 text-xs font-medium
+        uppercase leading-normal text-success transition duration-150 ease-in-out hover:border-success-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-success-600 focus:border-success-600 focus:text-success-600 focus:outline-none focus:ring-0 active:border-success-700 active:text-success-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
+			data-te-ripple-init>
+		Ajouter la réservation
+	</button>
+</div>
+{{ form_end(form) }}
