@@ -1,0 +1,153 @@
+{{ form_start(form) }}
+    {{ form_label(form.user, 'Lecteur', {
+	    'label_attr': {
+		    'class': 'hidden block mb-2 text-sm font-medium text-gray-900 dark:text-white',
+	    }
+    }) }}
+    {{ form_widget(form.user, {
+	    'attr': {
+		    'class': 'bg-gray-50 my-5 border border-gray-300 text-gray-900 text-sm
+					  rounded-lg focus:ring-blue-500 focus:border-blue-500 block
+					  w-full p-2.5 dark:bg-gray-600 dark:border-gray-500
+					  dark:placeholder-gray-400 dark:text-white',
+		    'placeholder': 'Lecteur'
+	    },
+    }) }}
+{{ form_label(form.book, 'Livre', {
+	'label_attr': {
+		'class': 'hidden block mb-2 text-sm font-medium text-gray-900 dark:text-white',
+	}
+}) }}
+    {{ form_widget(form.book, {
+	    'attr': {
+		    'class': 'bg-gray-50 my-5 border border-gray-300 text-gray-900 text-sm
+					  rounded-lg focus:ring-blue-500 focus:border-blue-500 block
+					  w-full p-2.5 dark:bg-gray-600 dark:border-gray-500
+					  dark:placeholder-gray-400 dark:text-white',
+		    'placeholder': 'Livre'
+	    },
+    }) }}
+{{ form_label(form.status, 'Status', {
+	'label_attr': {
+		'class': ' block mb-2 text-sm font-medium text-gray-900 dark:text-white',
+	}
+}) }}
+    {{ form_widget(form.status, {
+	    'attr': {
+		    'class': 'bg-gray-50 my-5 border border-gray-300 text-gray-900 text-sm
+					  rounded-lg focus:ring-blue-500 focus:border-blue-500 block
+					  w-full p-2.5 dark:bg-gray-600 dark:border-gray-500
+					  dark:placeholder-gray-400 dark:text-white',
+		    'placeholder': 'Status'
+	    },
+    }) }}
+{{ form_label(form.datecheckin, 'Date de retour', {
+	'label_attr': {
+		'class': 'hidden block mb-2 text-sm font-medium text-gray-900 dark:text-white',
+	}
+}) }}
+    {{ form_widget(form.datecheckin, {
+	    'attr': {
+		    'class': 'bg-gray-50 my-5 border border-gray-300 text-gray-900 text-sm
+					  rounded-lg focus:ring-blue-500 focus:border-blue-500 block
+					  w-full p-2.5 dark:bg-gray-600 dark:border-gray-500
+					  dark:placeholder-gray-400 dark:text-white',
+		    'placeholder': 'Date de retour'
+	    },
+    }) }}
+{{ form_label(form.datecheckout, 'Date de sortie', {
+	'label_attr': {
+		'class': 'hidden block mb-2 text-sm font-medium text-gray-900 dark:text-white',
+	}
+}) }}
+    {{ form_widget(form.datecheckout, {
+	    'attr': {
+		    'class': 'bg-gray-50 my-5 border border-gray-300 text-gray-900 text-sm
+					  rounded-lg focus:ring-blue-500 focus:border-blue-500 block
+					  w-full p-2.5 dark:bg-gray-600 dark:border-gray-500
+					  dark:placeholder-gray-400 dark:text-white',
+		    'placeholder': 'Date de sortie'
+	    },
+    }) }}
+{{ form_label(form.description, 'Description', {
+	'label_attr': {
+		'class': ' block mb-2 text-sm font-medium text-gray-900 dark:text-white',
+	}
+}) }}
+    {{ form_widget(form.description, {
+	    'attr': {
+		    'class': 'bg-gray-50 my-5 border border-gray-300 text-gray-900 text-sm
+					  rounded-lg focus:ring-blue-500 focus:border-blue-500 block
+					  w-full p-2.5 dark:bg-gray-600 dark:border-gray-500
+					  dark:placeholder-gray-400 dark:text-white',
+		    'placeholder': 'Description'
+	    },
+    }) }}
+{{ form_label(form.all_day, 'Journée?', {
+	'label_attr': {
+		'class': ' block mb-2 text-sm font-medium text-gray-900 dark:text-white',
+	}
+}) }}
+    {{ form_widget(form.all_day, {
+	    'attr': {
+		    'class': 'bg-gray-50 my-5 border border-gray-300 text-gray-900 text-sm
+					  rounded-lg focus:ring-blue-500 focus:border-blue-500 block
+					  w-full p-2.5 dark:bg-gray-600 dark:border-gray-500
+					  dark:placeholder-gray-400 dark:text-white',
+		    'placeholder': 'Journée?'
+	    },
+    }) }}
+{{ form_label(form.background_color, 'Couleur de fond', {
+	'label_attr': {
+		'class': ' block mb-2 text-sm font-medium text-gray-900 dark:text-white',
+	}
+}) }}
+    {{ form_widget(form.background_color, {
+	    'attr': {
+		    'class': 'bg-gray-50 my-5 border border-gray-300 text-gray-900 text-sm
+					  rounded-lg focus:ring-blue-500 focus:border-blue-500 block
+					  w-full p-2.5 dark:bg-gray-600 dark:border-gray-500
+					  dark:placeholder-gray-400 dark:text-white',
+		    'placeholder': 'Couleur de fond'
+	    },
+    }) }}
+<div class="flex">
+	{{ form_label(form.border_color, 'Couleur de la bordure', {
+		'label_attr': {
+			'class': 'hidden block mb-2 text-sm font-medium text-gray-900 dark:text-white',
+		}
+	}) }}
+	{{ form_widget(form.border_color, {
+		'attr': {
+			'class': 'bg-gray-50 my-5  mr-4 border border-gray-300 text-gray-900 text-sm
+					  rounded-lg focus:ring-blue-500 focus:border-blue-500 block
+					  w-full p-2.5 dark:bg-gray-600 dark:border-gray-500
+					  dark:placeholder-gray-400 dark:text-white',
+			'placeholder': 'Couleur de la bordure'
+		},
+	}) }}
+	{{ form_label(form.text_color, 'Couleur du texte', {
+		'label_attr': {
+			'class': 'hidden block mb-2 text-sm font-medium text-gray-900 dark:text-white',
+		}
+	}) }}
+	{{ form_widget(form.text_color, {
+		'attr': {
+			'class': 'bg-gray-50 my-5 ml-4  border border-gray-300 text-gray-900 text-sm
+					  rounded-lg focus:ring-blue-500 focus:border-blue-500 block
+					  w-full p-2.5 dark:bg-gray-600 dark:border-gray-500
+					  dark:placeholder-gray-400 dark:text-white',
+			'placeholder': 'Couleur du texte'
+		},
+	}) }}
+</div>
+<div class="w-full flex justify-center">
+	<button
+			type="submit"
+			class=" right-0.5 inline-block rounded border-2 border-success px-6 pb-[6px] pt-2 text-xs font-medium
+        uppercase leading-normal text-success transition duration-150 ease-in-out hover:border-success-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-success-600 focus:border-success-600 focus:text-success-600 focus:outline-none focus:ring-0 active:border-success-700 active:text-success-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
+			data-te-ripple-init>
+		Ajouter la réservation
+	</button>
+</div>
+{{ form_end(form) }}
