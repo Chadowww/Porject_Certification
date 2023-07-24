@@ -24,7 +24,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 
         $user = new User();
         $user->setEmail('a.sale@outlook.fr');
-        $user->setPassword($this->hasher->hashPassword($user, 'fw7jzpdr7'));
+        $user->setPassword($this->hasher->hashPassword($user, 'Fw7jzpdr7!'));
         $user->setFirstname('Alexandre');
         $user->setLastname('Sale');
         $user->setPhone('0606060606');
@@ -35,7 +35,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 
         $user = new User();
         $user->setEmail('chadowow@outlook.fr');
-        $user->setPassword($this->hasher->hashPassword($user, 'fw7jzpdr7'));
+        $user->setPassword($this->hasher->hashPassword($user, 'Fw7jzpdr7!'));
         $user->setFirstname('Alexandre');
         $user->setLastname('Sale');
         $user->setPhone('0606060606');
@@ -48,7 +48,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $user = new User();
             $user->setFirstname($faker->firstName());
             $user->setLastname($faker->lastName());
-            $user->setEmail('user' . $i . '@jobitbetter.com');
+            $user->setEmail('user' . $i . '@chadoLib.com');
             $user->setPassword($this->hasher->hashPassword($user, 'user'));
             $user->setRoles(['ROLE_USER']);
             $user->setPhone('0606060606');

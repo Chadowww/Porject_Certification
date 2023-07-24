@@ -1,4 +1,8 @@
-{{ form_start(form) }}
+{{ form_start(form, {
+	'attr' : {
+		'class' : 'admin_form'
+	}
+}) }}
     {{ form_label(form.email, 'Email', {
 	    'label_attr': {
 		    'class': 'hidden block mb-2 text-sm font-medium text-gray-900 dark:text-white',
@@ -10,16 +14,16 @@
 					  rounded-lg focus:ring-blue-500 focus:border-blue-500 block
 					  w-full p-2.5 dark:bg-gray-600 dark:border-gray-500
 					  dark:placeholder-gray-400 dark:text-white',
-		    'placeholder': 'Email'
+		    'placeholder': 'Email',
+		    'data-rule': "required|email",
+		    'id' : 'user_email'
 	    },
     }) }}
-<div class="error">
-	{{ form_errors(form.email,{
-		'attr': {
-			'class': 'error'
-		}
-	}) }}
-</div>
+    {% if form_errors(form.email) %}
+	    <div class="error">
+		    {{ form_errors(form.email) }}
+	    </div>
+    {% endif %}
 {{ form_label(form.password, 'Mot de passe', {
 	'label_attr': {
 		'class': 'hidden block mb-2 text-sm font-medium text-gray-900 dark:text-white',
@@ -31,16 +35,16 @@
 					  rounded-lg focus:ring-blue-500 focus:border-blue-500 block
 					  w-full p-2.5 dark:bg-gray-600 dark:border-gray-500
 					  dark:placeholder-gray-400 dark:text-white',
-		    'placeholder': 'Mot de passe'
+		    'placeholder': 'Mot de passe',
+		    'id' : 'password',
+		    'data-rule': "required|password",
 	    },
     }) }}
-<div class="error">
-	{{ form_errors(form.password, {
-		'attr': {
-			'class': 'error'
-		}
-	}) }}
-</div>
+    {% if form_errors(form.password) %}
+	    <div class="error">
+		    {{ form_errors(form.password) }}
+	    </div>
+    {% endif %}
 {{ form_label(form.roles, 'Admin?', {
 	'label_attr': {
 		'class': ' block mb-2 text-sm font-medium text-gray-900 dark:text-white',
@@ -67,9 +71,16 @@
 					  rounded-lg focus:ring-blue-500 focus:border-blue-500 block
 					  w-full p-2.5 dark:bg-gray-600 dark:border-gray-500
 					  dark:placeholder-gray-400 dark:text-white',
-		    'placeholder': 'Prénom'
+		    'placeholder': 'Prénom',
+		    'data-rule' : 'required',
+		    'id' : 'user_firstname'
 	    },
     }) }}
+    {% if form_errors(form.firstname) %}
+	    <div class="error">
+		    {{ form_errors(form.firstname) }}
+	    </div>
+    {% endif %}
 {{ form_label(form.lastname, 'Nom', {
 	'label_attr': {
 		'class': 'hidden block mb-2 text-sm font-medium text-gray-900 dark:text-white',
@@ -81,9 +92,16 @@
 					  rounded-lg focus:ring-blue-500 focus:border-blue-500 block
 					  w-full p-2.5 dark:bg-gray-600 dark:border-gray-500
 					  dark:placeholder-gray-400 dark:text-white',
-		    'placeholder': 'Nom'
+		    'placeholder': 'Nom',
+		    'daata-rule' : 'required',
+		    'id' : 'user_lastname'
 	    },
     }) }}
+    {% if form_errors(form.lastname) %}
+	    <div class="error">
+		    {{ form_errors(form.lastname) }}
+	    </div>
+    {% endif %}
 {{ form_label(form.phone, 'Téléphone', {
 	'label_attr': {
 		'class': 'hidden block mb-2 text-sm font-medium text-gray-900 dark:text-white',

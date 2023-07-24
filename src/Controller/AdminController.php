@@ -2,41 +2,22 @@
 
 namespace App\Controller;
 
-use App\Form\AdminReservationType;
-use App\Form\AdminUserType;
-use App\Form\AuthorType;
-use App\Form\BookType;
-use App\Form\BorrowType;
-use App\Form\CategoryType;
-use App\Form\CommentType;
-use App\Form\EditorType;
-use App\Form\ReservationType;
-use App\Form\UserType;
-use App\Repository\AuthorRepository;
-use App\Repository\BookRepository;
-use App\Repository\BorrowRepository;
-use App\Repository\CategoryRepository;
-use App\Repository\CommentRepository;
-use App\Repository\EditorRepository;
-use App\Repository\ReservationRepository;
-use App\Repository\UserRepository;
+use App\Form\{AdminReservationType, AdminUserType, AuthorType, BookType, BorrowType, CategoryType};
+use App\Repository\{AuthorRepository, BookRepository, BorrowRepository, CategoryRepository, CommentRepository, EditorRepository, ReservationRepository, UserRepository};
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
-use function Sodium\add;
 
 #[Route('/admin')]
 #[IsGranted('ROLE_ADMIN')]
 class AdminController extends AbstractController
 {
 
-    #[Route('/', name: 'admin')]
+    #[Route('/', name: 'app_admin')]
     public function index(): Response
     {
         return $this->render('admin/index.html.twig');
@@ -390,13 +371,9 @@ class AdminController extends AbstractController
                 $this->addFlash('error', 'Une erreur est survenue lors de l\'ajout de l\'utilisateur');
             }
             return $this->redirectToRoute('app_admin_user');
-        }else{
-            $error = $form->getErrors();
-            $this->addFlash('error', 'Une erreur est survenue lors de l\'ajout de l\'utilisateur' . $error);
         }
 
      	if ($request->isMethod('POST') && isset($request->request->all()['id'])){
-//             dd($request->request->all());
             $user = $userRepository->findOneBy(['id' => $request->request->all()['id']]);
             $user->setEmail($request->request->all()['email']);
             $user->setFirstname($request->request->all()['firstname']);
@@ -404,7 +381,7 @@ class AdminController extends AbstractController
             $user->setAdress($request->request->all()['adress']);
             $user->setCity($request->request->all()['city']);
             $user->setPhone($request->request->all()['phone']);
-            if ($request->request->all()['isVerified'] !== null) {
+            if ( isset($request->request->all()['isVerified'])) {
                 $user->setIsVerified('1');
             }else{
                 $user->setIsVerified('0');
@@ -428,7 +405,6 @@ class AdminController extends AbstractController
         return $this->render('admin/view/user.html.twig', [
             'users' => $users,
             'form' => $form->createView(),
-            'errors' => $error ?? '',
         ]);
     }
 }

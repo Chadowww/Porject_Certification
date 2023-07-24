@@ -232,7 +232,7 @@
 		// rules
 		rules: {
 			password: function (value) {
-				return new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/gi).test(value);
+				return new RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/gi).test(value);
 				},
 		    required: function (value) {
 		        return '' !== value;

@@ -1,7 +1,7 @@
 
+if (document.getElementById('calendar')) {
 
-document.addEventListener('DOMContentLoaded', function() {
-    if (document.getElementById('calendar')) {
+    document.addEventListener('DOMContentLoaded', function() {
         let calendarEl = document.getElementById('calendar');
         let calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
@@ -31,23 +31,23 @@ document.addEventListener('DOMContentLoaded', function() {
             editable: true,
             eventResizableFromStart: true,
         });
-    }
 
-    calendar.on('eventChange', (e) =>{
-        let url = `/api/${e.event.id}/edit`
-        let data = {
-            start: e.event.start,
-            end: e.event.end,
-            description: e.event.title,
-            backgroundColor: e.event.backgroundColor,
-            borderColor: e.event.borderColor,
-            textColor: e.event.textColor,
-            allDay: e.event.allDay,
-        }
-        let xhr = new XMLHttpRequest();
-        xhr.open('PUT', url, true);
-        xhr.send(JSON.stringify(data));
-    })
+        calendar.on('eventChange', (e) =>{
+            let url = `/api/${e.event.id}/edit`
+            let data = {
+                start: e.event.start,
+                end: e.event.end,
+                description: e.event.title,
+                backgroundColor: e.event.backgroundColor,
+                borderColor: e.event.borderColor,
+                textColor: e.event.textColor,
+                allDay: e.event.allDay,
+            }
+            let xhr = new XMLHttpRequest();
+            xhr.open('PUT', url, true);
+            xhr.send(JSON.stringify(data));
+        })
 
-    calendar.render();
-});
+        calendar.render();
+    });
+}

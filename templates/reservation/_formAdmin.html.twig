@@ -1,4 +1,8 @@
-{{ form_start(form) }}
+{{ form_start(form, {
+	'attr': {
+		'class': 'admin_form'
+	}
+}) }}
     {{ form_label(form.user, 'Lecteur', {
 	    'label_attr': {
 		    'class': 'hidden block mb-2 text-sm font-medium text-gray-900 dark:text-white',
@@ -52,7 +56,8 @@
 					  rounded-lg focus:ring-blue-500 focus:border-blue-500 block
 					  w-full p-2.5 dark:bg-gray-600 dark:border-gray-500
 					  dark:placeholder-gray-400 dark:text-white',
-		    'placeholder': 'Date de retour'
+		    'placeholder': 'Date de retour',
+		    'data-rule' : 'required'
 	    },
     }) }}
 {{ form_label(form.datecheckout, 'Date de sortie', {
@@ -66,7 +71,8 @@
 					  rounded-lg focus:ring-blue-500 focus:border-blue-500 block
 					  w-full p-2.5 dark:bg-gray-600 dark:border-gray-500
 					  dark:placeholder-gray-400 dark:text-white',
-		    'placeholder': 'Date de sortie'
+		    'placeholder': 'Date de sortie',
+		    'data-rule' : 'required'
 	    },
     }) }}
 {{ form_label(form.description, 'Description', {
