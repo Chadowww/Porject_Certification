@@ -390,9 +390,6 @@ class AdminController extends AbstractController
                 $this->addFlash('error', 'Une erreur est survenue lors de l\'ajout de l\'utilisateur');
             }
             return $this->redirectToRoute('app_admin_user');
-        }else{
-            $error = $form->getErrors();
-            $this->addFlash('error', 'Une erreur est survenue lors de l\'ajout de l\'utilisateur' . $error);
         }
 
      	if ($request->isMethod('POST') && isset($request->request->all()['id'])){
@@ -428,7 +425,6 @@ class AdminController extends AbstractController
         return $this->render('admin/view/user.html.twig', [
             'users' => $users,
             'form' => $form->createView(),
-            'errors' => $error ?? '',
         ]);
     }
 }
