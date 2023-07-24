@@ -5,13 +5,6 @@ import { Validator } from './js-form-validator.min.js';
 
 //////////////
 console.log(Validator)
-const firstname = document.querySelector('#user_firstname');
-const lastname = document.querySelector('#user_lastname');
-const email = document.querySelector('#user_email');
-const password = document.querySelector('#password');
-const passwordConfirm = document.querySelector('#confirm-password');
-
-
 
 // Get form handle
 
@@ -43,8 +36,20 @@ if (document.querySelector('.form-user-login')){
 // Got to validation
 }
 if (document.querySelector('.form-user-register')) {
-    console.log('register')
     let formHandleRegister = document.querySelector('.form-user-register');
+
+    new Validator(formHandleRegister, function (err, res) {
+
+        // some code of success of validation
+        return res;
+    }, {
+        // set auto tracking forcibly
+        autoTracking: true
+    });
+}
+
+if (document.querySelector('.admin_form')){
+    let formHandleRegister = document.querySelector('.admin_form');
 
     new Validator(formHandleRegister, function (err, res) {
 
