@@ -2,20 +2,8 @@
 
 namespace App\Controller;
 
-use App\Form\AdminReservationType;
-use App\Form\AdminUserType;
-use App\Form\AuthorType;
-use App\Form\BookType;
-use App\Form\BorrowType;
-use App\Form\CategoryType;
-use App\Repository\AuthorRepository;
-use App\Repository\BookRepository;
-use App\Repository\BorrowRepository;
-use App\Repository\CategoryRepository;
-use App\Repository\CommentRepository;
-use App\Repository\EditorRepository;
-use App\Repository\ReservationRepository;
-use App\Repository\UserRepository;
+use App\Form\{AdminReservationType, AdminUserType, AuthorType, BookType, BorrowType, CategoryType};
+use App\Repository\{AuthorRepository, BookRepository, BorrowRepository, CategoryRepository, CommentRepository, EditorRepository, ReservationRepository, UserRepository};
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -386,7 +374,6 @@ class AdminController extends AbstractController
         }
 
      	if ($request->isMethod('POST') && isset($request->request->all()['id'])){
-//             dd($request->request->all());
             $user = $userRepository->findOneBy(['id' => $request->request->all()['id']]);
             $user->setEmail($request->request->all()['email']);
             $user->setFirstname($request->request->all()['firstname']);
@@ -394,7 +381,7 @@ class AdminController extends AbstractController
             $user->setAdress($request->request->all()['adress']);
             $user->setCity($request->request->all()['city']);
             $user->setPhone($request->request->all()['phone']);
-            if ($request->request->all()['isVerified'] !== null) {
+            if ( isset($request->request->all()['isVerified'])) {
                 $user->setIsVerified('1');
             }else{
                 $user->setIsVerified('0');
