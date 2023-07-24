@@ -8,10 +8,6 @@ use App\Form\AuthorType;
 use App\Form\BookType;
 use App\Form\BorrowType;
 use App\Form\CategoryType;
-use App\Form\CommentType;
-use App\Form\EditorType;
-use App\Form\ReservationType;
-use App\Form\UserType;
 use App\Repository\AuthorRepository;
 use App\Repository\BookRepository;
 use App\Repository\BorrowRepository;
@@ -23,20 +19,17 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
-use function Sodium\add;
 
 #[Route('/admin')]
 #[IsGranted('ROLE_ADMIN')]
 class AdminController extends AbstractController
 {
 
-    #[Route('/', name: 'admin')]
+    #[Route('/', name: 'app_admin')]
     public function index(): Response
     {
         return $this->render('admin/index.html.twig');
