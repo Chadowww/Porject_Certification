@@ -85,6 +85,7 @@ class BookController extends AbstractController
 		$this->addFlash('success', 'Le livre a bien été supprimé');
         return $this->redirectToRoute('app_admin_book', [], Response::HTTP_SEE_OTHER);
     }
+
 	#[Route('/{id}/add-to-fav', name: 'app_book_add_to_fav', methods: ['GET'])]
     public function addToFav(Book $book, EntityManagerInterface $entityManager): Response
     {

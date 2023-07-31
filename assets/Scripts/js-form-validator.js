@@ -161,7 +161,9 @@
 					    
 			// English
 		    en: {
-				password:{empty: 'S\'il vous plaît, entrez votre mot de passe',incorrect: 'Le mot de passe doit contenir au moins 8 caractères dont au moins une lettre majuscule, une lettre minuscule et un chiffre'},
+				password:{
+					empty: 'S\'il vous plaît, entrez votre mot de passe',
+					incorrect: 'Le mot de passe doit contenir au moins 8 caractères dont au moins une lettre majuscule, une lettre minuscule et un chiffre'},
 		        required: {
 		            empty: 'Le champ est obligatoire',
 		            incorrect: 'Valeur incorrecte'

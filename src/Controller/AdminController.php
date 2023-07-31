@@ -46,7 +46,6 @@ class AdminController extends AbstractController
             } catch (\Exception $e) {
                 $this->addFlash('error', 'Une erreur est survenue lors de l\'ajout de l\'auteur');
             }
-            return $this->redirectToRoute('app_admin_author');
         }
 
         if ($request->isMethod('POST') && $request->request->all()['id'] !== null){
@@ -62,7 +61,6 @@ class AdminController extends AbstractController
             } catch (\Exception $e) {
                 $this->addFlash('error', 'Une erreur est survenue lors de la modification de l\'auteur');
             }
-            return $this->redirectToRoute('app_admin_author');
         }
 
         return $this->render('admin/view/author.html.twig', [
@@ -99,10 +97,9 @@ class AdminController extends AbstractController
             } catch (\Exception $e) {
                 $this->addFlash('error', 'Une erreur est survenue lors de l\'ajout du livre');
             }
-            return $this->redirectToRoute('app_admin_book');
         }
 
-        if ($request->isMethod('POST') && $request->request->all()['id'] !== null){
+        if ($request->isMethod('POST') && isset($request->request->all()['id'])){
 			$book = $bookRepository->findOneBy(['id' => $request->request->all()['id']]);
             $book->setTitle($request->request->all()['title']);
             $book->setDescription($request->request->all()['description']);
@@ -153,7 +150,6 @@ class AdminController extends AbstractController
             } catch (\Exception $e) {
                 $this->addFlash('error', 'Une erreur est survenue lors de l\'ajout de l\'emprunt');
             }
-            return $this->redirectToRoute('app_admin_borrow');
         }
 
         if ($request->isMethod('POST') && $request->request->all()['id'] !== null){
@@ -168,7 +164,6 @@ class AdminController extends AbstractController
             } catch (\Exception $e) {
                 $this->addFlash('error', 'Une erreur est survenue lors de la modification de l\'emprunt');
             }
-            return $this->redirectToRoute('app_admin_borrow');
         }
 
         return $this->render('admin/view/borrow.html.twig', [
