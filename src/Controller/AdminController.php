@@ -152,7 +152,7 @@ class AdminController extends AbstractController
             }
         }
 
-        if ($request->isMethod('POST') && $request->request->all()['id'] !== null){
+        if ($request->isMethod('POST') && isset($request->request->all()['id'])){
             $borrow = $borrowRepository->findOneBy(['id' => $request->request->all()['id']]);
             $borrow->setCheckin(new \DateTime($request->request->all()['checkin']));
             $borrow->setCheckout(new \DateTime($request->request->all()['checkout']));

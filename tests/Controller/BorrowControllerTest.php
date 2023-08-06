@@ -3,6 +3,7 @@
 namespace App\Tests\Controller;
 
 use App\Entity\Borrow;
+use App\Entity\User;
 use App\Repository\BorrowRepository;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -17,7 +18,22 @@ class BorrowControllerTest extends WebTestCase
     {
         $this->client = static::createClient();
         $this->repository = static::getContainer()->get('doctrine')->getRepository(Borrow::class);
+        $this->user = static::getContainer()->get('doctrine')->getRepository(User::class);
 
+        $admin =$this->user->findOneBy(['email' => 'admin@outlook.fr']);
+
+        if ($admin == null) {
+            $admin = new User();
+            $admin->setRoles(['ROLE_ADMIN']);
+            $admin->setFirstname('admin');
+            $admin->setLastname('admin');
+            $admin->setEmail('admin@outlook.fr');
+            $admin->setPassword('Fw7jzpdr7!');
+            $this->user->save($admin, true);
+        }
+
+
+        $this->client->loginUser($admin);
         foreach ($this->repository->findAll() as $object) {
             $this->repository->remove($object, true);
         }
@@ -38,19 +54,21 @@ class BorrowControllerTest extends WebTestCase
     {
         $originalNumObjectsInRepository = count($this->repository->findAll());
 
-        $this->markTestIncomplete();
-        $this->client->request('GET', sprintf('%snew', $this->path));
+        $this->client->request('GET', sprintf('/admin/borrow'));
 
         self::assertResponseStatusCodeSame(200);
 
-        $this->client->submitForm('Save', [
-            'borrow[checkin]' => 'Testing',
-            'borrow[checkout]' => 'Testing',
-            'borrow[user]' => 'Testing',
-            'borrow[book]' => 'Testing',
+        $crawler = $this->client->submitForm('submit', [
+            'borrow[checkin]' => '2023-08-09 08:20:00.0 UTC (+00:00)',
+            'borrow[checkout]' => '2023-08-09 08:20:00.0 UTC (+00:00)',
+            'borrow[user]' => 7,
+            'borrow[book]' => 313,
         ]);
+// Get the FormInterface object
+        $form = $crawler->filter('form[name=borrow]')->form();
 
-        self::assertResponseRedirects('/borrow/');
+        // Get the errors from the FormInterface object
+        $errors = $this->client->getContainer()->get('validator')->validate($form->getData());
 
         self::assertSame($originalNumObjectsInRepository + 1, count($this->repository->findAll()));
     }
