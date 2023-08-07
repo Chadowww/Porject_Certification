@@ -92,13 +92,13 @@
 	<!--/Cards -->
 
 	<!-- Section: list authors -->
-	<div class="flex-1 px-2 sm:px-0 my-10 underline">
-		<h2 class=" pc-title ">Les auteurs du moment :</h2>
-		<div class="mb-10 sm:mb-0 mt-10 grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
+	<div class="flex-1 px-2 sm:px-0 my-28">
+		<h2 class=" pc-title underline">Nos categories :</h2>
+		<div class="mb-10 sm:mb-0 mt-10 grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
 			{% for author in authors | slice (0,12) %}
-				<a href="{{ path('app_author_show', {'id': author.id }) }}" class=" h-24 flex justify-center
-                items-center bg-white border border-gray-200 rounded-lg
-                        shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+				<a href="{{ path('app_author_show',{'id': author.id }) }}" class=" h-24 flex justify-center
+                items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl
+                hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
 					<div class="flex justify-center p-4  leading-normal">
 						<h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 hover:underline
                                 dark:text-white">{{ author.name }}</h5>
@@ -114,19 +114,14 @@
 		<h2 class=" pc-title underline">Nos categories :</h2>
 		<div class="mb-10 sm:mb-0 mt-10 grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
 			{% for category in categories | slice (0,12) %}
-
 				<a href="{{ path('app_category_show',{'id': category.id }) }}" class=" h-24 flex justify-center
-                items-center
-                bg-white
-                border border-gray-200
-                rounded-lg
-                        shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+                items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl
+                hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
 					<div class="flex justify-center p-4  leading-normal">
 						<h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 hover:underline
                                 dark:text-white">{{ category.name }}</h5>
 					</div>
 				</a>
-
 			{% endfor %}
 		</div>
 	</div>
@@ -134,7 +129,7 @@
 
 	<!-- ====== Cards Section Start -->
 	<section id="actu" class=" pb-10 lg:pb-20 ">
-		<h2 class="my-10 pc-title ">Espace article à venir :</h2>
+		<h2 class="my-10 pc-title underline">Espace article à venir :</h2>
 		<div>
 			<div class="flex flex-wrap -mx-4">
 				{% for i in 1..8 %}
