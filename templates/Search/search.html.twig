@@ -6,9 +6,13 @@
 	<h1>Résultat de votre recherche :</h1>
 
 	<div class="flex flex-wrap justify-around items-center">
-	{% for book in books %}
-		{% include ('cards/book-card.html.twig') %}
-	{% endfor %}
+		{% if books is not empty %}
+			{% for book in books %}
+				{% include ('cards/book-card.html.twig') %}
+			{% endfor %}
+		{% else %}
+			<p class="text-center">Aucun livre ne correspond à votre recherche.</p>
+		{% endif %}
 	<div class="flex justify-center w-10/12 my-12">
 		{{ knp_pagination_render(books) }}
 	</div>
