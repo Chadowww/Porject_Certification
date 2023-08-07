@@ -6,6 +6,7 @@ use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Repository\BookRepository;
 use App\Repository\CategoryRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -42,9 +43,17 @@ class CategoryController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_category_show', methods: ['GET'])]
-    public function show(Category $category, BookRepository $bookRepository): Response
+    public function show(Request $request, Category $category, BookRepository $bookRepository, PaginatorInterface
+    $paginator):
+Response
     {
+        $books = $paginator->paginate(
+            $category->getBooks(),
+            $request->query->getInt('page', 1),
+            12
+        );
         return $this->render('category/show.html.twig', [
+            'books' => $books,
             'category' => $category,
         ]);
     }
