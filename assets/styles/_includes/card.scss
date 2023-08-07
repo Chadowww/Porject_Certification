@@ -1,0 +1,9 @@
+.card-book:hover{
+  .card-book-info{
+    transform: translateY(-100%);
+    transition: transform 1s ease;
+  }
+}
+
+.card-book-info{
+}

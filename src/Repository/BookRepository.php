@@ -70,6 +70,16 @@ class BookRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
+    public function randBooks(): array
+    {
+        $query = $this->createQueryBuilder('b')
+            ->orderBy('RAND()')
+            ->setMaxResults(10)
+            ->getQuery();
+
+        return $query->getResult();
+    }
+
 //    /**
 //     * @return Book[] Returns an array of Book objects
 //     */

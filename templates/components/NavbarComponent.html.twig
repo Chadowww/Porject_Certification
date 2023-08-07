@@ -1,7 +1,7 @@
 <div{{ attributes }}>
 	<!-- Main navigation container -->
-	<nav class=" fixed top-0 flex-no-wrap z-[1050] w-full items-center justify-between bg-[#FBFBFB] py-2 shadow-md
-		shadow-black/5 dark:bg-neutral-600 dark:shadow-black/10 lg:flex-wrap lg:justify-start lg:py-4"
+	<nav class=" fixed top-0 flex-no-wrap z-[1050] w-full items-center justify-between bg-[#B0BEC5] py-2 shadow-md
+		shadow-black/5 dark:shadow-black/10 lg:flex-wrap lg:justify-start lg:py-4"
 			data-te-navbar-ref
 	>
 		<div class="flex w-full flex-wrap items-center justify-between px-3">
@@ -18,7 +18,7 @@
 			>
 				<!-- Hamburger icon -->
 				<span class="[&>svg]:w-7">
-			        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-7 w-7">
+			        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-7 w-7 text-black-50">
 				          <path fill-rule="evenodd"
 						        d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0
 						        01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75
@@ -40,73 +40,37 @@
 						 dark:focus:text-neutral-400 lg:mb-0 lg:mt-0"
 						href="{{ path('app_home') }}"
 				>
-					<img src="https://tecdn.b-cdn.net/img/logo/te-transparent-noshadows.webp"
-						 style="height: 15px"
-						 alt="TE Logo"
+					<img src="{{ asset('/images/logo-color.png') }}"
+						 class="h-8 w-auto sm:h-10"
+						 alt="logo"
 						 loading="lazy"
 					/>
 				</a>
 				<!-- Left navigation links -->
 				<ul class="list-style-none mr-auto flex flex-col pl-0 lg:flex-row" data-te-navbar-nav-ref>
-					<li class="mb-4 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
-						<!-- Dashboard link -->
-						<a class="text-neutral-500 transition duration-200 hover:text-neutral-700 hover:ease-in-out
-								  focus:text-neutral-700 disabled:text-black/30 motion-reduce:transition-none
-								  dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300
-								  lg:px-2 [&.active]:text-black/90
-						          dark:[&.active]:text-zinc-400"
-							href="#"
-							data-te-nav-link-ref
-						>
-								Dashboard`
-						</a>
-					</li>
-					<!-- Team link -->
-					<li class="mb-4 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
-						<a class="text-neutral-500 transition duration-200 hover:text-neutral-700 hover:ease-in-out
-								  focus:text-neutral-700 disabled:text-black/30 motion-reduce:transition-none
-								  dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300
-								  lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
-							href="#"
-							data-te-nav-link-ref
-						>
-								Team
-						</a>
-					</li>
-					<li class="mb-4 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
-						<a class="text-neutral-500 transition duration-200 hover:text-neutral-700 hover:ease-in-out
-								  focus:text-neutral-700 disabled:text-black/30 motion-reduce:transition-none
-								  dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300
-								  lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
-							href="#"
-							data-te-nav-link-ref
-						>
-							Projects
-						</a>
-					</li>
 
 					<!-- MegaMenu -->
 					<li class="mb-4 lg:mb-0 lg:pr-2" data-te-nav-item-ref data-te-dropdown-ref>
-						<a class="text-neutral-500 transition duration-200 hover:text-neutral-700 hover:ease-in-out
+						<a class=" transition duration-200 hover:text-neutral-700 hover:ease-in-out
 								  focus:text-neutral-700 disabled:text-black/30 motion-reduce:transition-none
-								  dark:text-neutral-200 dark:hover:text-neutral-300 dark:focus:text-neutral-300
+								 text-[#001F3FFF] dark:hover:text-neutral-300 dark:focus:text-neutral-300
 								  lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
-							href="#"
-							data-te-ripple-init
-							data-te-ripple-color="light"
-							type="button"
-							id="dropdownMenuButtonX"
-							data-te-dropdown-toggle-ref
-							aria-expanded="false"
-							data-te-nav-link-ref
+						   href="#"
+						   data-te-ripple-init
+						   data-te-ripple-color="light"
+						   type="button"
+						   id="dropdownMenuButtonX"
+						   data-te-dropdown-toggle-ref
+						   aria-expanded="false"
+						   data-te-nav-link-ref
 						>
-							Mega menu
+							MENU
 						</a>
 						<div class="absolute left-0 right-0 top-full z-[1000] mt-0 hidden w-full border-none bg-white
-						            bg-clip-padding text-neutral-600 shadow-lg dark:bg-neutral-700 dark:text-neutral-200
+						            bg-clip-padding  shadow-lg bg-[#001F3FFF]
 						            [&[data-te-dropdown-show]]:block"
-							aria-labelledby="dropdownMenuButtonX"
-							data-te-dropdown-menu-ref>
+						     aria-labelledby="dropdownMenuButtonX"
+						     data-te-dropdown-menu-ref>
 							<div class="px-6 py-5 lg:px-8">
 								<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
 									<!-- MegaMenu categories -->
@@ -144,88 +108,87 @@
 									<!--/ MegaMenu authors -->
 
 									<!-- MegaMenu books -->
-									<div>
-										<h3>Nos livres</h3>
-										{% for book in this.books | slice (0,10) %}
-											<a href="{{ path('app_book_show', {'id' : book.id}) }}"
-											   aria-current="true"
-											   class="block w-full border-b border-neutral-200 px-6 py-2 transition
-													  duration-150 ease-in-out hover:bg-neutral-50 hover:text-neutral-700
-													  dark:border-neutral-500 dark:hover:bg-neutral-800 dark:hover:text-white"
-											>
-												{{ book.title }}
-											</a
-											>
-										{% endfor %}
-									</div>
+{#									<div>#}
+{#										<h3>Nos livres</h3>#}
+{#										{% for book in this.books | slice (0,10) %}#}
+{#											<a href="{{ path('app_book_show', {'id' : book.id}) }}"#}
+{#											   aria-current="true"#}
+{#											   class="block w-full border-b border-neutral-200 px-6 py-2 transition#}
+{#													  duration-150 ease-in-out hover:bg-neutral-50 hover:text-neutral-700#}
+{#													  dark:border-neutral-500 dark:hover:bg-neutral-800 dark:hover:text-white"#}
+{#											>#}
+{#												{{ book.title }}#}
+{#											</a#}
+{#											>#}
+{#										{% endfor %}#}
+{#									</div>#}
 									<!--/ MegaMenu books -->
 
-									<div>
-										<a
-												href=""
-												aria-current="true"
-												class="block w-full border-b border-neutral-200 px-6 py-2 transition duration-150 ease-in-out hover:bg-neutral-50 hover:text-neutral-700 dark:border-neutral-500 dark:hover:bg-neutral-800 dark:hover:text-white"
-										>
-											Cras justo odio
-										</a>
-									</div>
+{#									<div>#}
+{#										<a#}
+{#												href=""#}
+{#												aria-current="true"#}
+{#												class="block w-full border-b border-neutral-200 px-6 py-2 transition duration-150 ease-in-out hover:bg-neutral-50 hover:text-neutral-700 dark:border-neutral-500 dark:hover:bg-neutral-800 dark:hover:text-white"#}
+{#										>#}
+{#											Cras justo odio#}
+{#										</a>#}
+{#									</div>#}
 								</div>
 							</div>
 						</div>
 					</li>
 					<!-- End of mega menu -->
+
+					<!-- Search  -->
+					<form class="flex items-center mr-6" method="get" action="{{ path('app_book_search') }}">
+						<label for="simple-search" class="sr-only">search</label>
+						<div class="relative w-64">
+							<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+								<svg aria-hidden="true"
+								     class="w-5 h-5 text-gray-500 dark:text-gray-400"
+								     fill="currentColor"
+								     viewBox="0 0 20 20"
+								     xmlns="http://www.w3.org/2000/svg">
+									<path fill-rule="evenodd"
+									      d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+									      clip-rule="evenodd"
+									></path>
+								</svg>
+							</div>
+							<input type="text"
+							       id="simple-search"
+							       name="search_book"
+							       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
+						          focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600
+						          dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
+						          dark:focus:border-blue-500"
+							       placeholder="Un livre, un auteur ?"
+							       required
+							>
+						</div>
+						<button type="submit"
+						        class="p-2.5 ml-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700
+				               hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600
+				               dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+						>
+							<svg class="w-5 h-5"
+							     fill="none"
+							     stroke="currentColor"
+							     viewBox="0 0 24 24"
+							     xmlns="http://www.w3.org/2000/svg"
+							>
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z">
+								</path>
+							</svg>
+							<span class="sr-only">Rechercher</span>
+						</button>
+					</form>
+					<!--/ Search  -->
 				</ul>
 			</div>
 
 
 			<!-- Right elements -->
-
-			<!-- Search  -->
-			<form class="flex items-center mr-6" method="get" action="{{ path('app_book_search') }}">
-				<label for="simple-search" class="sr-only">search</label>
-				<div class="relative w-64">
-					<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-						<svg aria-hidden="true"
-						     class="w-5 h-5 text-gray-500 dark:text-gray-400"
-						     fill="currentColor"
-						     viewBox="0 0 20 20"
-						     xmlns="http://www.w3.org/2000/svg">
-							<path fill-rule="evenodd"
-							      d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-							      clip-rule="evenodd"
-							></path>
-						</svg>
-					</div>
-					<input type="text"
-					       id="simple-search"
-					       name="search_book"
-					       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
-						          focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600
-						          dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
-						          dark:focus:border-blue-500"
-					       placeholder="Un livre, un auteur ?"
-					       required
-					>
-				</div>
-				<button type="submit"
-				        class="p-2.5 ml-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700
-				               hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600
-				               dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-				>
-					<svg class="w-5 h-5"
-					     fill="none"
-					     stroke="currentColor"
-					     viewBox="0 0 24 24"
-					     xmlns="http://www.w3.org/2000/svg"
-					>
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z">
-						</path>
-					</svg>
-					<span class="sr-only">Rechercher</span>
-				</button>
-			</form>
-			<!--/ Search  -->
-
 			{% if app.user %}
 				<div class="relative flex items-center">
 					<!-- Cart Icon -->
@@ -248,81 +211,81 @@
 					</a>
 
 					<!-- Container with two dropdown menus -->
-					<div class="relative" data-te-dropdown-ref>
-						<!-- First dropdown trigger -->
-						<a class="hidden-arrow mr-4 flex items-center text-secondary-500 transition duration-200
-								  hover:text-secondary-400 hover:ease-in-out focus:text-secondary-400
-								  disabled:text-black/30 motion-reduce:transition-none"
-							href="#"
-							id="dropdownMenuButton1"
-							role="button"
-							data-te-dropdown-toggle-ref
-							aria-expanded="false">
-							<!-- Dropdown trigger icon -->
-							<span class="[&>svg]:w-5">
-	                              <svg xmlns="http://www.w3.org/2000/svg"
-			                           viewBox="0 0 24 24"
-			                           fill="currentColor"
-			                           class="h-5 w-5"
-	                              >
-		                                <path fill-rule="evenodd"
-				                              d="M5.25 9a6.75 6.75 0 0113.5 0v.75c0 2.123.8 4.057 2.118 5.52a.75.75 0 01-.297
-				                                 1.206c-1.544.57-3.16.99-4.831 1.243a3.75 3.75 0 11-7.48 0 24.585 24.585 0
-				                                 01-4.831-1.244.75.75 0 01-.298-1.205A8.217 8.217 0 005.25 9.75V9zm4.502 8.9a2.25
-				                                 2.25 0 104.496 0 25.057 25.057 0 01-4.496 0z"
-				                              clip-rule="evenodd"
-		                                />
-	                              </svg>
-                            </span>
-							<!-- Notification counter -->
-							<span class="absolute -mt-4 ml-2.5 rounded-full bg-danger px-[0.35em] py-[0.15em] text-[0
-										 .6rem] font-bold leading-none text-white">
-								1
-							</span>
-						</a>
-						<!-- First dropdown menu -->
-						<ul class="absolute left-auto right-0 z-[1000] float-left m-0 mt-1 hidden min-w-max list-none
-						           overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base
-						           shadow-lg dark:bg-neutral-700 [&[data-te-dropdown-show]]:block"
-							aria-labelledby="dropdownMenuButton1"
-							data-te-dropdown-menu-ref
-						>
-							<!-- First dropdown menu items -->
-							<li>
-								<a class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal
-								          text-neutral-700 hover:bg-neutral-100 active:text-neutral-800
-								          active:no-underline disabled:pointer-events-none disabled:bg-transparent
-								          disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-white/30"
-									href="#"
-									data-te-dropdown-item-ref
-								>
-									Action
-								</a>
-							</li>
-							<li>
-								<a class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal
-								          text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline
-								          disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400
-								          dark:text-neutral-200 dark:hover:bg-white/30"
-									href="#"
-									data-te-dropdown-item-ref
-								>
-									Another action
-								</a>
-							</li>
-							<li>
-								<a class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal
-								          text-neutral-700 hover:bg-neutral-100 active:text-neutral-800
-								          active:no-underline disabled:pointer-events-none disabled:bg-transparent
-								          disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-white/30"
-									href="#"
-									data-te-dropdown-item-ref
-								>
-									Something else here
-								</a>
-							</li>
-						</ul>
-					</div>
+{#					<div class="relative" data-te-dropdown-ref>#}
+{#						<!-- First dropdown trigger -->#}
+{#						<a class="hidden-arrow mr-4 flex items-center text-secondary-500 transition duration-200#}
+{#								  hover:text-secondary-400 hover:ease-in-out focus:text-secondary-400#}
+{#								  disabled:text-black/30 motion-reduce:transition-none"#}
+{#							href="#"#}
+{#							id="dropdownMenuButton1"#}
+{#							role="button"#}
+{#							data-te-dropdown-toggle-ref#}
+{#							aria-expanded="false">#}
+{#							<!-- Dropdown trigger icon -->#}
+{#							<span class="[&>svg]:w-5">#}
+{#	                              <svg xmlns="http://www.w3.org/2000/svg"#}
+{#			                           viewBox="0 0 24 24"#}
+{#			                           fill="currentColor"#}
+{#			                           class="h-5 w-5"#}
+{#	                              >#}
+{#		                                <path fill-rule="evenodd"#}
+{#				                              d="M5.25 9a6.75 6.75 0 0113.5 0v.75c0 2.123.8 4.057 2.118 5.52a.75.75 0 01-.297#}
+{#				                                 1.206c-1.544.57-3.16.99-4.831 1.243a3.75 3.75 0 11-7.48 0 24.585 24.585 0#}
+{#				                                 01-4.831-1.244.75.75 0 01-.298-1.205A8.217 8.217 0 005.25 9.75V9zm4.502 8.9a2.25#}
+{#				                                 2.25 0 104.496 0 25.057 25.057 0 01-4.496 0z"#}
+{#				                              clip-rule="evenodd"#}
+{#		                                />#}
+{#	                              </svg>#}
+{#                            </span>#}
+{#							<!-- Notification counter -->#}
+{#							<span class="absolute -mt-4 ml-2.5 rounded-full bg-danger px-[0.35em] py-[0.15em] text-[0#}
+{#										 .6rem] font-bold leading-none text-white">#}
+{#								1#}
+{#							</span>#}
+{#						</a>#}
+{#						<!-- First dropdown menu -->#}
+{#						<ul class="absolute left-auto right-0 z-[1000] float-left m-0 mt-1 hidden min-w-max list-none#}
+{#						           overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base#}
+{#						           shadow-lg dark:bg-neutral-700 [&[data-te-dropdown-show]]:block"#}
+{#							aria-labelledby="dropdownMenuButton1"#}
+{#							data-te-dropdown-menu-ref#}
+{#						>#}
+{#							<!-- First dropdown menu items -->#}
+{#							<li>#}
+{#								<a class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal#}
+{#								          text-neutral-700 hover:bg-neutral-100 active:text-neutral-800#}
+{#								          active:no-underline disabled:pointer-events-none disabled:bg-transparent#}
+{#								          disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-white/30"#}
+{#									href="#"#}
+{#									data-te-dropdown-item-ref#}
+{#								>#}
+{#									Action#}
+{#								</a>#}
+{#							</li>#}
+{#							<li>#}
+{#								<a class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal#}
+{#								          text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline#}
+{#								          disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400#}
+{#								          dark:text-neutral-200 dark:hover:bg-white/30"#}
+{#									href="#"#}
+{#									data-te-dropdown-item-ref#}
+{#								>#}
+{#									Another action#}
+{#								</a>#}
+{#							</li>#}
+{#							<li>#}
+{#								<a class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal#}
+{#								          text-neutral-700 hover:bg-neutral-100 active:text-neutral-800#}
+{#								          active:no-underline disabled:pointer-events-none disabled:bg-transparent#}
+{#								          disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-white/30"#}
+{#									href="#"#}
+{#									data-te-dropdown-item-ref#}
+{#								>#}
+{#									Something else here#}
+{#								</a>#}
+{#							</li>#}
+{#						</ul>#}
+{#					</div>#}
 
 					<!-- Second dropdown container -->
 					<div class="relative" data-te-dropdown-ref>
@@ -679,4 +642,5 @@
 			{% endif %}
 		</div>
 	</nav>
+
 </div>

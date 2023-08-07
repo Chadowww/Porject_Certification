@@ -1,0 +1,54 @@
+<div class=" card-book flex flex-wrap place-items-center m-5">
+	<!-- card -->
+	<div class="overflow-hidden relative shadow-lg transition duration-500 ease-in-out transform
+			hover:shadow-2xl rounded-lg  w-60 md:w-80  m-auto">
+		<a href="{{ path('app_book_show', {'id': book.id}) }}" class="w-full block h-full bg-[#B0BEC5]">
+			<img alt="blog photo" src="{{ book.cover }}" class=" w-full object-fit-fill"/>
+		</a>
+		<div class="card-book-info absolute bg-white w-full h-full flex flex-col justify-between p-4">
+			<div class="flex flex-wrap justify-between items-center h-24">
+				<p class="text-[#001F3FFF] text-2xl font-medium">
+					<a href="{{ path('app_book_show', {'id': book.id}) }}">{{ book.title }}</a>
+				</p>
+				{% if app.user %}
+					<div>
+						<a class="bt-fav"
+						   onclick="addToFavorite(event)"
+						   href="{{ path('app_book_add_to_fav', {id: book.id})}}">
+							<i class="bi {{ app.user.isFavorite(book) ? 'bi-heart-fill' :
+							'bi-heart'}}"></i>
+						</a>
+					</div>
+				{% endif %}
+			</div>
+			<p class="pc-truncate  text-gray-600 font-light text-md h-24 hidden md:block">
+				{{ book.description }}
+			</p>
+			<a class=" text-[#001F3FFF] hidden md:block" href="{{ path('app_book_show', {'id': book.id}) }}">Read More</a>
+			<div class="flex flex-wrap justify-starts items-center py-3 border-b-2 text-xs text-white font-medium">
+				{% for categorie in book.category %}
+					<a href="{{ path('app_category_show', {'id': categorie.id}) }}">
+									<span class="m-1 px-2 py-1 rounded bg-[#001F3FFF] ">
+										{{ categorie.name }}
+									</span>
+					</a>
+				{% endfor %}
+			</div>
+			<div class="flex items-center mt-2">
+				<img class='w-10 h-10 object-cover rounded-full' alt='User avatar' src='
+							{% for author in book.author %}
+							{{ author.avatar }}
+							{% endfor %}
+							'>
+
+				<div class="pl-3">
+					<div class="font-medium">
+						{% for auteur in book.author %}
+							<a href="{{ path('app_author_show', {'id': auteur.id })}}">{{ auteur.name }}</a>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

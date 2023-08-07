@@ -21,6 +21,8 @@ doctrine:
         dql:
             string_functions:
                 MATCH_AGAINST: App\Extensions\Doctrine\MatchAgainst
+            numeric_functions:
+                Rand: App\Extensions\Doctrine\Rand
 
 
 when@test:

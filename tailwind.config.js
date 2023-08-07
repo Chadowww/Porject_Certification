@@ -8,7 +8,11 @@ module.exports = {
       "./node_modules/tw-elements/dist/js/**/*.js"
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'primary-color': '#001F3FFF',
+      },
+    },
   },
   plugins: [
     plugin(function({ addVariant, addBase, theme  }) {

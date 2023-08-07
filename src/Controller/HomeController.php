@@ -25,6 +25,7 @@ class HomeController extends AbstractController
             'authors' => $authorRepository->findAll(),
             'mostFavoriteBooks' => $mostFavoriteBooks,
             'lastBooks' => $bookRepository->lastBooks(),
+            'randBooks' => $bookRepository->randBooks(),
         ]);
     }
 }
