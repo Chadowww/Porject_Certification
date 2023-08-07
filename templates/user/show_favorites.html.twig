@@ -77,67 +77,10 @@
 	</aside>
 	<!-- ./Sidebar -->
 	<!-- Main profile -->
-	<div class="flex flex-wrap justify-around items-center ml-[200px]">
+	<div class="flex flex-wrap justify-around items-center sm:ml-[200px]">
 		{% for book in user.favorite %}
-			<div class="flex flex-wrap place-items-center m-5">
-				<!-- card -->
-				<div class="overflow-hidden shadow-lg transition duration-500 ease-in-out transform hover:-translate-y-5
-			hover:shadow-2xl rounded-lg  w-60 md:w-80  m-auto">
-					<a href="#" class="w-full block h-full">
-						<img alt="blog photo" src="{{ book.cover }}" class="max-h-40 w-full object-cover"/>
-					</a>
-					<div class="bg-white w-full p-4">
-						<div class="flex flex-wrap justify-between items-center h-24">
-							<p class="text-indigo-500 text-2xl font-medium">
-								<a href="{{ path('app_book_show', {'id': book.id}) }}">{{ book.title }}</a>
-							</p>
-							{% if app.user %}
-								<div>
-									<a class="bt-fav"
-									   onclick="addToFavorite(event)"
-									   href="{{ path('app_book_add_to_fav', {id: book.id})}}">
-										<i class="bi {{ app.user.isFavorite(book) ? 'bi-heart-fill' :
-										'bi-heart'}}"></i>
-									</a>
-								</div>
-							{% endif %}
-						</div>
-						<p class="pc-truncate block text-gray-600 font-light text-md h-24">
-							{{ book.description }}
-						</p>
-						<a class="inline-flex text-indigo-500" href="{{ path('app_book_show', {'id': book.id}) }}">Read More</a>
-						<div class="flex flex-wrap justify-starts items-center py-3 border-b-2 text-xs text-white font-medium">
-							{% for categorie in book.category %}
-								<a href="{{ path('app_category_show', {'id': categorie.id}) }}">
-									<span class="m-1 px-2 py-1 rounded bg-indigo-500 ">
-										{{ categorie.name }}
-									</span>
-								</a>
-							{% endfor %}
-						</div>
-						<div class="flex items-center mt-2">
-							<img class='w-10 h-10 object-cover rounded-full' alt='User avatar' src='
-							{% for author in book.author %}
-							{{ author.avatar }}
-							{% endfor %}
-							'>
-							<div class="pl-3">
-								<div class="font-medium">
-									{% for auteur in book.author %}
-										<a href="{{ path('app_author_show', {'id': auteur.id })}}">{{ auteur.name }}</a>
-									{% endfor %}
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+			{% include ('cards/book-card.html.twig') %}
 		{% endfor %}
-{#		<div class="flex justify-ce	nter w-10/12 my-12">#}
-{#			{{ knp_pagination_render(books) }}#}
-{#					{{ app.request.getQueryString() }}#}
-{#		</div>#}
-
 	</div>
 
 	<!-- ./Main profile -->
