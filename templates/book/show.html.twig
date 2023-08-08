@@ -59,101 +59,111 @@
 							</div>
 							<div class="relative">
 								<span class="mr-3">Éditer par:</span>
-								{% for auteur in book.author %}
-									<a class="text-sm title-font text-gray-500 tracking-widest" href="{{ path('app_author_show', {'id': auteur.id })}}">{{ auteur.name }}</a>
+								{% for editor in book.editor %}
+									<a class="text-sm title-font text-gray-500 tracking-widest" href="
+									{{ path('app_author_show', {'id': editor.id })}}">{{ editor.name }}
+									</a>
 								{% endfor %}
 							</div>
 						</div>
 					</div>
 
 
-					<!-- modal start -->
-					<div class="space-y-2">
-						<!-- Button trigger vertically centered modal-->
-						<button
-								type="button"
-								class="inline-block rounded bg-gray-600 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
-								data-te-toggle="modal"
-								data-te-target="#exampleModalCenter"
-								data-te-ripple-init
-								data-te-ripple-color="light">
-							Faite votre réservation
-						</button>
+					{% if app.user %}
+						<!-- modal start -->
+						<div class="space-y-2">
+							<!-- Button trigger vertically centered modal-->
+							<button
+									type="button"
+									class="inline-block rounded bg-gray-600 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
+									data-te-toggle="modal"
+									data-te-target="#exampleModalCenter"
+									data-te-ripple-init
+									data-te-ripple-color="light">
+								Faite votre réservation
+							</button>
 
-						<!--Button trigger vertically centered scrollable modal-->
+							<!--Button trigger vertically centered scrollable modal-->
+							<button class="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
+								<a class="bt-fav"
+								   onclick="addToFavorite(event)"
+								   href="{{ path('app_book_add_to_fav', {id: book.id})}}">
+									<i class="bi {{ app.user.isFavorite(book) ? 'bi-heart-fill' :
+									'bi-heart'}}"></i>
+								</a>
+							</button>
+						</div>
 
-					</div>
-
-					<!--Verically centered modal-->
-					<div
-							data-te-modal-init
-							class="fixed left-0 top-0 z-[1055] hidden h-full w-full overflow-y-auto overflow-x-hidden outline-none"
-							id="exampleModalCenter"
-							tabindex="-1"
-							aria-labelledby="exampleModalCenterTitle"
-							aria-modal="true"
-							role="dialog">
+						<!--Verically centered modal-->
 						<div
-								data-te-modal-dialog-ref
-								class="pointer-events-none relative flex min-h-[calc(100%-1rem)] w-auto translate-y-[-50px] items-center opacity-0 transition-all duration-300 ease-in-out min-[576px]:mx-auto min-[576px]:mt-7 min-[576px]:min-h-[calc(100%-3.5rem)] min-[576px]:max-w-[500px]">
+								data-te-modal-init
+								class="fixed left-0 top-0 z-[1055] hidden h-full w-full overflow-y-auto overflow-x-hidden outline-none"
+								id="exampleModalCenter"
+								tabindex="-1"
+								aria-labelledby="exampleModalCenterTitle"
+								aria-modal="true"
+								role="dialog">
 							<div
-									class="pointer-events-auto relative flex w-full flex-col rounded-md border-none bg-white bg-clip-padding text-current shadow-lg outline-none dark:bg-neutral-600">
+									data-te-modal-dialog-ref
+									class="pointer-events-none relative flex min-h-[calc(100%-1rem)] w-auto translate-y-[-50px] items-center opacity-0 transition-all duration-300 ease-in-out min-[576px]:mx-auto min-[576px]:mt-7 min-[576px]:min-h-[calc(100%-3.5rem)] min-[576px]:max-w-[500px]">
 								<div
-										class="flex flex-shrink-0 items-center justify-between rounded-t-md border-b-2 border-neutral-100 border-opacity-100 p-4 dark:border-opacity-50">
-									<!--Modal title-->
-									<h5
-											class="text-xl font-medium leading-normal text-neutral-800 dark:text-neutral-200"
-											id="exampleModalScrollableLabel">
-										Réservez votre livre
-									</h5>
-									<!--Close button-->
-									<button
-											type="button"
-											class="box-content rounded-none border-none hover:no-underline hover:opacity-75 focus:opacity-100 focus:shadow-none focus:outline-none"
-											data-te-modal-dismiss
-											aria-label="Close">
-										<svg
-												xmlns="http://www.w3.org/2000/svg"
-												fill="none"
-												viewBox="0 0 24 24"
-												stroke-width="1.5"
-												stroke="currentColor"
-												class="h-6 w-6">
-											<path
-													stroke-linecap="round"
-													stroke-linejoin="round"
-													d="M6 18L18 6M6 6l12 12" />
-										</svg>
-									</button>
-								</div>
+										class="pointer-events-auto relative flex w-full flex-col rounded-md border-none bg-white bg-clip-padding text-current shadow-lg outline-none dark:bg-neutral-600">
+									<div
+											class="flex flex-shrink-0 items-center justify-between rounded-t-md border-b-2 border-neutral-100 border-opacity-100 p-4 dark:border-opacity-50">
+										<!--Modal title-->
+										<h5
+												class="text-xl font-medium leading-normal text-neutral-800 dark:text-neutral-200"
+												id="exampleModalScrollableLabel">
+											Réservez votre livre
+										</h5>
+										<!--Close button-->
+										<button
+												type="button"
+												class="box-content rounded-none border-none hover:no-underline hover:opacity-75 focus:opacity-100 focus:shadow-none focus:outline-none"
+												data-te-modal-dismiss
+												aria-label="Close">
+											<svg
+													xmlns="http://www.w3.org/2000/svg"
+													fill="none"
+													viewBox="0 0 24 24"
+													stroke-width="1.5"
+													stroke="currentColor"
+													class="h-6 w-6">
+												<path
+														stroke-linecap="round"
+														stroke-linejoin="round"
+														d="M6 18L18 6M6 6l12 12" />
+											</svg>
+										</button>
+									</div>
 
-								<!--Modal body-->
-								<div class="relative p-4">
-									{{ include('reservation/_form.html.twig') }}
+									<!--Modal body-->
+									<div class="relative p-4">
+										{{ include('reservation/_form.html.twig') }}
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-
-{#					    <div class="flex">#}
-{#					        <span class="title-font font-medium text-2xl text-gray-900">$58.00</span>#}
-{#					        <button class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Button</button>#}
-{#					        <button class="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">#}
-{#						        <a class="bt-fav"#}
-{#						           onclick="addToFavorite(event)"#}
-{#						           href="{{ path('app_book_add_to_fav', {id: book.id})}}">#}
-{#							        <i class="bi {{ app.user.isFavorite(book) ? 'bi-heart-fill' :#}
-{#							        'bi-heart'}}"></i>#}
-{#						        </a>#}
-{#					        </button>#}
-{#					    </div>#}
+{#						<div class="flex">#}
+{#							<span class="title-font font-medium text-2xl text-gray-900">$58.00</span>#}
+{#							<button class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Button</button>#}
+{#							<button class="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">#}
+{#								<a class="bt-fav"#}
+{#								   onclick="addToFavorite(event)"#}
+{#								   href="{{ path('app_book_add_to_fav', {id: book.id})}}">#}
+{#									<i class="bi {{ app.user.isFavorite(book) ? 'bi-heart-fill' :#}
+{#									'bi-heart'}}"></i>#}
+{#								</a>#}
+{#							</button>#}
+{#						</div>#}
+					{% endif %}
 				</div>
 			</div>
 		</div>
 	</section>
 
 	<!-- cards book author start -->
-	<h2 class="pc-title mt-10 underline">Les livres du même auteur :</h2>
+	<h2 class="pc-title mt-10 underline">Les livres du même auteur :</h2>
 	<div class="flex overflow-scroll mb-32">
 		{% for book in book.author.0.books %}
 			{% include ('cards/book-card.html.twig') %}
@@ -162,7 +172,7 @@
 	<!-- cards book author end -->
 
 	<!-- cards book editor start -->
-	<h2 class="pc-title mt-10 underline ">Les livres du même éditeur :</h2>
+	<h2 class="pc-title mt-10 underline ">Les livres du même éditeur :</h2>
 	<div class="flex overflow-scroll mb-32">
 		{% for book in book.editor.0.books %}
 			{% include ('cards/book-card.html.twig') %}
@@ -171,7 +181,7 @@
 	<!-- cards book editor end -->
 
 	<!-- cards book category start -->
-	<h2 class="pc-title mt-10 underline">Les livres de la même category :</h2>
+	<h2 class="pc-title mt-10 underline">Les livres de la même category :</h2>
 	<div class="flex overflow-scroll mb-32">
 		{% for category in book.category | slice (0,10) %}
 			{% for book in category.books | slice (0,10)%}
