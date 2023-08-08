@@ -49,6 +49,10 @@ class UserController extends AbstractController
     {
         $events = $reservationRepository->findBy(['user' => $user]);
 
+        if (in_array('ROLE_ADMIN', $user->getRoles(), true)) {
+            $events = $reservationRepository->findAll();
+        }
+
         $rdv = [];
 		$data = [];
         foreach ($events as $event) {

@@ -5,12 +5,13 @@ module.exports = {
     "./assets/**/*.scss",
     "./assets/**/*.js",
     "./templates/**/*.html.twig",
-      "./node_modules/tw-elements/dist/js/**/*.js"
+    "./node_modules/tw-elements/dist/js/**/*.js",
+    "./node_modules/flowbite/**/*.js"
   ],
   theme: {
     extend: {
       colors: {
-        'primary-color': '#001F3FFF',
+        // 'primary-color': '#001F3FFF',
       },
     },
   },
@@ -24,6 +25,8 @@ module.exports = {
         'h2': { fontSize: theme('fontSize.xl') },
         'h3': { fontSize: theme('fontSize.lg') },
       })
-    })
+    }),
+    require('flowbite/plugin')
+
   ],
 }

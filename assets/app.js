@@ -14,6 +14,7 @@ import './Scripts/calendar'
 import './Scripts/js-form-validator'
 import './Scripts/js-form-validator.min.js'
 import './Scripts/validator'
+import './Scripts/flowbite.min.js'
 // Initialization for ES Users
 import {
     Modal,
