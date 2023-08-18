@@ -11,25 +11,54 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
+use Symfony\UX\Chartjs\Model\Chart;
 
 #[Route('/admin')]
 #[IsGranted('ROLE_ADMIN')]
 class AdminController extends AbstractController
 {
 
+    public function __construct(
+        BookRepository $bookRepository,
+        AuthorRepository $authorRepository,
+        CategoryRepository $categoryRepository,
+        EditorRepository $editorRepository,
+        ReservationRepository $reservationRepository,
+        BorrowRepository $borrowRepository,
+        UserRepository $userRepository,
+        CommentRepository $commentRepository,
+        EntityManagerInterface $manager,
+        PaginatorInterface $paginator)
+    {
+
+        $this->bookRepository = $bookRepository;
+        $this->authorRepository = $authorRepository;
+        $this->categoryRepository = $categoryRepository;
+        $this->editorRepository = $editorRepository;
+        $this->reservationRepository = $reservationRepository;
+        $this->borrowRepository = $borrowRepository;
+        $this->userRepository = $userRepository;
+        $this->commentRepository = $commentRepository;
+        $this->manager = $manager;
+        $this->paginator = $paginator;
+    }
+
     #[Route('/', name: 'app_admin')]
     public function index(): Response
     {
-        return $this->render('admin/index.html.twig');
+
+        return $this->render('admin/index.html.twig',[
+            'controller_name' => 'AdminController',
+        ]);
     }
 
     #[Route('/author', name: 'app_admin_author', methods: ['GET', 'POST'])]
-    public function Author(AuthorRepository $authorRepository, Request $request, EntityManagerInterface $manager, PaginatorInterface $paginator):
-    Response
+    public function Author(Request $request,): Response
     {
-        $authors = $authorRepository->findAll();
+        $authors = $this->authorRepository->findAll();
 
-        $authors = $paginator->paginate(
+        $authors = $this->paginator->paginate(
             $authors,
             $request->query->getInt('page', 1),
             20
@@ -39,9 +68,9 @@ class AdminController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $author = $form->getData();
-            $manager->persist($author);
+            $this->manager->persist($author);
             try {
-                $manager->flush();
+                $this->manager->flush();
                 $this->addFlash('success', 'L\'auteur a bien été ajouté');
             } catch (\Exception $e) {
                 $this->addFlash('error', 'Une erreur est survenue lors de l\'ajout de l\'auteur');
@@ -49,14 +78,14 @@ class AdminController extends AbstractController
         }
 
         if ($request->isMethod('POST') && $request->request->all()['id'] !== null){
-            $author = $authorRepository->findOneBy(['id' => $request->request->all()['id']]);
+            $author = $this->authorRepository->findOneBy(['id' => $request->request->all()['id']]);
             $author->setName($request->request->all()['name']);
             $author->setBiography($request->request->all()['biography']);
             $author->setAvatar($request->request->all()['avatar']);
 
-            $manager->persist($author);
+            $this->manager->persist($author);
             try {
-                $manager->flush();
+                $this->manager->flush();
                 $this->addFlash('success', 'L\'auteur a bien été modifié');
             } catch (\Exception $e) {
                 $this->addFlash('error', 'Une erreur est survenue lors de la modification de l\'auteur');
@@ -74,12 +103,11 @@ class AdminController extends AbstractController
      * @throws \Exception
      */
     #[Route('/book', name: 'app_admin_book')]
-    public function book(BookRepository $bookRepository, Request $request, EntityManagerInterface $manager, PaginatorInterface $paginator):
-    Response
+    public function book(Request $request): Response
     {
-        $books = $bookRepository->findAll();
+        $books = $this->bookRepository->findAll();
 
-        $books = $paginator->paginate(
+        $books = $this->paginator->paginate(
             $books,
             $request->query->getInt('page', 1),
             20
@@ -90,9 +118,9 @@ class AdminController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $book = $form->getData();
-            $manager->persist($book);
+            $this->manager->persist($book);
             try {
-                $manager->flush();
+                $this->manager->flush();
                 $this->addFlash('success', 'Le livre a bien été ajouté');
             } catch (\Exception $e) {
                 $this->addFlash('error', 'Une erreur est survenue lors de l\'ajout du livre');
@@ -100,16 +128,16 @@ class AdminController extends AbstractController
         }
 
         if ($request->isMethod('POST') && isset($request->request->all()['id'])){
-			$book = $bookRepository->findOneBy(['id' => $request->request->all()['id']]);
+			$book = $this->bookRepository->findOneBy(['id' => $request->request->all()['id']]);
             $book->setTitle($request->request->all()['title']);
             $book->setDescription($request->request->all()['description']);
             $book->setPublish(new \DateTime($request->request->all()['publish']));
             $book->setQteStock($request->request->all()['qteStock']);
             $book->setQteCheckout($request->request->all()['qteCheckout']);
             $book->setCover($request->request->all()['cover']);
-            $manager->persist($book);
+            $this->manager->persist($book);
             try {
-                $manager->flush();
+                $this->manager->flush();
                 $this->addFlash('success', 'Le livre a bien été modifié');
             } catch (\Exception $e) {
                 $this->addFlash('error', 'Une erreur est survenue lors de la modification du livre');
@@ -127,12 +155,11 @@ class AdminController extends AbstractController
      * @throws \Exception
      */
     #[Route('/borrow', name: 'app_admin_borrow')]
-    public function borrow(BorrowRepository $borrowRepository, Request $request, EntityManagerInterface $manager, PaginatorInterface $paginator):
-    Response
+    public function borrow( Request $request): Response
     {
-        $borrows = $borrowRepository->findAll();
+        $borrows = $this->borrowRepository->findAll();
 
-        $borrows = $paginator->paginate(
+        $borrows = $this->paginator->paginate(
             $borrows,
             $request->query->getInt('page', 1),
             20
@@ -143,9 +170,9 @@ class AdminController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $borrow = $form->getData();
-            $manager->persist($borrow);
+            $this->manager->persist($borrow);
             try {
-                $manager->flush();
+                $this->manager->flush();
                 $this->addFlash('success', 'L\'emprunt a bien été créé');
             } catch (\Exception $e) {
                 $this->addFlash('error', 'Une erreur est survenue lors de l\'ajout de l\'emprunt');
@@ -153,13 +180,13 @@ class AdminController extends AbstractController
         }
 
         if ($request->isMethod('POST') && $request->request->all()['id'] !== null){
-            $borrow = $borrowRepository->findOneBy(['id' => $request->request->all()['id']]);
+            $borrow = $this->borrowRepository->findOneBy(['id' => $request->request->all()['id']]);
             $borrow->setCheckin(new \DateTime($request->request->all()['checkin']));
             $borrow->setCheckout(new \DateTime($request->request->all()['checkout']));
 
-            $manager->persist($borrow);
+            $this->manager->persist($borrow);
             try {
-                $manager->flush();
+                $this->manager->flush();
                 $this->addFlash('success', 'L\'emprunt a bien été modifié');
             } catch (\Exception $e) {
                 $this->addFlash('error', 'Une erreur est survenue lors de la modification de l\'emprunt');
@@ -173,12 +200,11 @@ class AdminController extends AbstractController
     }
 
     #[Route('/category', name: 'app_admin_category')]
-    public function category(CategoryRepository $categoryRepository, Request $request, EntityManagerInterface $manager, PaginatorInterface $paginator):
-    Response
+    public function category(Request $request): Response
     {
-        $categories = $categoryRepository->findAll();
+        $categories = $this->categoryRepository->findAll();
 
-        $categories = $paginator->paginate(
+        $categories = $this->paginator->paginate(
             $categories,
             $request->query->getInt('page', 1),
             20
@@ -189,9 +215,9 @@ class AdminController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $category = $form->getData();
-            $manager->persist($category);
+            $this->manager->persist($category);
             try {
-                $manager->flush();
+                $this->manager->flush();
                 $this->addFlash('success', 'La catégorie a bien été ajoutée');
             } catch (\Exception $e) {
                 $this->addFlash('error', 'Une erreur est survenue lors de l\'ajout de la catégorie');
@@ -200,11 +226,11 @@ class AdminController extends AbstractController
         }
 
 		if ($request->isMethod('POST') && $request->request->all()['id'] !== null){
-            $category = $categoryRepository->findOneBy(['id' => $request->request->all()['id']]);
+            $category = $this->categoryRepository->findOneBy(['id' => $request->request->all()['id']]);
             $category->setName($request->request->all()['name']);
-            $manager->persist($category);
+            $this->manager->persist($category);
             try {
-                $manager->flush();
+                $this->manager->flush();
                 $this->addFlash('success', 'La catégorie a bien été modifiée');
             } catch (\Exception $e) {
                 $this->addFlash('error', 'Une erreur est survenue lors de la modification de la catégorie');
@@ -219,23 +245,23 @@ class AdminController extends AbstractController
     }
 
     #[Route('/comment', name: 'app_admin_comment')]
-    public function comment(CommentRepository $commentRepository, Request $request, EntityManagerInterface $manager, PaginatorInterface $paginator): Response
+    public function comment(Request $request): Response
     {
-        $comments = $commentRepository->findAll();
+        $comments = $this->commentRepository->findAll();
 
-        $comments = $paginator->paginate(
+        $comments = $this->paginator->paginate(
             $comments,
             $request->query->getInt('page', 1),
             20
         );
 
 		if ($request->isMethod('POST')){
-            $comment = $commentRepository->findOneBy(['id' => $request->request->all()['id']]);
+            $comment = $this->commentRepository->findOneBy(['id' => $request->request->all()['id']]);
             $comment->setComment($request->request->all()['comment']);
             $comment->setNote($request->request->all()['note']);
-            $manager->persist($comment);
+            $this->manager->persist($comment);
             try {
-                $manager->flush();
+                $this->manager->flush();
                 $this->addFlash('success', 'Le commentaire a bien été modifié');
             } catch (\Exception $e) {
                 $this->addFlash('error', 'Une erreur est survenue lors de la modification du commentaire');
@@ -249,24 +275,23 @@ class AdminController extends AbstractController
     }
 
     #[Route('/editor', name: 'app_admin_editor')]
-    public function editor(EditorRepository $editorRepository, Request $request, EntityManagerInterface $manager, PaginatorInterface $paginator):
-    Response
+    public function editor(Request $request): Response
     {
-        $editors = $editorRepository->findAll();
+        $editors = $this->editorRepository->findAll();
 
-        $editors = $paginator->paginate(
+        $editors = $this->paginator->paginate(
             $editors,
             $request->query->getInt('page', 1),
             20
         );
 
   		if ($request->isMethod('POST')){
-            $editor = $editorRepository->findOneBy(['id' => $request->request->all()['id']]);
+            $editor = $this->editorRepository->findOneBy(['id' => $request->request->all()['id']]);
             $editor->setName($request->request->all()['name']);
 
-            $manager->persist($editor);
+            $this->manager->persist($editor);
             try {
-                $manager->flush();
+                $this->manager->flush();
                 $this->addFlash('success', 'L\'éditeur a bien été modifié');
             } catch (\Exception $e) {
                 $this->addFlash('error', 'Une erreur est survenue lors de la modification de l\'éditeur');
@@ -279,16 +304,11 @@ class AdminController extends AbstractController
     }
 
     #[Route('/reservation', name: 'app_admin_reservation')]
-    public function reservation(
-        ReservationRepository  $reservationRepository,
-        Request                $request,
-        EntityManagerInterface $manager,
-        PaginatorInterface     $paginator
-    ): Response
+    public function reservation(Request $request): Response
     {
-        $reservations = $reservationRepository->findAll();
+        $reservations = $this->reservationRepository->findAll();
 
-        $reservations = $paginator->paginate(
+        $reservations = $this->paginator->paginate(
             $reservations,
             $request->query->getInt('page', 1),
             20
@@ -298,9 +318,9 @@ class AdminController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $reservation = $form->getData();
-            $manager->persist($reservation);
+            $this->manager->persist($reservation);
             try {
-                $manager->flush();
+                $this->manager->flush();
                 $this->addFlash('success', 'La réservation a bien été ajoutée');
             } catch (\Exception $e) {
                 $this->addFlash('error', 'Une erreur est survenue lors de l\'ajout de la réservation');
@@ -309,7 +329,7 @@ class AdminController extends AbstractController
         }
 
         if ($request->isMethod('POST') && $request->request->all()['id'] !== null){
-            $reservation = $reservationRepository->findOneBy(['id' => $request->request->all()['id']]);
+            $reservation = $this->reservationRepository->findOneBy(['id' => $request->request->all()['id']]);
             if (isset($request->request->all()['status']) == 'on'){
             $reservation->setStatus('1');
             }else{
@@ -328,7 +348,7 @@ class AdminController extends AbstractController
             $reservation->setTextColor($request->request->all()['textColor']);
 
             try {
-                $manager->flush();
+                $this->manager->flush();
                 $this->addFlash('success', 'La réservation a bien été modifiée');
             } catch (\Exception $e) {
                 $this->addFlash('error', 'Une erreur est survenue lors de la modification de la réservation');
@@ -343,11 +363,11 @@ class AdminController extends AbstractController
     }
 
     #[Route('/user', name: 'app_admin_user')]
-    public function user(UserRepository $userRepository, Request $request, EntityManagerInterface $manager, PaginatorInterface $paginator): Response
+    public function user(Request $request): Response
     {
-        $users = $userRepository->findAll();
+        $users = $this->userRepository->findAll();
 
-        $users = $paginator->paginate(
+        $users = $this->paginator->paginate(
             $users,
             $request->query->getInt('page', 1),
             20
@@ -358,9 +378,9 @@ class AdminController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $form->getData();
-            $manager->persist($user);
+            $this->manager->persist($user);
             try {
-                $manager->flush();
+                $this->manager->flush();
                 $this->addFlash('success', 'L\'utilisateur a bien été ajouté');
             } catch (\Exception $e) {
                 $this->addFlash('error', 'Une erreur est survenue lors de l\'ajout de l\'utilisateur');
@@ -369,7 +389,7 @@ class AdminController extends AbstractController
         }
 
      	if ($request->isMethod('POST') && isset($request->request->all()['id'])){
-            $user = $userRepository->findOneBy(['id' => $request->request->all()['id']]);
+            $user = $this->userRepository->findOneBy(['id' => $request->request->all()['id']]);
             $user->setEmail($request->request->all()['email']);
             $user->setFirstname($request->request->all()['firstname']);
             $user->setLastname($request->request->all()['lastname']);
@@ -387,9 +407,10 @@ class AdminController extends AbstractController
                 $user->setRoles((array)'ROLE_USER');
             }
 
-            $manager->persist($user);
+            $this->manager->persist($user);
+            $this->manager->persist($user);
             try {
-                $manager->flush();
+                $this->manager->flush();
                 $this->addFlash('success', 'L\'utilisateur a bien été modifié');
             } catch (\Exception $e) {
                 $this->addFlash('error', 'Une erreur est survenue lors de la modification de l\'utilisateur');
