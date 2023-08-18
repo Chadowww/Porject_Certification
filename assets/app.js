@@ -7,8 +7,10 @@
 
 // any CSS you import will output into a single css file (app.scss in this case)
 import './styles/app.scss';
+import './bootstrap.js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'tw-elements'
+import './Scripts/add-favorite'
 import './Scripts/switch'
 import './Scripts/calendar'
 import './Scripts/js-form-validator'
@@ -30,30 +32,20 @@ import {
 
 initTE({ Modal, Collapse, Dropdown ,initTE , Ripple, Input, Sidenav, Alert });
 
-const test = document.querySelectorAll('.bt-fav');
 
-function addToFavorite(event) {
-    event.preventDefault();
+// assets/app.js
+import zoomPlugin from 'chartjs-plugin-zoom';
 
-    const favLink = event.currentTarget;
-    const link = favLink.href;
+// register globally for all charts
+document.addEventListener('chartjs:init', function (event) {
+    const Chart = event.detail.Chart;
+    Chart.register(zoomPlugin);
+});
 
-    try{
-        fetch(link)
-            .then(response => response.json())
-            .then(data => {
-                const favIcon = favLink.firstElementChild;
-                if(data.isFavorite){
-                    favIcon.classList.remove('bi-heart');
-                    favIcon.classList.add('bi-heart-fill');
-                }else {
-                    favIcon.classList.remove('bi-heart-fill');
-                    favIcon.classList.add('bi-heart');
-                }
-            });
-    }catch(e){
-        console.log(e);
-    }
-
-}
-window.addToFavorite = addToFavorite;
+// register globally for all charts
+document.addEventListener('chartjs:init', function (event) {
+    const Chart = event.detail.Chart;
+    const Tooltip = Chart.registry.plugins.get('tooltip');
+    Tooltip.positioners.bottom = function(items) {
+    };
+});
