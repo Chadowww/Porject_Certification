@@ -52,7 +52,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $firstname = null;
 
     #[ORM\Column(length: 255)]
-//    #[Assert\NotBlank]
     #[Assert\Length(
         max: 255,
         maxMessage: 'Le nom ne peut pas dépasser {{ limit }} caractères')]
