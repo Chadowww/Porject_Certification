@@ -13,11 +13,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/book')]
 class BookController extends AbstractController
 {
     #[Route('/', name: 'app_book_index', methods: ['GET'])]
+    #[isGranted('ROLE_ADMIN')]
     public function index(BookRepository $bookRepository): Response
     {
         return $this->render('book/index.html.twig', [
@@ -26,6 +28,7 @@ class BookController extends AbstractController
     }
 
     #[Route('/new', name: 'app_book_new', methods: ['GET', 'POST'])]
+    #[isGranted('ROLE_ADMIN')]
     public function new(Request $request, BookRepository $bookRepository): Response
     {
         $book = new Book();
@@ -45,6 +48,7 @@ class BookController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_book_show', methods: ['GET'])]
+    #[isGranted('ROLE_USER')]
     public function show(Book $book, ReservationType $reservationType): Response
     {
         $form = $this->createForm(ReservationType::class, null, [
@@ -59,6 +63,7 @@ class BookController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_book_edit', methods: ['GET', 'POST'])]
+    #[isGranted('ROLE_ADMIN')]
     public function edit(Request $request, Book $book, BookRepository $bookRepository): Response
     {
         $form = $this->createForm(BookType::class, $book);
@@ -77,6 +82,7 @@ class BookController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_book_delete', methods: ['POST'])]
+    #[isGranted('ROLE_ADMIN')]
     public function delete(Request $request, Book $book, BookRepository $bookRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$book->getId(), $request->request->get('_token'))) {
@@ -87,6 +93,7 @@ class BookController extends AbstractController
     }
 
 	#[Route('/{id}/add-to-fav', name: 'app_book_add_to_fav', methods: ['GET'])]
+    #[isGranted('ROLE_USER')]
     public function addToFav(Book $book, EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser();
