@@ -97,7 +97,8 @@
 						<!--Verically centered modal-->
 						<div
 								data-te-modal-init
-								class="fixed left-0 top-0 z-[1055] hidden h-full w-full overflow-y-auto overflow-x-hidden outline-none"
+								class="fixed left-0 top-0 z-[1055] hidden h-full w-full overflow-y-auto
+								overflow-x-hidden outline-none"
 								id="exampleModalCenter"
 								tabindex="-1"
 								aria-labelledby="exampleModalCenterTitle"
@@ -105,14 +106,15 @@
 								role="dialog">
 							<div
 									data-te-modal-dialog-ref
-									class="pointer-events-none relative flex min-h-[calc(100%-1rem)] w-auto translate-y-[-50px] items-center opacity-0 transition-all duration-300 ease-in-out min-[576px]:mx-auto min-[576px]:mt-7 min-[576px]:min-h-[calc(100%-3.5rem)] min-[576px]:max-w-[500px]">
+									class=" pointer-events-none relative flex min-h-[calc(100%-1rem)] w-auto
+									translate-y-[-50px] items-center opacity-0 transition-all duration-300 ease-in-out min-[576px]:mx-auto min-[576px]:mt-7 min-[576px]:min-h-[calc(100%-3.5rem)] min-[576px]:max-w-[500px]">
 								<div
-										class="pointer-events-auto relative flex w-full flex-col rounded-md border-none bg-white bg-clip-padding text-current shadow-lg outline-none dark:bg-neutral-600">
+										class="pointer-events-auto relative flex w-full flex-col rounded-md border-none bg-[#B0BEC5] bg-clip-padding text-current shadow-lg outline-none">
 									<div
 											class="flex flex-shrink-0 items-center justify-between rounded-t-md border-b-2 border-neutral-100 border-opacity-100 p-4 dark:border-opacity-50">
 										<!--Modal title-->
 										<h5
-												class="text-xl font-medium leading-normal text-neutral-800 dark:text-neutral-200"
+												class="text-xl font-medium leading-normal text-neutral-800 text-white"
 												id="exampleModalScrollableLabel">
 											Réservez votre livre
 										</h5>
@@ -144,18 +146,6 @@
 								</div>
 							</div>
 						</div>
-{#						<div class="flex">#}
-{#							<span class="title-font font-medium text-2xl text-gray-900">$58.00</span>#}
-{#							<button class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Button</button>#}
-{#							<button class="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">#}
-{#								<a class="bt-fav"#}
-{#								   onclick="addToFavorite(event)"#}
-{#								   href="{{ path('app_book_add_to_fav', {id: book.id})}}">#}
-{#									<i class="bi {{ app.user.isFavorite(book) ? 'bi-heart-fill' :#}
-{#									'bi-heart'}}"></i>#}
-{#								</a>#}
-{#							</button>#}
-{#						</div>#}
 					{% endif %}
 				</div>
 			</div>
