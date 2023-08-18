@@ -30,7 +30,4 @@ class InventoryManagementService
             return false;
         }
     }
-
-
-
 }
