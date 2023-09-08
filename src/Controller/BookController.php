@@ -3,15 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Book;
-use App\Entity\User;
 use App\Form\BookType;
 use App\Form\ReservationType;
 use App\Repository\BookRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Mapping\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\{Request, Response};
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
@@ -41,14 +38,13 @@ class BookController extends AbstractController
             return $this->redirectToRoute('app_book_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('book/new.html.twig', [
+        return $this->render('book/new.html.twig', [
             'book' => $book,
             'form' => $form,
         ]);
     }
 
     #[Route('/{id}', name: 'app_book_show', methods: ['GET'])]
-    #[isGranted('ROLE_USER')]
     public function show(Book $book, ReservationType $reservationType): Response
     {
         $form = $this->createForm(ReservationType::class, null, [

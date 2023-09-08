@@ -27,7 +27,6 @@ import {
     Input,
     Sidenav,
     Alert,
-
 } from "tw-elements";
 
 initTE({ Modal, Collapse, Dropdown ,initTE , Ripple, Input, Sidenav, Alert });

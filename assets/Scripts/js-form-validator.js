@@ -159,7 +159,6 @@
 
 		messages: {
 					    
-			// English
 		    en: {
 				password:{
 					empty: 'S\'il vous plaît, entrez votre mot de passe',

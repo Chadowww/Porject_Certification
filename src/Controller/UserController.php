@@ -4,13 +4,10 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
-use App\Repository\ReservationRepository;
-use App\Repository\UserRepository;
-use Psr\Container\ContainerExceptionInterface;
-use Psr\Container\NotFoundExceptionInterface;
+use App\Repository\{ReservationRepository, UserRepository};
+use Psr\Container\{ContainerExceptionInterface, NotFoundExceptionInterface};
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\{Request, Response};
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -108,7 +105,7 @@ class UserController extends AbstractController
         $this->container->get('security.token_storage')->setToken(null);
 
 		$this->addFlash('success', 'Votre compte a bien été supprimé');
-        return $this->redirectToRoute('app_admin_user', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{id}/update/password', name: 'app_user_update_password', methods: ['POST'])]
@@ -136,7 +133,9 @@ class UserController extends AbstractController
                 }
             }
         }
+        return $this->redirectToRoute('app_user_edit', ['id' => $user->getId()], Response::HTTP_SEE_OTHER);
     }
+
     #[Route('/{id}/favorites', name: 'app_user_show_favorites', methods: ['GET'])]
     public function showFavorites(User $user, UserRepository $userRepository): Response
     {

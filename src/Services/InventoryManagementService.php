@@ -8,6 +8,8 @@ use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 
 class InventoryManagementService
 {
+    private MailService $mailService;
+
     public function __construct(MailService $mailService)
     {
         $this->mailService = $mailService;

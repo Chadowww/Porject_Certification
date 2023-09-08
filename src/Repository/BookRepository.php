@@ -41,9 +41,11 @@ class BookRepository extends ServiceEntityRepository
     public function searchBook(array $credentials): array
     {
         $credential = implode(' ', $credentials);
-        $query = $this->createQueryBuilder('b');
+        $query = $this->createQueryBuilder('b')
+            ->leftJoin('b.author', 'a');
         if ($credentials != null) {
             $query->where('MATCH_AGAINST(b.title, b.description) AGAINST(:words boolean) > 0')
+                ->orWhere('MATCH_AGAINST(a.name) AGAINST(:words boolean) > 0')
                 ->setParameter('words', $credential);
         }
         return $query->getQuery()->getResult();

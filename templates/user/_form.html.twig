@@ -144,7 +144,6 @@
                             {{ form_row(form._token) }}
                             {{ form_end(form) }}
                             <!-- Modal passeword -->
-
                             <div class="space-y-2">
                                 <!--Button trigger vertically centered scrollable modal-->
                                 <button
@@ -160,7 +159,7 @@
                                 </button>
                             </div>
 
-
+                            {% include('user/_delete_form.html.twig') %}
                             <!--Verically centered scrollable modal-->
                             <div
                                     data-te-modal-init
