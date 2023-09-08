@@ -15,8 +15,7 @@
 							<span class="text-[#B36700] dark:text-[#B36700]">Nouvelle lecture ?</span>
 						</h2>
 						<p class="my-5">ChadoLib est une librairie en ligne qui réinvente l'expérience de lecture pour
-							les
-							passionnés de livres. Avec une sélection variée de titres allant des classiques
+							les passionnés de livres. Avec une sélection variée de titres allant des classiques
 							intemporels aux derniers best-sellers, ChadoLib offre aux lecteurs une opportunité de
 							redécouvrir le plaisir de la lecture. <br><br>
 
@@ -95,34 +94,16 @@
 	</section>
 	<!--/Cards -->
 
-	<!-- Section: list authors -->
-	<div class="flex-1 px-2 sm:px-0 my-28">
-		<h2 class=" pc-title underline">Nos categories :</h2>
-		<div class="mb-10 sm:mb-0 mt-10 grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
-			{% for author in authors | slice (0,12) %}
-				<a href="{{ path('app_author_show',{'id': author.id }) }}" class=" h-24 flex justify-center
-                items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl
-                hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-					<div class="flex justify-center p-4  leading-normal">
-						<h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 hover:underline
-                                dark:text-white">{{ author.name }}</h5>
-					</div>
-				</a>
-			{% endfor %}
-		</div>
-	</div>
-	<!--/ Section: list authors -->
-
 	<!-- Section: list categories -->
 	<div class="flex-1 px-2 sm:px-0 my-28">
 		<h2 class=" pc-title underline">Nos categories :</h2>
-		<div class="mb-10 sm:mb-0 mt-10 grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
+		<div class="mb-10 sm:mb-0 mt-10 grid gap-5 grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
 			{% for category in categories | slice (0,12) %}
-				<a href="{{ path('app_category_show',{'id': category.id }) }}" class=" h-24 flex justify-center
+				<a href="{{ path('app_category_show',{'id': category.id }) }}" class=" md-h-24 flex justify-center
                 items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl
                 hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
 					<div class="flex justify-center p-4  leading-normal">
-						<h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 hover:underline
+						<h5 class="mb-2 sm:text-2xl font-bold tracking-tight text-gray-900 hover:underline
                                 dark:text-white">{{ category.name }}</h5>
 					</div>
 				</a>
@@ -148,18 +129,8 @@
 								<h3>
 									<a
 											href="javascript:void(0)"
-											class="
-                        font-semibold
-                        text-dark text-xl
-                        sm:text-[22px]
-                        md:text-xl
-                        lg:text-[22px]
-                        xl:text-xl
-                        2xl:text-[22px]
-                        mb-4
-                        block
-                        hover:text-primary
-                        "
+											class=" font-semibold text-dark text-xl sm:text-[22px]
+                                                      md:text-xl lg:text-[22px] xl:text-xl 2xl:text-[22px] mb-4 block hover:text-primary"
 									>
 										50+ Best creative website themes & templates
 									</a>
@@ -170,17 +141,9 @@
 								</p>
 								<a
 										href="javascript:void(0)"
-										class="
-                     inline-block
-                     py-2
-                     px-7
-                     border border-[#E5E7EB]
-                     rounded-full
-                     text-base text-body-color
-                     font-medium
-                     hover:border-primary hover:bg-primary hover:text-white
-                     transition
-                     "
+										class=" inline-block py-2 px-7  border border-[#E5E7EB]
+                                                rounded-full text-base text-body-color
+                                                font-medium hover:border-primary hover:bg-primary hover:text-white transition"
 								>
 									View Details
 								</a>

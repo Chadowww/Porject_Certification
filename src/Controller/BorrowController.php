@@ -6,8 +6,7 @@ use App\Entity\Borrow;
 use App\Form\BorrowType;
 use App\Repository\BorrowRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\{Request, Response};
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/borrow')]

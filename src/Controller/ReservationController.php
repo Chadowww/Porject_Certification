@@ -4,14 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Reservation;
 use App\Form\ReservationType;
-use App\Repository\BookRepository;
-use App\Repository\ReservationRepository;
+use App\Repository\{BookRepository, ReservationRepository};
 use App\Services\InventoryManagementService;
 use App\Services\MailService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\HttpFoundation\{Request, Response};
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/reservation')]

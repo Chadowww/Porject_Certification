@@ -5,44 +5,30 @@
 	    'action': path('app_reservation_new'),
     }}) }}
 </div>
-    <div class="flex justify-between">
+    <div class="flex flex-col justify-center items-center w-full">
         <div class="relative max-w-sm my-2">
-{#            <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">#}
-{#                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">#}
-{#                    <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>#}
-{#                </svg>#}
-{#            </div>#}
-{#            {{ form_label(form.datecheckin, {'attr' :#}
-{#                {'value': 'test'}#}
-{#            }) }}#}
-            {{ form_widget(form.datecheckin, {'attr':{
+	        {{ form_label(form.datecheckin) }}
+	        {{ form_widget(form.datecheckin, {'attr':{
                 'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
             focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 max-w-fit
-            dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500 flex space-x-4',
+            dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500 flex space-x-4 w-full',
                 'placeholder': 'Select date',
             }}) }}
-            {#        'datepicker' #}
-
         </div>
         <div class="relative max-w-sm my-2">
-{#            <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">#}
-{#                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">#}
-{#                    <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>#}
-{#                </svg>#}
-{#            </div>#}
-
-            {{ form_widget(form.datecheckout, {'attr': {
+	        {{ form_label(form.datecheckout) }}
+	        {{ form_widget(form.datecheckout, {'attr': {
                 'class': 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
-            focus:border-blue-500 block w-full  p-2.5 dark:bg-gray-700 dark:border-gray-600 max-w-fit dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500 flex space-x-4',
+            focus:border-blue-500 block w-full  p-2.5 dark:bg-gray-700 dark:border-gray-600 max-w-fit
+            dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500 flex space-x-4 w-full',
                 'placeholder': 'Select date'
             },
-	            }) }}
-
+            }) }}
         </div>
     </div>
 	{{ form_label(form.all_day) }}
 	{{ form_widget(form.all_day, {'attr' : {
-		'class' : 'ml-2 text-sm font-medium text-gray-900 dark:text-gray-300 w-100'
+		'class' : 'ml-2 text-sm font-medium  dark:text-gray-300 w-100'
 	}}) }}<br>
 	{{ form_label(form.description) }}
  	{{ form_widget(form.description, {'attr' : {
@@ -77,10 +63,13 @@
 	<input type="hidden" name="book" value="{{ book.id }}">
     <input type="hidden" name="user" value="{{ app.user.id | default ('')}}">
 
-    <button type="submit"
-            class="ml-1 inline-block rounded dark:bg-gray-700 bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase
+    <div class="w-full flex justify-center">
+	    <button type="submit"
+	            class=" my-2 mx-auto inline-block rounded bg-[#001F3FFF] bg-primary px-6 pb-2 pt-2.5 text-xs font-medium
+            uppercase
             leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
-            data-te-ripple-init
-            data-te-ripple-color="light">{{ button_label|default('Réserver') }}
-    </button>
+	            data-te-ripple-init
+	            data-te-ripple-color="light">{{ button_label|default('Réserver') }}
+	    </button>
+    </div>
 {{ form_end(form) }}

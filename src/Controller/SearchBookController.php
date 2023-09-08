@@ -2,13 +2,10 @@
 
 namespace App\Controller;
 
-use App\Form\SearchBookType;
 use App\Repository\BookRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\{Request, Response};
 use Symfony\Component\Routing\Annotation\Route;
 
 class SearchBookController extends AbstractController
@@ -25,8 +22,6 @@ class SearchBookController extends AbstractController
             $request->query->getInt('page', 1),
             12
         );
-//        $books->setTemplate('bundles/knp_pagination/sliding.html.twig');
-//        $books->setSortableTemplate('bundles/knp_pagination/sliding_sortable_link.html.twig');
 
         return $this->render('search/search.html.twig', [
             'books' => $books,

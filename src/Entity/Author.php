@@ -12,6 +12,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 
 #[ORM\Entity(repositoryClass: AuthorRepository::class)]
+#[ORM\Table(name: 'author')]
+#[ORM\Index(columns: ['name'], flags: ['fulltext'])]
 class Author
 {
     use TimestampableEntity;

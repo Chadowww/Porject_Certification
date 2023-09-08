@@ -2,18 +2,17 @@
 
 namespace App\Services;
 
-use App\Entity\Book;
-use App\Entity\Reservation;
-use App\Entity\User;
+use App\Entity\{Book, Reservation, User};
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Part\DataPart;
 
 class MailService extends AbstractController
 {
- 	public function __construct(MailerInterface $mailer)
+    private MailerInterface $mailer;
+
+    public function __construct(MailerInterface $mailer)
     {
         $this->mailer = $mailer;
     }

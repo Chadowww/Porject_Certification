@@ -3,21 +3,20 @@
 namespace App\Controller;
 
 use App\Entity\Book;
-use App\Entity\User;
 use App\Form\BookType;
 use App\Form\ReservationType;
 use App\Repository\BookRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Mapping\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\{Request, Response};
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/book')]
 class BookController extends AbstractController
 {
     #[Route('/', name: 'app_book_index', methods: ['GET'])]
+    #[isGranted('ROLE_ADMIN')]
     public function index(BookRepository $bookRepository): Response
     {
         return $this->render('book/index.html.twig', [
@@ -26,6 +25,7 @@ class BookController extends AbstractController
     }
 
     #[Route('/new', name: 'app_book_new', methods: ['GET', 'POST'])]
+    #[isGranted('ROLE_ADMIN')]
     public function new(Request $request, BookRepository $bookRepository): Response
     {
         $book = new Book();
@@ -38,7 +38,7 @@ class BookController extends AbstractController
             return $this->redirectToRoute('app_book_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('book/new.html.twig', [
+        return $this->render('book/new.html.twig', [
             'book' => $book,
             'form' => $form,
         ]);
@@ -59,6 +59,7 @@ class BookController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_book_edit', methods: ['GET', 'POST'])]
+    #[isGranted('ROLE_ADMIN')]
     public function edit(Request $request, Book $book, BookRepository $bookRepository): Response
     {
         $form = $this->createForm(BookType::class, $book);
@@ -77,6 +78,7 @@ class BookController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_book_delete', methods: ['POST'])]
+    #[isGranted('ROLE_ADMIN')]
     public function delete(Request $request, Book $book, BookRepository $bookRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$book->getId(), $request->request->get('_token'))) {
@@ -87,6 +89,7 @@ class BookController extends AbstractController
     }
 
 	#[Route('/{id}/add-to-fav', name: 'app_book_add_to_fav', methods: ['GET'])]
+    #[isGranted('ROLE_USER')]
     public function addToFav(Book $book, EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser();

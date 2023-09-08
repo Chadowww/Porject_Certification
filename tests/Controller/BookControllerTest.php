@@ -26,7 +26,7 @@ class BookControllerTest extends WebTestCase
         $this->category = static::getContainer()->get('doctrine')->getRepository(Category::class);
         $this->editor = static::getContainer()->get('doctrine')->getRepository(Editor::class);
         $this->book = static::getContainer()->get('doctrine')->getRepository(Book::class);
-        $admin = $this->user->findOneBy(['email' => 'a.sale@outlook.fr']);
+        $admin = $this->user->findOneBy(['email' => 'admin@outlook.fr']);
 
         if ($admin == null){
             $admin = new User();
@@ -70,7 +70,7 @@ class BookControllerTest extends WebTestCase
             'book[publish]' => 'Testing',
             'book[qteStock]' => 'Testing',
             'book[qteCheckout]' => 'Testing',
-            'book[author]' => $this->author->findOneBy(['id' => 2])->getId(),
+            'book[author]' => $this->author->findOneBy(['id' => 10])->getId(),
             'book[category]' => $this->category->findOneBy(['id' => 13])->getId(),
             'book[editor]' => $this->editor->findOneBy(['id' => 13])->getId(),
             'book[cover]' => 'Testing',
@@ -88,9 +88,8 @@ class BookControllerTest extends WebTestCase
         $this->client->request('GET', sprintf('%s%s', $this->path, $book->getId()));
 
         self::assertResponseStatusCodeSame(200);
-        self::assertPageTitleContains('Book');
+        self::assertPageTitleContains($book->getTitle());
 
-        // Use assertions to check that the properties are properly displayed.
     }
 
     public function testEdit(): void

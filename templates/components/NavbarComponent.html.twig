@@ -120,7 +120,7 @@
 
 
 			<!-- Search  -->
-			<form class="flex items-center mr-6" method="get" action="{{ path('app_book_search') }}">
+			<form class=" items-center mr-6 hidden md:flex" method="get" action="{{ path('app_book_search') }}">
 				<label for="simple-search" class="sr-only">search</label>
 				<div class="relative w-64">
 					<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -264,7 +264,9 @@
 			{% else %}
 				<!-- Button trigger modal -->
 				<button type="button"
-						class="pc-button-navbar inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium
+						class="pc-button-navbar absolute top-1 right-1 md:static inline-block rounded bg-primary px-6
+						pb-2
+						pt-2.5 text-xs font-medium
                                uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition
                                duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,
                                113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600

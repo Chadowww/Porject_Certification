@@ -1,4 +1,3 @@
-
 if (document.getElementById('calendar')) {
 
     document.addEventListener('DOMContentLoaded', function() {
@@ -22,6 +21,7 @@ if (document.getElementById('calendar')) {
                     type: 'timeGrid',
                     duration: {days: 1},
                     buttonText: 'Jour',
+                    dayMaxEventRows: 6
                 },
                 dayGridMonth: {
                     buttonText: 'Mois',
@@ -30,6 +30,7 @@ if (document.getElementById('calendar')) {
             events: myData,
             editable: true,
             eventResizableFromStart: true,
+            dayMaxEventRows: true,
         });
 
         calendar.on('eventChange', (e) =>{
